@@ -26,6 +26,7 @@ namespace credit.Controllers
             var result = await signInManager.PasswordSignInAsync(username, password,false, false);
             if (result.Succeeded)
             {
+                
                 return RedirectToAction("Manage", "Home");//后台管理页面
             }
             else

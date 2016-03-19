@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Message>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>报告年度</th>
+            <th>企业名称</th>
+            <th>注册号</th>
+            <th>企业联系电话</th>
+            <th>企业通信地址</th>
+            <th>电子邮箱</th>
+            <th>邮政编码</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        @foreach(var x in Model)
+        {
+            <tr>
+                <td>@x.DateTime</td>
+                <td>@x.EnterpriseName</td>
+                <td>@x.RegistrationNumber</td>
+                <td>@x.EnterpriseTel</td>
+                <td>@x.EnterpriseAddress</td>
+                <td>@x.EnterpriseEmail</td>
+                <td>@x.ZipCode</td>
+            </tr>
+        }
+    </tbody>
+</table>

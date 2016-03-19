@@ -1,0 +1,120 @@
+﻿body,ul,li,h1,a{padding:0; margin:0;}
+li{list-style: none;}
+a,a:hover,a:active,a:visited{text-decoration:none;}
+.container{width:1170px; margin:0 auto;}
+.clear{clear:both;}
+.row {
+margin-right: -15px;
+margin-left: -15px;
+padding-right:15px;
+padding-left:15px;
+}
+.col-sm-12{width:100%; position:relative;}
+header {
+    width: 100%;
+    height: 280px;
+    background: #111;
+    background: -webkit-linear-gradient(top left,#50a3a2 0%,#111 100%);
+    background: linear-gradient(to top left,#50a3a2 0%, #111 100%);
+}
+
+header h1 {
+    font-size: 3em;
+    text-shadow: 0 0 2px #000;
+    opacity: 0.7;
+    letter-spacing: 3px;
+    font-family: "Microsoft-YaHei";
+    font-weight: 400;
+    height: 100px;
+    line-height: 100px;
+    text-align: left;
+    padding: 50px 0;
+    color: #50a3a2;
+}
+
+nav {
+    position: relative;
+}
+
+ul {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+}
+
+li {
+    margin-bottom: 2px;
+    float: left;
+    clear: left;
+    cursor: pointer;
+}
+
+a {
+    display: block;
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    padding: 0 6px;
+    border: 1px solid #d6d6d6;
+    text-decoration: none;
+    font-size: 12px;
+    color: #555;
+    font-weight: 400;
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px transparent inset;
+    transition: border-radius 0.6s linear,padding 0.3s linear;
+}
+
+a:hover {
+    font-weight: bold;
+    border: 1px solid #b5b5b5;
+    box-shadow: 0 0 0 140px rgba(234,255,255,0.9) inset;
+    padding: 0 30px;
+}
+
+input {
+    position: absolute;
+    top: 60px;
+    left: 300px;
+    width: 500px;
+    height: 60px;
+    background: rgba(226, 216, 216, 0.5);
+    border: 1px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 0 6px #fff;
+    transition: box-shadow 0.3s linear;
+    font-size: 20px;
+    color: #503aa3;
+}
+
+input:hover {
+    box-shadow: 0 0 0 3px #50a3a3;
+}
+
+.btn1 {
+    width: 100px;
+    height: 60px;
+    background: #50a3a3;
+    left: 850px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 16px;
+    color: #fff;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+footer span {
+    line-height: 50px;
+    color: #fff;
+    width: 600px;
+    display: block;
+    margin: 0 auto;
+}
