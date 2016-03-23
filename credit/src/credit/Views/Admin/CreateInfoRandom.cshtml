@@ -1,0 +1,31 @@
+﻿<form asp-controller="Admin" asp-action="CreateInfoRandom" method="post">
+    <h2>创建抽查检查信息</h2>
+    <table class="table">
+        <tr>
+            <th>注册号</th>
+            <td><input class="form-control" type="text" name="" /></td>
+        </tr>
+        <tr>
+            <th>企业名</th>
+            <td><input class="form-control" type="text" name="" /></td>
+        </tr>
+        <tr>
+            <th>抽查日期</th>
+            <td><input class="form-control" type="datetime" name="DateTime" value="@DateTime.Now" /></td>
+        </tr>
+        <tr>
+            <th>抽查结果</th>
+            <td><select name="Result">
+                <option>开业</option>
+                <option>歇业</option>
+                <option>清算</option>
+                <option>迁出</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <input class="btn inverse" type="submit" value="提交" />
+        <a asp-controller="Admin" asp-action="DetailsInfoRandom">取消</a>
+    </p>
+</form>

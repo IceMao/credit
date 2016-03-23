@@ -13,6 +13,6 @@ namespace credit.Models
         public string LiaisonIdNumber { get; set; }//联系人身份证号
         public string LegalIdNumber { get; set; }//法定代表人证件号
         public string CellPhoneNumber { get; set; }//联系人手机号码
-        public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
+        //public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
     }
 }

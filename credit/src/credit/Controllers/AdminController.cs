@@ -16,76 +16,70 @@ namespace credit.Controllers
 
         #region 显示表格内容
         [HttpGet]
-        public IActionResult DetailsMessage()
+        public IActionResult DetailsInfoRandom()
         {
-            return View(DB.Message);
+            return View(DB.InfoRandom);
         }
         #endregion
 
         #region 添加表格内容
         [HttpGet]
-        public IActionResult CreateMessage()
+        public IActionResult CreateInfoRandom()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult CreateMessage(Message message)
+        public IActionResult CreateInfoRandom(InfoRandom infoRandom)
         {
-            DB.Message.Add(message);
+            DB.InfoRandom.Add(infoRandom);
             DB.SaveChanges();
-            return RedirectToAction("DetailsMessage", "Admin");
+            return RedirectToAction("DetailsInfoRandom", "Admin");
         }
         #endregion
 
         #region 编辑表格
         [HttpGet]
-        public IActionResult EditMessage(int id)
+        public IActionResult EditInfoRandom(int id)
         {
-            var message = DB.Message
+            var infoRandom = DB.InfoRandom
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if (message == null)
+            if (infoRandom == null)
                 return Content("查无此人");
             else
-            return View(message);
+            return View(infoRandom);
         }
 
         //处理编辑表格请求
         [HttpPost]
-        public IActionResult EditMessage(int id, Message message)
+        public IActionResult EditInfoRandom(int id, InfoRandom infoRandom)
         {
-            var msg = DB.Message
+            var info = DB.InfoRandom
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if(msg == null)
+            if(infoRandom == null)
                 return Content("没有这个id记录");
-            msg.RegistrationNumber = message.RegistrationNumber;
-            msg.DateTime = message.DateTime;
-            msg.EnterpriseAddress = message.EnterpriseAddress;
-            msg.EnterpriseEmail = message.EnterpriseEmail;
-            msg.EnterpriseName = message.EnterpriseName;
-            msg.EnterpriseTel = message.EnterpriseTel;
-            msg.ZipCode = message.ZipCode;
+            info.DateTime = infoRandom.DateTime;
+            info.Result = infoRandom.Result;
+            
             DB.SaveChanges();
-            return RedirectToAction("DetailsMessage", "Admin");
+            return RedirectToAction("DetailsInfoRandom", "Admin");
 
         }
         #endregion
 
         #region
         
-        public IActionResult DeleteMessage(int id)
+        public IActionResult DeleteInfoRandom(int id)
         {
-            var message = DB.Message
+            var infoRandom = DB.InfoRandom
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            DB.Message.Remove(message);
+            DB.InfoRandom.Remove(infoRandom);
             DB.SaveChanges();
             System.Diagnostics.Debug.Write("id=" + id);
-            return RedirectToAction("DetailsMessage", "Admin");
+            return RedirectToAction("DetailsInfoRandom", "Admin");
         }
-        
-
         #endregion
     }
 }

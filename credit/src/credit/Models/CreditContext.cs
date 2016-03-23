@@ -9,13 +9,14 @@ namespace credit.Models
 {
     public class CreditContext:IdentityDbContext<User>
     {
-        public DbSet<Message> Message { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<InfoRandom> InfoRandom { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Message>(e =>
+            builder.Entity<InfoRandom>(e =>
             {
                 e.HasIndex(x => x.Id);
             });
