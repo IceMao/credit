@@ -14,6 +14,55 @@ namespace credit.Controllers
         [FromServices]
         public CreditContext DB { get; set; }
 
+        #region 管理员添加的基本信息（增删改查）
+        [HttpGet]
+        public IActionResult DetailsBaseInfo()
+        {
+            return View(DB.BaseInfo);
+        }
+        
+        [HttpGet]
+        public IActionResult CreateBaseInfo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateBaseInfo(BaseInfo baseInfo)
+        {
+            DB.BaseInfo.Add(baseInfo);
+            DB.SaveChanges();
+            return RedirectToAction("DetailsBaseInfo", "Admin");
+        }
+        [HttpGet]
+        public IActionResult EditBaseInfo(int id)
+        {
+            var baseInfo = DB.BaseInfo
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (baseInfo == null)
+                return Content("查无此人");
+            else
+                return View(baseInfo);
+        }
+        
+        [HttpPost]
+        public IActionResult EditBaseInfo(int id, BaseInfo BaseInfo)
+        {
+            var baseInfo = DB.BaseInfo
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (BaseInfo == null)
+                return Content("没有这个记录");
+            baseInfo.RegistrationNumber = BaseInfo.RegistrationNumber;
+            baseInfo.EnterpriseName = BaseInfo.EnterpriseName;
+
+            DB.SaveChanges();
+            return RedirectToAction("DetailsBaseInfo", "Admin");
+
+        }
+        #endregion
+
+        //抽查填写
         #region 显示表格内容
         [HttpGet]
         public IActionResult DetailsInfoRandom()
@@ -31,10 +80,24 @@ namespace credit.Controllers
         [HttpPost]
         public IActionResult CreateInfoRandom(InfoRandom infoRandom)
         {
-            DB.InfoRandom.Add(infoRandom);
-            DB.SaveChanges();
+            //判断 抽查时填入的注册号 在数据库中是否存在
+            //下面这样写可以判断他在 baseInfo 中是否存在吗？
+            var baseinfo = new BaseInfo { };
+            var register= DB.InfoRandom.Where(x => x.RegistrationNumber);
+            if (register != null)
+            {
+                DB.InfoRandom.Add(infoRandom);
+                DB.SaveChanges();
+            }
+            else
+            {
+                return Content("注册号不存在");
+            }
+            //if(infoRandom.RegistrationNumber == baseInfo.RegistrationNumber)
+            
             return RedirectToAction("DetailsInfoRandom", "Admin");
         }
+        
         #endregion
 
         #region 编辑表格
@@ -70,7 +133,7 @@ namespace credit.Controllers
 
         #region
         
-        public IActionResult DeleteInfoRandom(int id)
+        /*public IActionResult DeleteInfoRandom(int id)
         {
             var infoRandom = DB.InfoRandom
                 .Where(x => x.Id == id)
@@ -79,7 +142,7 @@ namespace credit.Controllers
             DB.SaveChanges();
             System.Diagnostics.Debug.Write("id=" + id);
             return RedirectToAction("DetailsInfoRandom", "Admin");
-        }
+        }*/
         #endregion
     }
 }

@@ -1,29 +1,25 @@
-﻿@model IEnumerable<InfoRandom>
+﻿@model IEnumerable<BaseInfo>
 <table>
     <thead>
         <tr>
-            <th>企业名称</th>
             <th>注册号</th>
-            <th>抽查日期</th>
-            <th>抽查结果</th>
-            <th></th>
-        </tr>
+            <th>企业名称</th>
+         </tr>
     </thead>
     <tbody>
-        @foreach(var x in Model)
+        @foreach (var x in Model)
         {
             <tr>
                 <td>@x.RegistrationNumber</td>
-                <td>@x.DateTime</td>
-                <td>@x.Result</td>
+                <td>@x.EnterpriseName</td>
                 @if (User.IsSignedIn())
                 {
                     <td>
-                        <a asp-action="EditInfoRandom" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
+                        <a asp-action="EditBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
                         <a href="javascript:remove(@x.Id)">删除</a>
                     </td>
                 }
-                
+
             </tr>
 
         }

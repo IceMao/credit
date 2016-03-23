@@ -1,0 +1,19 @@
+﻿<form asp-controller="Admin" asp-action="CreateBaseInfo" method="post">
+    <h2>创建抽查检查信息</h2>
+    <table class="table">
+        <tr>
+            <th>注册号</th>
+            <td><input class="form-control" type="text" name="RegistrationNumber" /></td>
+        </tr>
+        <tr>
+            <th>企业名</th>
+            <td><input class="form-control" type="text" name="EnterpriseName" /></td>
+        </tr>
+        
+        
+    </table>
+    <p>
+        <input class="btn inverse" type="submit" value="提交" />
+        <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
+    </p>
+</form>

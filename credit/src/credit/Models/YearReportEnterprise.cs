@@ -39,7 +39,7 @@ namespace credit.Models
         //注册号是 联络员注册时填写的----此处引外键
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual User User { get; set; }
     }
 }

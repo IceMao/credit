@@ -11,7 +11,7 @@ namespace credit.Models
     {
         public DbSet<User> User { get; set; }
         public DbSet<InfoRandom> InfoRandom { get; set; }
-
+        public DbSet<BaseInfo> BaseInfo { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -21,7 +21,10 @@ namespace credit.Models
                 e.HasIndex(x => x.Id);
             });
 
-           
+            builder.Entity<BaseInfo>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
         }
     }
 }
