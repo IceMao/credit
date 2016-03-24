@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="齐齐哈尔市企业信用信息系统，企业信用，信用信息" />
+    <meta name="keywords" content="齐齐哈尔市企业信用信息系统，企业信用，信用信息" />
+    <meta name="author" content="yang" />
+    <link rel="stylesheet" href="~/styles/globle.css" />
+    <title>首页--齐齐哈尔市企业信用信息管理系统</title>
+</head>
+<body class="Layout1Page">
+    <header class="header">
+        <div class="container">
+            <div class="title">
+                <h1>齐齐哈尔市企业信用信息管理系统</h1>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="">首页</a></li>
+                    <li><a href="">信息填报</a></li>
+                    <li><a href="">信息公告</a></li>
+                    <li><a href="">全国首页</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <p>&copy; copyright .yang<a asp-action="Login" asp-controller="Account" style="display:inline-block;">管理入口</a></p>
+    </footer>
+</body>
+</html>

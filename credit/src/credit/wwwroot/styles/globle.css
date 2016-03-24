@@ -4,10 +4,113 @@
 li{list-style:none;}
 img{border:none;}
 a,a:hover,a:active,a:visited{text-decoration:none;}
-.whiteUp{
+/*Announcement(公告) begin*/
+.APage{display:block; width:1170px; margin:0 auto;}
+.APage .leftSide{width:66%; float: left;min-height:530px;}
+.APage .leftSide h3{margin: 50px 0 25px 25px;font-size: 1.5em;font-family: Helvetica;}
+.APage .leftSide ul{margin: 25px; border-top:2px solid #eee;}
+.APage .leftSide ul li{margin:10px 50px 10px 0; height:30px; line-height: 30px;}
+.APage .leftSide ul li a{font-size:14px; font-family: Helvetica; color:#111;}
+.APage .leftSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float-right; margin-right: 25px;}
+.APage .rightSide{width:34%; background:#e23;float: right;}
+.APage .rightSide h3{margin: 50px 0 25px 25px;font-size: 1.5em;font-family: Helvetica;}
+/*异常公告 页面 begin*/
+.AnnouncementUnsualPage{}
+/*异常公告 页面 end*/
+/*抽查公告 页面 begin*/
+.AnnouncementRandomPage{}
+/*抽查公告 页面 end*/
+/*违法公告 页面 begin*/
+.AnnouncementIllegalPage {
+}
+/*违法公告 页面 end*/
+/*Announcement（公告） end*/
+
+/*InfoPage(公示信息) 页面 begin*/
+.InfoPage{display:block; width:1170px; margin:30px auto 30px;}
+
+.InfoPage .search{margin:0 auto; width:54%;}
+.InfoPage .search .input{margin:0 auto;width:630px;
+    }
+.InfoPage .search input {
+    width: 500px;
+    height: 60px;
+    background: #FFE9AF;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 0 6px #fff;
+    transition: box-shadow 0.3s linear;
+    font-size: 20px;
+    color: #503aa3;
+}
+
+.InfoPage .search input:hover {
+    box-shadow: 0 0 0 3px #50a3a3;
+}
+.InfoPage .search input:focus{
+    background:#FFFAD7;
+}
+
+.InfoPage .search .btn1 {
+    width: 100px;
+    margin-left:20px;
+    height: 60px;
+    background: #FF7F66;
+    
+    text-align: center;
+    line-height: 60px;
+    font-size: 16px;
+    color: #fff;
+}
+.InfoPage .list{width:500px; min-height:353px; margin:40px; background:#333; }
+
+/*InfoPage(公示信息) 页面 end*/
+
+
+/*Layout1 begin*/
+.Layout1Page .container{width:1170px; margin:0 auto;}
+.Layout1Page .header {
+    width: 100%;
+    height: 70px;
+    background: #6EFDBE;
+    background: -webkit-linear-gradient(top left,#6EFDBE 0%,#2185C5 100%);
+    background: linear-gradient(to top left,#6EFDBE 0%, #2185C5 100%);
+}
+.Layout1Page .header .title{height:70px;float: left;}
+.Layout1Page .header h1{ font-size: 2em; color:#fff; line-height: 70px; font-family: Georgia;}
+
+.Layout1Page .header .nav{ float:right;}
+.Layout1Page .header .nav ul{height:36px;margin-top:17px;}
+.Layout1Page .header .nav ul li{float: left;}
+.Layout1Page .header .nav ul li a{display:block; font-size:14px;font-weight: 400; color:#3E454C;text-align: center;line-height: 36px; padding:0 7px 0 7px;width:100px; border-right:1px solid #fff;}
+.Layout1Page .header .nav ul li a:hover{background:rgba(255,255,255,0.5);}
+.Layout1Page footer {
+    overflow: hidden;
+    height: 70px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    left:0;
+    background: #2185C5;
+    background: -webkit-linear-gradient(top left,#2185C5 0%,#3E454C 100%);
+    background: linear-gradient(to top left,#2185C5 0%, #3E454C 100%);
+}
+.Layout1Page footer p {
+    line-height: 70px;
+    color: #fff;
+    font-size: 16px;
+    width:220px; 
+    margin: 0 auto;
+}
+.Layout1Page footer a{display:inline-block; font-size:14px; color:#6EFDBE; padding:0 10px;}
+.Layout1Page footer a:hover{color:#FFCE9F;}
+/*Layout1 end*/
+/*Login Page begin*/
+/*login base begin*/
+.LoginPage .whiteUp{
     height:40%; width:100%; background:#ffe; box-shadow:0 0 200px #eee;
 }
-.login {
+.LoginPage .login {
     width: 100%;
     height: 60%;
     background: #50a3a2;
@@ -23,15 +126,13 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     -webkit-box-pack: center;
     -webkit-box-align: center;
 }
-
-.login-center {
+.LoginPage .login-center {
     width: 400px;
     height: 400px;
     position: relative;
     z-index: 500;
 }
-
-.login-center h1 {
+.LoginPage .login-center h1 {
     font-size: 2.5em;
     font-weight: 600;
     color: #fff;
@@ -40,13 +141,11 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     position: absolute;
     top: -18px;
 }
-
-.form {
+.LoginPage .form {
     position: absolute;
     margin-top: 20px;
 }
-
-.form .input {
+.LoginPage .form .input {
     background-color: rgba(255,255,255,0.2);
     height: 50px;
     width: 350px;
@@ -58,21 +157,17 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     color: #fff;
     text-align: center;
 }
-
-.input {
+.LoginPage .input {
     transition: background-color 0.3 ease-in-out,width 0.3 ease-in-out margin-left 0.3 ease-in-out;
     cursor: pointer;
 }
-
-.input:active {
+.LoginPage .input:active {
     background-color: #fff;
 }
-
-.input:hover {
+.LoginPage .input:hover {
     background-color: rgba(255,255,255,0.3);
 }
-
-.btn {
+.LoginPage .btn {
     background: #50a3a2;
     color: #fff;
     height: 50px;
@@ -87,23 +182,24 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     transform: rotate(0deg);
     transition: font-weight 0.6s ease-in-out, box-shadow 0.6s ease-in-out,color 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
-form>a{
+.LoginPage form>a{
     text-align:center;
     line-height:50px;
 }
-.form button {   
+.LoginPage .form button {   
       background: #50a3a2;
 }
-.form a{
+.LoginPage .form a{
   background:#50a3a3;
 }
-.btn:hover {
+.LoginPage .btn:hover {
     font-weight: 600;
     box-shadow: 0 0 0 30px rgba(255,255,255,0.7) inset;
     color: #23a4e5;
     transform: rotate(360deg);
 }
-/*login css end*/
+/*login base end*/
+/*square flaot begin*/
 .bg-bubbles {
   position: absolute;
   top: 0;
@@ -216,3 +312,4 @@ form>a{
   }
 }
 /*square flaot end*/
+/*Login Page END*/

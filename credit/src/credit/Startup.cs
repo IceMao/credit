@@ -39,7 +39,7 @@ namespace credit
             logger.AddConsole();
             logger.AddDebug();
             app.UseIdentity();
-            app.UseMvc(x => x.MapRoute("default", "{controller=Account}/{action=Login}/{id?}"));
+            app.UseMvc(x => x.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"));
             await SampleData.InitDB(app.ApplicationServices);
         }
 

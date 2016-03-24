@@ -14,6 +14,45 @@ namespace credit.Controllers
         [FromServices]
         public CreditContext DB { get; set; }
 
+        #region 各个公告页面
+        //异常公告
+        [HttpGet]
+        public IActionResult AnnouncementUnsual()
+        {
+            return View();
+        }
+        //AnnouncementRandom 抽查检查信息公告
+        [HttpGet]
+        public IActionResult AnnouncementRandom()
+        {
+            return View();
+        }
+        //AnnouncementIllegal 严重违法信息公告
+        [HttpGet]
+        public IActionResult AnnouncementIllegal()
+        {
+            return View();
+        }
+        #endregion
+
+        #region 各个公示 显示 页面
+
+        [HttpGet]
+        public IActionResult InfoRandom()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult InfoIllegal()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult InfoUnsual()
+        {
+            return View();
+        }
+        #endregion
         #region 管理员添加的基本信息（增删改查）
         [HttpGet]
         public IActionResult DetailsBaseInfo()
@@ -51,11 +90,8 @@ namespace credit.Controllers
             var baseInfo = DB.BaseInfo
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if (BaseInfo == null)
-                return Content("没有这个记录");
-            baseInfo.RegistrationNumber = BaseInfo.RegistrationNumber;
             baseInfo.EnterpriseName = BaseInfo.EnterpriseName;
-
+            baseInfo.RegistrationNumber = BaseInfo.RegistrationNumber;
             DB.SaveChanges();
             return RedirectToAction("DetailsBaseInfo", "Admin");
 
@@ -82,17 +118,7 @@ namespace credit.Controllers
         {
             //判断 抽查时填入的注册号 在数据库中是否存在
             //下面这样写可以判断他在 baseInfo 中是否存在吗？
-            var baseinfo = new BaseInfo { };
-            var register= DB.InfoRandom.Where(x => x.RegistrationNumber);
-            if (register != null)
-            {
-                DB.InfoRandom.Add(infoRandom);
-                DB.SaveChanges();
-            }
-            else
-            {
-                return Content("注册号不存在");
-            }
+            
             //if(infoRandom.RegistrationNumber == baseInfo.RegistrationNumber)
             
             return RedirectToAction("DetailsInfoRandom", "Admin");

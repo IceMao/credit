@@ -16,7 +16,7 @@ namespace credit.Models
     }
     public class InfoRandom
     {
-        //抽查信息
+        //抽查信息公示
         public int Id { get; set; }
         [StringLength(12)]
         public string RegistrationNumber { get; set; }

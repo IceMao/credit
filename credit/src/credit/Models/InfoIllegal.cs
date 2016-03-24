@@ -8,7 +8,7 @@ namespace credit.Models
 {
     public class InfoIllegal
     {
-        //严重违法信息
+        //严重违法信息公示
         public int Id { get; set; }
         public string RegistrationNumber { get; set; }
         public DateTime DateTime { get; set; }

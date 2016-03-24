@@ -10,8 +10,7 @@
     <meta name="keywords" content="齐齐哈尔市企业信用信息系统，企业信用，信用信息" />
     <meta name="author" content="yang" />
     <link rel="stylesheet" href="~/styles/index.css" />
-    <title>index</title>
-    
+    <title>首页--齐齐哈尔市企业信用信息管理系统</title>
 </head>
 <body>
     <header>
@@ -20,29 +19,52 @@
         </div>
     </header>
     <nav>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <ul id="menu">
-                        <li><a href="/">违章查询</a></li>
-                        <li><a href="/">严重违法查询</a></li>
-                        <li><a href="/">信息公示</a></li>
-                        <li><a href="/">经营异常查询</a></li>
-                        <li><a href="/">公安系统进入</a></li>
-                        <li><a asp-controller="Admin" asp-action="CreateInfoRandom">企业年度报告填报入口</a></li>
-                        <li><a href="/">其他入口</a></li>
-                    </ul>
-                    <input type="text" placeholder="请输入公司注册号">
-                    <input class="btn1" type="submit" vlaue="提交" />
-                </div>
-            </div>
+        <div class="nav">
+            <ul id="menu">
+                <li><a href="javascript:;">首页</a></li>
+                <li>
+                    <a href="/">信息填报</a>
+                    <ol>
+                        <li><a href="/">企业年度信用信息填报</a></li>
+                        <li><a asp-controller="Admin" asp-action="CreateInfoRandom">个体年度信用信息填报</a></li>
+                        <li><a href="/">其他自行公示信息</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="/">信息名单公示</a>
+                    <ol>
+                        <li><a asp-controller="Admin" asp-action="InfoUnsual">经营异常名录</a></li>
+                        <li><a asp-controller="Admin" asp-action="InfoIllegal">严重违法企业名单</a></li>
+                        <li><a asp-controller="Admin" asp-action="InfoRandom">抽查检查公示</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="/">信息公告</a>
+                    <ol>
+                        <li><a asp-controller="Admin" asp-action="AnnouncementUnsual">经营异常公告</a></li>
+                        <li><a asp-controller="Admin" asp-action="AnnouncementIllegal">严重违法企业公告</a></li>
+                        <li><a asp-controller="Admin" asp-action="AnnouncementRandom">抽查检查公告</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="/">友情链接</a>
+                    <ol>
+                        <li><a href="/">全国首页</a></li>
+                    </ol>
+                </li>
+            </ul>
         </div>
-               
+        <div class="input">
+            <input type="text" placeholder="请输入公司注册号">
+            <input class="btn1" type="submit" vlaue="提交" />
+        </div>
     </nav>
 
     <footer>
-        <span>&copy; copyright .yang<a asp-action="Login" asp-controller="Account" style="display:inline-block;">管理入口</a></span>
+        <p>&copy; copyright .yang<a asp-action="Login" asp-controller="Account" style="display:inline-block;">管理入口</a></p>
     </footer>
+    <script>
 
+    </script>
 </body>
 </html>

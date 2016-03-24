@@ -8,7 +8,7 @@ namespace credit.Models
 {
     public class InfoUnusual
     {
-        //异常信息
+        //异常信息公示 
         public int Id { get; set; }
         public string RegistrationNumber { get; set; }
         public DateTime DateTime { get; set; }
