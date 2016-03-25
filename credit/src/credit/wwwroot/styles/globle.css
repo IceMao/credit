@@ -103,6 +103,7 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 .Layout1Page .header .nav ul li{float: left;}
 .Layout1Page .header .nav ul li a{display:block; font-size:14px;font-weight: 400; color:#3E454C;text-align: center;line-height: 36px; padding:0 7px 0 7px;width:100px; border-right:1px solid #fff;}
 .Layout1Page .header .nav ul li a:hover{background:rgba(255,255,255,0.5);}
+.Layout1Page .content{min-height:530px;}
 .Layout1Page footer {
     overflow: hidden;
     height: 70px;

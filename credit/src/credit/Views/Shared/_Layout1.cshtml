@@ -17,15 +17,15 @@
             </div>
             <div class="nav">
                 <ul>
-                    <li><a href="">首页</a></li>
-                    <li><a href="">信息填报</a></li>
-                    <li><a href="">信息公告</a></li>
-                    <li><a href="">全国首页</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">首页</a></li>
+                    <li><a asp-controller="Page" asp-action="FillIn">信息填报</a></li>
+                    <li><a asp-controller="Page" asp-action="Announcement">信息公告</a></li>
+                    <li><a href="http://gsxt.saic.gov.cn/">全国首页</a></li>
                 </ul>
             </div>
         </div>
     </header>
-    <div>
+    <div class="content">
         @RenderBody()
     </div>
 

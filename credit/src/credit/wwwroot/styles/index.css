@@ -50,6 +50,9 @@ ol>li>a{display: block; width:170px;height:30px;line-height: 30px;
     background: linear-gradient(to top left,#FFE9AF 0%, #FF7F66 100%);}
 #menu>li:hover>ol{display:block;}
 ol>li>a:hover{background: #3E454C; color:#FFE9AF;}
+.active{background: #FFE9AF; color:#3E454C;
+    background: -webkit-linear-gradient(top left,#FFE9AF 0%,#FF7F66 100%);
+    background: linear-gradient(to top left,#FFE9AF 0%, #FF7F66 100%);}
 .input{margin:0 auto;width:630px;
     }
 input {

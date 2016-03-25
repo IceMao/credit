@@ -21,7 +21,7 @@
     <nav>
         <div class="nav">
             <ul id="menu">
-                <li><a href="javascript:;">首页</a></li>
+                <li class="active"><a href="javascript:;">首页</a></li>
                 <li>
                     <a href="/">信息填报</a>
                     <ol>
@@ -31,25 +31,25 @@
                     </ol>
                 </li>
                 <li>
-                    <a href="/">信息名单公示</a>
+                    <a href="/">信息公示名单</a>
                     <ol>
-                        <li><a asp-controller="Admin" asp-action="InfoUnusual">经营异常名录</a></li>
-                        <li><a asp-controller="Admin" asp-action="InfoIllegal">严重违法企业名单</a></li>
-                        <li><a asp-controller="Admin" asp-action="InfoRandom">抽查检查公示</a></li>
+                        <li><a asp-controller="Page" asp-action="InfoUnusual">经营异常名录</a></li>
+                        <li><a asp-controller="Page" asp-action="InfoIllegal">严重违法企业名单</a></li>
+                        <li><a asp-controller="Page" asp-action="InfoRandom">抽查检查公示</a></li>
                     </ol>
                 </li>
                 <li>
                     <a href="/">信息公告</a>
                     <ol>
-                        <li><a asp-controller="Admin" asp-action="AnnouncementUnsual">经营异常公告</a></li>
-                        <li><a asp-controller="Admin" asp-action="AnnouncementIllegal">严重违法企业公告</a></li>
-                        <li><a asp-controller="Admin" asp-action="AnnouncementRandom">抽查检查公告</a></li>
+                        <li><a asp-controller="Page" asp-action="AnnouncementUnsual">经营异常公告</a></li>
+                        <li><a asp-controller="Page" asp-action="AnnouncementIllegal">严重违法企业公告</a></li>
+                        <li><a asp-controller="Page" asp-action="AnnouncementRandom">抽查检查公告</a></li>
                     </ol>
                 </li>
                 <li>
                     <a href="/">友情链接</a>
                     <ol>
-                        <li><a href="/">全国首页</a></li>
+                        <li><a href="http://gsxt.saic.gov.cn/">全国首页</a></li>
                     </ol>
                 </li>
             </ul>
