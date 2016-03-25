@@ -48,7 +48,7 @@ namespace credit.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult InfoUnsual()
+        public IActionResult InfoUnusual()
         {
             return View();
         }
