@@ -108,7 +108,7 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     overflow: hidden;
     height: 70px;
     width: 100%;
-    position: relative;
+    position: absolute;
     bottom: 0;
     left:0;
     background: #2185C5;
@@ -181,8 +181,8 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     transition: background-color 0.3 ease-in-out,width 0.3 ease-in-out margin-left 0.3 ease-in-out;
     cursor: pointer;
 }
-.LoginPage .input:active {
-    background-color: #fff;
+.LoginPage .input:focus {
+    background-color: #fff; color:#2185C5;
 }
 .LoginPage .input:hover {
     background-color: rgba(255,255,255,0.3);

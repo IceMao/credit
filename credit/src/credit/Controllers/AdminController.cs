@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Authorization;
 using credit.Models;
+
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace credit.Controllers
 {
+    [Authorize (Roles ="管理员")]
     public class AdminController : Controller
     {
         [FromServices]
@@ -60,34 +63,48 @@ namespace credit.Controllers
         #endregion
 
         //抽查填写
-        #region 显示表格内容
+        #region 
+        //显示表格内容
         [HttpGet]
         public IActionResult DetailsInfoRandom()
         {
             return View(DB.InfoRandom);
         }
-        #endregion
-
-        #region 添加表格内容
+        
         [HttpGet]
-        public IActionResult CreateInfoRandom()
+        public IActionResult CreateInfoRandom()//添加表格内容
         {
             return View();
         }
+       
         [HttpPost]
         public IActionResult CreateInfoRandom(InfoRandom infoRandom)
         {
             //判断 抽查时填入的注册号 在数据库中是否存在
             //下面这样写可以判断他在 baseInfo 中是否存在吗？
-            
-            //if(infoRandom.RegistrationNumber == baseInfo.RegistrationNumber)
-            
-            return RedirectToAction("DetailsInfoRandom", "Admin");
+            //if (infoRandom.RegistrationNumber == baseInfo.RegistrationNumber)
+            if(HttpContext.User.Identity.IsAuthenticated)//判断用户是否登陆
+            {
+                var user = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();//找到当前用户
+                var baseinfo = DB.BaseInfo.Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber).SingleOrDefault();
+                if (baseinfo != null)
+                {
+                    DB.InfoRandom.Add(infoRandom);
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    return Content("注册号不存在，请检查");//需要用异步
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return Content("添加成功");//需要用异步
         }
         
-        #endregion
-
-        #region 编辑表格
+        // 编辑表格
         [HttpGet]
         public IActionResult EditInfoRandom(int id)
         {
@@ -116,10 +133,7 @@ namespace credit.Controllers
             return RedirectToAction("DetailsInfoRandom", "Admin");
 
         }
-        #endregion
-
-        #region
-        
+       
         /*public IActionResult DeleteInfoRandom(int id)
         {
             var infoRandom = DB.InfoRandom

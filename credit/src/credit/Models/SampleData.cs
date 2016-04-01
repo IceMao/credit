@@ -29,6 +29,8 @@ namespace credit.Models
                 var liaison = new User { UserName = "liaison" };
                 await userManager.CreateAsync(liaison, "Minhan1994!@#");//此处不用密码登录？？
                 await userManager.AddToRoleAsync(liaison, "联络员");
+
+                db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456789012345", EnterpriseName = "哈尔滨码锋科技" });
             }
             db.SaveChanges();
         }

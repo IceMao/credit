@@ -11,10 +11,8 @@ namespace credit.Models
         //严重违法信息公示
         public int Id { get; set; }
         public string RegistrationNumber { get; set; }
+        public string EnterpriseName { get; set; }
         public DateTime DateTime { get; set; }
-        //其中注册号，企业名是外键中得到的 怎么用？
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public virtual User User { get; set; }
+        
     }
 }

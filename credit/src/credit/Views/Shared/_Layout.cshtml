@@ -4,93 +4,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>齐齐哈尔市企业信用信息系统后台管理</title>
-    <link href="~/styles/style.css" type="text/css" rel="stylesheet" />
     <link href="~/styles/bootstrap.min.css" type="text/css" rel="stylesheet" />
-    
+    <link href="~/styles/style.css" type="text/css" rel="stylesheet" />
     <script src="~/scripts/jquery-1.10.2.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
-
-    <style>
-        #main-nav {
-            margin-left: 1px;
-        }
-
-            #main-nav.nav-tabs.nav-stacked > li > a {
-                padding: 10px 8px;
-                font-size: 12px;
-                font-weight: 600;
-                color: #4A515B;
-                background: #E9E9E9;
-                background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FAFAFA), color-stop(100%,#E9E9E9));
-                background: -webkit-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                background: -o-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                background: -ms-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                background: linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
-                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
-                border: 1px solid #D5D5D5;
-                border-radius: 4px;
-            }
-
-                #main-nav.nav-tabs.nav-stacked > li > a > span {
-                    color: #4A515B;
-                }
-
-                #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
-                    color: #FFF;
-                    background: #3C4049;
-                    background: -moz-linear-gradient(top, #4A515B 0%, #3C4049 100%);
-                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4A515B), color-stop(100%,#3C4049));
-                    background: -webkit-linear-gradient(top, #4A515B 0%,#3C4049 100%);
-                    background: -o-linear-gradient(top, #4A515B 0%,#3C4049 100%);
-                    background: -ms-linear-gradient(top, #4A515B 0%,#3C4049 100%);
-                    background: linear-gradient(top, #4A515B 0%,#3C4049 100%);
-                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049');
-                    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049')";
-                    border-color: #2B2E33;
-                }
-
-                    #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover > span {
-                        color: #FFF;
-                    }
-
-            #main-nav.nav-tabs.nav-stacked > li {
-                margin-bottom: 4px;
-            }
-
-        /*定义二级菜单样式*/
-        .secondmenu a {
-            font-size: 10px;
-            color: #4A515B;
-            text-align: center;
-        }
-
-        .secondmenu li {
-            margin-top: 4px;
-        }
-
-        .navbar-static-top {
-            background-color: #212121;
-            margin-bottom: 5px;
-        }
-
-        .navbar-brand {
-            background: url('') no-repeat 10px 8px;
-            display: inline-block;
-            vertical-align: middle;
-            padding-left: 50px;
-            color: #fff;
-        }
-    </style>
 </head>
-<body style="background-color:#fff;">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:rgb(242,242,242);">
-        <div class="container-fluid">
-            <div class="navbar-header" style="display:inline-block;">
+<body class="LayoutPage">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="row">
+            <div class="col-md-2 title">
                 <a asp-action="Manage" asp-controller="Home">
-                    <span class="navbar-brand" id="logo">
-                        后台管理
+                    <span id="logo">
+                        后台首页
                     </span>
                 </a>
             </div>
@@ -98,127 +23,76 @@
                 <button style="display:none; " type="button" class="btn" id="pull"><i class="glyphicon glyphicon-th-list"></i>  </button>
             </span>
         </div>
+        <div class="clr"></div>
     </nav>
-    <div style="margin-top:55px;">
-        <div class="row" style="margin-right:0px;">
-            <div class="col-md-2" id="pullset" style="display:block">
-                <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
-                    <li class="active">
-                        <a asp-action="Manage" asp-controller="Home">
-                            <i class="glyphicon glyphicon-th-large"></i>
-                            后台首页
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-action="Index" asp-controller="Home" target="_blank">
-                            <i class="glyphicon glyphicon-home"></i>
-                            网站首页
-                        </a>
-                    </li>
-                    <li name="ali">
-                        <a href="#set1" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-leaf"></i>
-                            管理员管理
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set1" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsBaseInfo" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理基本信息</a></li>
-                            <li><a asp-action="CreateBaseInfo" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加基本信息</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set2" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-list-alt"></i>
-                            师生文章
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set2" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsArticle" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理文章</a></li>
-                            <li><a asp-action="CreateArticle" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加文章</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set3" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-bell"></i>
-                            通知公告
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set3" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsInform" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理通知公告</a></li>
-                            <li><a asp-action="CreateInform" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加通知公告</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set4" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-camera"></i>
-                            校园风光
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set4" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsPhotos" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理校园风光</a></li>
-                            <li><a asp-action="CreatePhotos" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加校园风光</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set5" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-usd"></i>
-                            招生信息
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set5" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsRecruitStudents" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理招生信息</a></li>
-                            <li><a asp-action="CreateRecruitStudents" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加招生信息</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#set6" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-pushpin"></i>
-                            学校信息
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set6" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsSchoolInfo" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理学校信息</a></li>
-                            <li><a asp-action="CreateSchoolInfo" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加学校信息</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set7" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-tree-deciduous"></i>
-                            留言板
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set7" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsMessage" asp-controller="Home"><i class="glyphicon glyphicon-user"></i>审核留言板</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set8" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-envelope"></i>
-                            校长信箱
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set8" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsMessage" asp-controller="Home"><i class="glyphicon glyphicon-user"></i>查看校长信箱</a></li>
-                        </ul>
-                    </li>
-                    <li name="ali">
-                        <a href="#set9" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-headphones"></i>
-                            课余活动
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="set9" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a asp-action="DetailsActivities" asp-controller="Admin"><i class="glyphicon glyphicon-cog"></i>管理课余活动</a></li>
-                            <li><a asp-action="CreateActivities" asp-controller="Admin"><i class="glyphicon glyphicon-plus"></i>添加课余活动</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-action="Login" asp-controller="Account">
-                            <i class="glyphicon glyphicon-off"></i>
-                            退出后台
-                        </a>
-                    </li>
-                </ul>
+    <div style="position:relative; top:50px;">
+        <div class="row" >
+            <div class="col-md-2" id="pullset" >
+                <aside class="left-aside">
+                    <div class="user"><a href="/">Welcome Manager</a></div>
+                    <ul id="main-nav" class="nav-list">
+                        <li>
+                            <a asp-action="Index" asp-controller="Home" target="_blank">
+                                <i class="glyphicon glyphicon-home"></i>
+                                网站首页
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#set" class="collapsed" data-toggle="collapse">
+                                <i class="ico"></i>
+                                系统基本信息
+                            </a>
+                            <ul id="set" class="collapse secondmenu">
+                                <li><a asp-controller="Admin" asp-action="DetailsBaseInfo">企业注册号管理</a></li>
+                                <li><a asp-controller="Admin" asp-action="CreateBaseInfo">企业注册号添加</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#set1" class="collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-leaf"></i>
+                                信用报表管理
+                            </a>
+                            <ul id="set1" class="collapse secondmenu">
+                                <li><a asp-action="DetailsYearReportEnterprise" asp-controller="Admin">企业年度信用报表管理</a></li>
+                                <li><a asp-action="DetailsYearReportIndividual" asp-controller="Admin">个体年度信用报表管理</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#set2" class="collapsed" data-toggle="collapse">
+                                <i class=""></i>
+                                信用公示管理
+                            </a>
+                            <ul id="set2" class="collapse secondmenu">
+                                <li><a asp-action="DetailsInfoRandom" asp-controller="Admin">抽查公示管理</a></li>
+                                <li><a asp-action="CreateInfoRandom" asp-controller="Admin">抽查公示添加</a></li>
+                                <li><a asp-action="DetailsInfoUnusual" asp-controller="Admin">经营异常公示管理</a></li>
+                                <li><a asp-action="CreateInfoUnusual" asp-controller="Admin">经营异常公示添加</a></li>
+                                <li><a asp-action="DetailsInfoIllegal" asp-controller="Admin">严重违法公示管理</a></li>
+                                <li><a asp-action="CreateInfoIllegal" asp-controller="Admin">严重违法公示添加</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#set3" class="collapsed" data-toggle="collapse">
+                                <i class=""></i>
+                                公告管理
+                            </a>
+                            <ul id="set3" class="collapse secondmenu">
+                                <li><a asp-action="DetailsAnnouncementRandom" asp-controller="Admin">抽查公告管理</a></li>
+                                <li><a asp-action="CreateAnnouncementRandom" asp-controller="Admin">抽查公告添加</a></li>
+                                <li><a asp-action="DetailsAnnouncementUnsual" asp-controller="Admin">经营异常公告管理</a></li>
+                                <li><a asp-action="CreateAnnouncementUnsual" asp-controller="Admin">经营异常公告添加</a></li>
+                                <li><a asp-action="DetailsAnnouncementIllegal" asp-controller="Admin">严重违法公告管理</a></li>
+                                <li><a asp-action="CreateAnnouncementIllegal" asp-controller="Admin">严重违法公告添加</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">
+                                <i class="glyphicon glyphicon-off"></i>
+                                退出后台
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
             </div>
             <div class="col-md-10" style="background-color:rgb(242,242,242);">
                 @RenderBody()
@@ -226,6 +100,12 @@
         </div>
     </div>
     <script>
+        $(document).ready(function () {
+            
+            $("#main-nav li a").click(function () {
+                $(this).css("background", "#eee");
+            });
+        });
         var oPull = document.getElementById('pull');
         var oPullSet = document.getElementById('pullset');
 

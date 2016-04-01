@@ -9,7 +9,6 @@ namespace credit.Models
 {
     public class CreditContext:IdentityDbContext<User>
     {
-        public DbSet<User> User { get; set; }
         public DbSet<InfoRandom> InfoRandom { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

@@ -1,1 +1,24 @@
-﻿这是修改
+﻿@model BaseInfo
+<form asp-controller="Admin" asp-action="EditBaseInfo" method="post">
+    <h3>编辑基本企业信息</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>注册号</th>
+                <th>企业名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td><input type="text" class="form-control" value="@Model.RegistrationNumber" /></td>
+                <td><input type="text" class="form-control" value="@Model.EnterpriseName" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <input class="btn inverse" type="submit" value="提交" />
+        <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
+    </p>
+</form>

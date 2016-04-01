@@ -31,7 +31,9 @@ namespace credit.Controllers
             }
             else
             {
+                Content("输入不正确");
                 return RedirectToAction("Login", "Account");
+               
             }
 
         }

@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<InfoRandom>
-<table>
+<h3>抽查公示管理</h3>
+<table class="table">
     <thead>
         <tr>
-            <th>企业名称</th>
+            <th>序号</th>
             <th>注册号</th>
+            <th>企业名称</th>
             <th>抽查日期</th>
             <th>抽查结果</th>
             <th></th>
@@ -13,7 +15,9 @@
         @foreach(var x in Model)
         {
             <tr>
+                <td>@x.Id</td>
                 <td>@x.RegistrationNumber</td>
+                <td>@x.EnterpriseName</td>
                 <td>@x.DateTime</td>
                 <td>@x.Result</td>
                 @if (User.IsSignedIn())
