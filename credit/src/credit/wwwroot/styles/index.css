@@ -53,7 +53,7 @@ ol>li>a:hover{background: #3E454C; color:#FFE9AF;}
 .active{background: #FFE9AF; color:#3E454C;
     background: -webkit-linear-gradient(top left,#FFE9AF 0%,#FF7F66 100%);
     background: linear-gradient(to top left,#FFE9AF 0%, #FF7F66 100%);}
-.input{margin:0 auto;width:630px;
+.input{margin:0 auto;width:630px;position:relative;
     }
 input {
     z-index:1;
@@ -74,17 +74,24 @@ input:hover {
 input:focus{
     background:#FFFAD7;
 }
-
+.btn1:hover {
+    box-shadow: 0 0 0 3px #50a3a3;
+}
 .btn1 {
+    box-shadow: 0 0 0 6px #fff;
+    transition: box-shadow 0.3s linear;
+    display:inline-block;
     width: 100px;
     margin-left:20px;
     height: 60px;
     background: #FF7F66;
-    
+    border-radius: 8px;
     text-align: center;
     line-height: 60px;
     font-size: 16px;
     color: #fff;
+    position: absolute;
+    top: 1px;
 }
 
 footer {

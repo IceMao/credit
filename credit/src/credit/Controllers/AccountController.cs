@@ -69,11 +69,11 @@ namespace credit.Controllers
         public IActionResult LiaisonRegiste()
         {
             return View();
-        }
+        }/*
         [HttpPost]
-        /*public async Task<IActionResult> LiaisonRegiste(string registrationNumber, string liaisonName, string liaisonIdNumber, string legalIdNumber, string cellPhoneNumber)
+        public async Task<IActionResult> LiaisonRegiste(string registrationNumber, string liaisonName, string liaisonIdNumber, string legalIdNumber, string cellPhoneNumber)
         {
-            var liaison = new LiaisonMan
+            var liaison = new User
             {
                 RegistrationNumber = registrationNumber,
                 LiaisonName = liaisonName,

@@ -14,6 +14,12 @@ namespace credit.Controllers
         [FromServices]
         public CreditContext DB { get; set; }
 
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View();
+        }
+
         #region “总页”
         //信息填报
         [HttpGet]
