@@ -16,11 +16,11 @@
     <div id="login" class="login">
         <div id="login-center" class="login-center">
             <h1>Welcome</h1>
-            <form class="form" asp-controller="Account" asp-action="Login" method="post">
+            <form class="form">
                 <input class="input" type="text" name="username" placeholder="用户名">
                 <input class="input" type="password" name="password" placeholder="密码">
                 <a class="btn" href="/">注册</a>
-                <button class="btn" type="submit">Login</button>
+                <button class="btn" id="btnLogin" type="submit">Login</button>
             </form>
         </div>
         <ul class="bg-bubbles">
@@ -37,5 +37,33 @@
         </ul>
     </div>
     <div style="clear:both;"></div>   
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnLogin").click(function () {
+                
+                var url = "/Account/Login";
+                var username1 = $.trim($('input[name=username').val());
+                
+                var password1 = $.trim($('input[name=password').val());
+                
+                var params = { "username": username1, "&password": password1 };
+                
+                $.post(url, params, function (json) {
+                    alert(1);
+                    if (json== "success") {
+                        alert("success");
+                        window.location.href = "/Home/Manage";
+                    } else {
+                        console.log("f");
+                        alert("用户名或密码不存在");
+                    }
+                    
+
+                })
+            });
+        });
+    </script>
 </body>
 </html>

@@ -178,7 +178,7 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     text-align: center;
 }
 .LoginPage .input {
-    transition: background-color 0.3 ease-in-out,width 0.3 ease-in-out margin-left 0.3 ease-in-out;
+    transition: background-color 0.3s ease-in-out,width 0.3s ease-in-out margin-left 0.3s ease-in-out;
     cursor: pointer;
 }
 .LoginPage .input:focus {
