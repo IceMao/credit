@@ -62,8 +62,20 @@ namespace credit.Controllers
         }
         #endregion
 
-        //抽查填写
-        #region 
+        //删除基本信息
+        public IActionResult DeteleBaseInfo(int id)
+        {
+            var baseInfo = DB.BaseInfo
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            DB.BaseInfo.Remove(baseInfo);
+            DB.SaveChanges();
+            System.Diagnostics.Debug.Write("id=" + id);
+            
+            return RedirectToAction("DetailsBaseInfo","Admin");
+        }
+        
+        #region //抽查填写
         //显示表格内容
         [HttpGet]
         public IActionResult DetailsInfoRandom()

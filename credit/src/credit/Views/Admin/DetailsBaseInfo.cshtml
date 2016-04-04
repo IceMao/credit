@@ -30,7 +30,9 @@
 </table>
 @if (User.IsSignedIn())
 {
-    
+    <form id="frmDelete" asp-controller="Admin" asp-action="DeleteBaseInfo" method="post">
+        <input type="hidden" id="Id" name="id" />
+    </form>
     <script>
         function remove(id)
         {

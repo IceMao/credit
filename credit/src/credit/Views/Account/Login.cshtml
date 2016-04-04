@@ -17,10 +17,10 @@
         <div id="login-center" class="login-center">
             <h1>Welcome</h1>
             <form class="form">
-                <input class="input" type="text" name="username" placeholder="用户名">
-                <input class="input" type="password" name="password" placeholder="密码">
+                <input class="input" type="text" name="username" id="username" placeholder="用户名">
+                <input class="input" type="password" name="password" id="password" placeholder="密码">
                 <a class="btn" href="/">注册</a>
-                <button class="btn" id="btnLogin" type="submit">Login</button>
+                <button class="btn" id="btnLogin">Login</button>
             </form>
         </div>
         <ul class="bg-bubbles">
@@ -44,19 +44,17 @@
             $("#btnLogin").click(function () {
                 
                 var url = "/Account/Login";
-                var username1 = $.trim($('input[name=username').val());
+                //var username1 = $.trim($('input[name=username').val());
                 
-                var password1 = $.trim($('input[name=password').val());
+                //var password1 = $.trim($('input[name=password').val());
                 
-                var params = { "username": username1, "&password": password1 };
+               // var params = { "username": username1, "&password": password1 };
                 
-                $.post(url, params, function (json) {
-                    alert(1);
-                    if (json== "success") {
-                        alert("success");
-                        window.location.href = "/Home/Manage";
+                var params = { "username": $("#username").val(), "password": $("#password").val() };
+                $.post(url, params, function (data) {
+                    if (data == "success") {
+                        window.location.href = "/Account/Manage";
                     } else {
-                        console.log("f");
                         alert("用户名或密码不存在");
                     }
                     
