@@ -8,37 +8,84 @@
     <meta name="description" content="齐齐哈尔市企业信用信息系统，企业信用，信用信息" />
     <meta name="keywords" content="齐齐哈尔市企业信用信息系统，企业信用，信用信息" />
     <meta name="author" content="yang" />
-    <link rel="stylesheet" href="~/styles/globle.css" />
+    <link rel="stylesheet" href="~/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/styles/bootstrapValidator.min.css" />
     <title>系统后台登录页面</title>
 </head>
-<body class="LoginPage" style="overflow:hidden;">
-    <div class="whiteUp"></div>
-    <div id="login" class="login">
+<body>
+    <div class="container">
+        <div class="row">
+            <section>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="page-header">
+                        <h2>Welcome</h2>
+                    </div>
+
+                    <form id="defaultForm" method="post" class="form-horizontal" >
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Username</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="username" id="username" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Password</label>
+                            <div class="col-lg-5">
+                                <input type="password" class="form-control" name="password" id="password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-9 col-lg-offset-3">
+                                <button class="btn btn-primary" id="btnLogin">Sign up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <!-- :form -->
+        </div>
+    </div>
+   <!--<div id="login" class="log-in">
         <div id="login-center" class="login-center">
             <h1>Welcome</h1>
-            <form class="form">
-                <input class="input" type="text" name="username" id="username" placeholder="用户名">
+            <form class="form-horizontal" id="defaultForm" asp-controller="Account" asp-action="Login" method="post">
+                <div class="form-group">
+                    <lable class="col-lg-3 control-lable">User Name</lable>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="username" placeholder="UserName" id="username" />
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Password</label>
+                    <div class="col-lg-5">
+                        <input type="password" class="form-control" name="password" placeholder="password" id="password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <div id="errors"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <!--<a class="btn" href="/">注册</a>
+                        <input class="btn" id="btnLogin" value="Login" />
+                    </div>
+                </div>
+                <!--<input class="input" type="text" name="username" id="username" placeholder="用户名">
                 <input class="input" type="password" name="password" id="password" placeholder="密码">
                 <a class="btn" href="/">注册</a>
-                <button class="btn" id="btnLogin">Login</button>
+                <input class="btn" id="btnLogin" value="Login" />
             </form>
+            
         </div>
-        <ul class="bg-bubbles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-    <div style="clear:both;"></div>   
+        
+    </div>-->
     <script src="~/scripts/jquery-1.10.2.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/bootstrapValidator.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#btnLogin").click(function () {
@@ -53,7 +100,7 @@
                 var params = { "username": $("#username").val(), "password": $("#password").val() };
                 $.post(url, params, function (data) {
                     if (data == "success") {
-                        window.location.href = "/Account/Manage";
+                        window.location.href = "/Home/Manage";
                     } else {
                         alert("用户名或密码不存在");
                     }
@@ -61,7 +108,52 @@
 
                 })
             });
-        });
+        
+            $('#defaultForm').bootstrapValidator({
+                message: '这个值没有被验证',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    username: {
+                        message: '用户名还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '用户名不能为空'
+                            },
+                            stringLength: {
+                                min: 5,
+                                max: 16,
+                                message: '用户名长度在5到16之间'
+                            }
+                        }
+                    },
+                    password: {
+                        message: '密码还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 16,
+                                message: '密码长度在6到16之间'
+                            },
+                            regexp: {
+                                regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
+                                message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
+                            },
+                            different: {
+                                field: 'username',
+                                message: '密码不能和用户名相同'
+                            }
+                        }
+                    }
+                }
+            });
+    });
     </script>
 </body>
 </html>

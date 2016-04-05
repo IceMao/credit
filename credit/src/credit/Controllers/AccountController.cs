@@ -32,7 +32,7 @@ namespace credit.Controllers
             else
             {
                 
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Home");
                
             }
 
@@ -65,29 +65,7 @@ namespace credit.Controllers
             }
             return RedirectToAction("Login", "Account");
         }*/
-        [HttpGet]
-        public IActionResult LiaisonRegiste()
-        {
-            return View();
-        }/*
-        [HttpPost]
-        public async Task<IActionResult> LiaisonRegiste(string registrationNumber, string liaisonName, string liaisonIdNumber, string legalIdNumber, string cellPhoneNumber)
-        {
-            var liaison = new User
-            {
-                RegistrationNumber = registrationNumber,
-                LiaisonName = liaisonName,
-                LiaisonIdNumber = liaisonIdNumber,
-                LegalIdNumber = legalIdNumber,
-                CellPhoneNumber = cellPhoneNumber
-            };
-            var result = await UserManager.CreateAsync(User, password);
-            if (!result.Succeeded)
-            {
-                return Content(result.Errors.First().Description);
-            }
-            return RedirectToAction("Index", "Home");//网站首页
-        }*/
+        
         [HttpGet]
         public IActionResult Modify()
         {

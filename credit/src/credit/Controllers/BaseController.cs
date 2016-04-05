@@ -18,7 +18,9 @@ namespace credit.Controllers
             base.OnActionExecuting(context);
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                var UserCurrent = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();
+                var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
                 ViewBag.UserCurrent = UserCurrent;
             }
         }

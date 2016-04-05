@@ -23,11 +23,11 @@ namespace credit.Models
                 await roleManager.CreateAsync(new IdentityRole { Name = "联络员" });
 
                 var user = new User { UserName = "admin" };
-                await userManager.CreateAsync(user, "Minhan1994!@#");
+                await userManager.CreateAsync(user, "Cream2015!@#");
                 await userManager.AddToRoleAsync(user, "管理员");
 
                 var liaison = new User { UserName = "liaison" };
-                await userManager.CreateAsync(liaison, "Minhan1994!@#");//此处不用密码登录？？
+                await userManager.CreateAsync(liaison, "Cream2015!@#");//此处不用密码登录？？
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456789012345", EnterpriseName = "哈尔滨码锋科技" });
