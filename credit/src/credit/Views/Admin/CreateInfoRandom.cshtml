@@ -1,37 +1,112 @@
-﻿<form asp-controller="Admin" asp-action="CreateInfoRandom" method="post">
-    <h2>创建抽查检查信息</h2>
-    <table class="table">
-        <tr>
-            <th>注册号</th>
-            <td><input class="form-control" type="text" name="RegistrationNumber" /></td>
-        </tr> 
-        <tr>
-            <th>企业名称</th>
-            <td><input class="form-control" type="text" name="EnterpriseName" /></td>
-        </tr>
-        <tr>
-            <th>抽查日期</th>
-            <td><input class="form-control" type="datetime" name="DateTime" value="@DateTime.Now" /></td>
-        </tr>
-        <tr>
-            <th>抽查结果</th>
-            <td><select name="Result">
-                <option>正常</option>
-                <option>经营异常</option>
-                <option>严重违法</option>
-                </select>
-            </td>
-            <!--<td><select name="Result">
-                <option>开业</option>
-                <option>歇业</option>
-                <option>清算</option>
-                <option>迁出</option>
-                </select>
-            </td>-->
-        </tr>
-    </table>
-    <p>
-        <input class="btn inverse" type="submit" value="提交" />
-        <a asp-controller="Admin" asp-action="DetailsInfoRandom">取消</a>
-    </p>
-</form>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>抽查检查信息 录入</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreateInfoRandom" method="post">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">注册号</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="RegistrationNumber" id="RegistrationNumber" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">企业名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="EnterpriseName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">抽查日期</label>
+                    <div class="col-lg-5" id="datetimepicker" data-date="@DateTime.Now" data-date-format="dd-mm-yyyy">
+                        <input id="time" type="datetime" class="form-control" name="DateTime" value="@DateTime.Now" />
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">抽查结果</label>
+                    <div class="col-lg-5">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="Result" value="正常" />正常
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="Result" value="经营异常" />经营异常
+                            </label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="Result" value="严重违法" />严重违法
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <input class="btn inverse" type="submit" value="提交" />
+                        <a asp-controller="Admin" asp-action="DetailsInfoRandom">取消</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $("document").ready(function () {
+        $('#time').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+
+        });
+        $("#defaultForm").bootstrapValidator({
+            live: 'disable',
+            message:'这个值不合法',
+            feedbackIcons:{
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating:'glyphicon glyphicon-refresh'
+            
+            },
+            fields: {
+                RegistrationNumber: {
+                    message: '注册号没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '注册号不能为空'
+                        },
+                        regexp: {
+                            regexp: /^\d{15}$/,
+                            message: '只能是15位数字'
+                        }
+                    }
+
+                },
+                EnterpriseName: {
+                    validators: {
+                        notEmpty: {
+                            message: '企业名不能为空'
+                        }
+                    }
+
+                },
+                Result: {
+                    validators: {
+                        notEmpty: {
+                            message: '必选一项'
+                        }
+                    }
+                }
+
+            }
+        })
+    });
+</script>

@@ -1,19 +1,88 @@
-﻿<form asp-controller="Admin" asp-action="CreateBaseInfo" method="post">
-    <h3>创建企业基本信息</h3>
-    <table class="table">
-        <tr>
-            <th>注册号</th>
-            <td><input class="form-control" type="text" name="RegistrationNumber" /></td>
-        </tr>
-        <tr>
-            <th>企业名</th>
-            <td><input class="form-control" type="text" name="EnterpriseName" /></td>
-        </tr>
-        
-        
-    </table>
-    <p>
-        <input class="btn inverse" type="submit" value="提交" />
-        <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
-    </p>
-</form>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>创建企业基本信息</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreateBaseInfo" method="post">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">注册号</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="RegistrationNumber" id="RegistrationNumber" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">企业名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="EnterpriseName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <input class="btn inverse" type="submit" value="提交" />
+                        <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#defaultForm").bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+
+            },
+            fields: {//注册号不能重复 要有对比
+                RegistrationNumber: {
+                    message: '注册号没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '注册号不能为空'
+                        },
+                        regexp: {
+                            regexp: /^\d{15}$/,
+                            message: '只能是15位数字'
+                        },
+                        remote:{
+                            type:'post',
+                            url: 'Admin/CreateBaseInfo',
+                            
+                                data:function(){
+                                    $.post(url, { "RegistrationNumber": $("#RegistrationNumber").val() }, function (data) {
+                                        if (data == "error") {
+                                            RegistrationNumber: validator.getFieldElements('RegistrationNumber').val()
+                                        } else {
+                                            window.location.href = "/Admin/DetailsBaseInfo";
+                                        }
+                    
+
+                                    })
+                              },
+                            message:'注册号已存在',
+                            delay:1000
+                        }
+                    }
+
+                },
+                EnterpriseName: {
+                    validators: {
+                        notEmpty: {
+                            message: '企业名不能为空'
+                        }
+                    }
+
+                }
+
+            }
+
+        });
+    });
+</script>
+

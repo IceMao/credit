@@ -30,11 +30,25 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateBaseInfo(BaseInfo baseInfo)
+        public IActionResult CreateBaseInfo(BaseInfo baseInfo,int id)
         {
-            DB.BaseInfo.Add(baseInfo);
-            DB.SaveChanges();
-            return RedirectToAction("DetailsBaseInfo", "Admin");
+            var nowBase = DB.BaseInfo
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            var oldBase = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == nowBase.RegistrationNumber)
+                .SingleOrDefault();
+            if (oldBase != null)
+            {
+                return Content("error");
+            }
+            else
+            {
+                DB.BaseInfo.Add(baseInfo);
+                DB.SaveChanges();
+                return RedirectToAction("DetailsBaseInfo", "Admin");
+            }
+            
         }
         [HttpGet]
         public IActionResult EditBaseInfo(int id)
@@ -73,9 +87,6 @@ namespace credit.Controllers
             return RedirectToAction("DetailsBaseInfo", "Admin");
         }
         #endregion
-
-
-
         #region //抽查填写
         //显示表格内容
         [HttpGet]
@@ -156,6 +167,45 @@ namespace credit.Controllers
             DB.SaveChanges();
             System.Diagnostics.Debug.Write("id=" + id);
             return RedirectToAction("DetailsInfoRandom", "Admin");
+        }
+        #endregion
+
+        #region 企业年度报表
+        //创建
+        [HttpGet]
+        public IActionResult DetailsYearReportEnterprise()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult DetailsYearReportEnterprise(YearReportEnterprise YRE,int id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)//判断用户是否登陆
+            {
+                var user = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();//找到当前用户
+                //注册号从当前用户读取
+                var yre = DB.YearReportEnterprise
+                    .Where(x => x.Id == id)
+                    .SingleOrDefault();
+
+                /*var baseinfo = DB.BaseInfo.Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber).SingleOrDefault();
+                if (baseinfo != null)
+                {
+                    DB.InfoRandom.Add(infoRandom);
+                    DB.SaveChanges();
+                }
+                else
+                {
+                    return Content("注册号不存在，请检查");//需要用异步
+                }*/
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return Content("添加成功");//需要用异步
+            
+
         }
         #endregion
     }

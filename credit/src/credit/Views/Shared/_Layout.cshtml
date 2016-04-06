@@ -4,10 +4,17 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>齐齐哈尔市企业信用信息系统后台管理</title>
-    <link href="~/styles/bootstrap.min.css" type="text/css" rel="stylesheet" />
-    <link href="~/styles/style.css" type="text/css" rel="stylesheet" />
-    <script src="~/scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/styles/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="~/styles/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="~/styles/style.css" />
+    <script type="text/javascript" src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="~/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/scripts/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="~/scripts/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="~/scripts/locales/bootstrap-datetimepicker.fr.js"></script>
+
 </head>
 <body class="LayoutPage">
     <nav class="navbar navbar-fixed-top" role="navigation">
@@ -39,7 +46,7 @@
                         </li>
                         <li>
                             <a href="#set" class="collapsed" data-toggle="collapse">
-                                <i class="ico"></i>
+                                <i class="glyphicon glyphicon-leaf"></i>
                                 系统基本信息
                             </a>
                             <ul id="set" class="collapse secondmenu">
@@ -59,7 +66,7 @@
                         </li>
                         <li>
                             <a href="#set2" class="collapsed" data-toggle="collapse">
-                                <i class=""></i>
+                                <i class="glyphicon glyphicon-leaf"></i>
                                 信用公示管理
                             </a>
                             <ul id="set2" class="collapse secondmenu">
@@ -73,7 +80,7 @@
                         </li>
                         <li>
                             <a href="#set3" class="collapsed" data-toggle="collapse">
-                                <i class=""></i>
+                                <i class="glyphicon glyphicon-leaf"></i>
                                 公告管理
                             </a>
                             <ul id="set3" class="collapse secondmenu">
@@ -94,7 +101,7 @@
                     </ul>
                 </aside>
             </div>
-            <div class="col-md-10" style="background-color:rgb(242,242,242);">
+            <div class="col-md-10">
                 @RenderBody()
             </div>
         </div>

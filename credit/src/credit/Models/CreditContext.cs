@@ -11,6 +11,7 @@ namespace credit.Models
     {
         public DbSet<InfoRandom> InfoRandom { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
+        public DbSet<YearReportEnterprise> YearReportEnterprise { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -21,6 +22,10 @@ namespace credit.Models
             });
 
             builder.Entity<BaseInfo>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
+            builder.Entity<YearReportEnterprise>(e =>
             {
                 e.HasIndex(x => x.Id);
             });
