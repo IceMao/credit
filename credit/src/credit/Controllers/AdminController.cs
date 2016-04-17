@@ -30,13 +30,10 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateBaseInfo(BaseInfo baseInfo,int id)
+        public IActionResult CreateBaseInfo(BaseInfo baseInfo)
         {
-            var nowBase = DB.BaseInfo
-                .Where(x => x.Id == id)
-                .SingleOrDefault();
             var oldBase = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == nowBase.RegistrationNumber)
+                .Where(x => x.RegistrationNumber == baseInfo.RegistrationNumber)
                 .SingleOrDefault();
             if (oldBase != null)
             {
