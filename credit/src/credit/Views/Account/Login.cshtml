@@ -45,43 +45,7 @@
             </section>
         </div>
     </div>
-   <!--<div id="login" class="log-in">
-        <div id="login-center" class="login-center">
-            <h1>Welcome</h1>
-            <form class="form-horizontal" id="defaultForm" asp-controller="Account" asp-action="Login" method="post">
-                <div class="form-group">
-                    <lable class="col-lg-3 control-lable">User Name</lable>
-                    <div class="col-lg-5">
-                        <input type="text" class="form-control" name="username" placeholder="UserName" id="username" />
-                        
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Password</label>
-                    <div class="col-lg-5">
-                        <input type="password" class="form-control" name="password" placeholder="password" id="password" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-9 col-lg-offset-3">
-                        <div id="errors"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-9 col-lg-offset-3">
-                        <!--<a class="btn" href="/">注册</a>
-                        <input class="btn" id="btnLogin" value="Login" />
-                    </div>
-                </div>
-                <!--<input class="input" type="text" name="username" id="username" placeholder="用户名">
-                <input class="input" type="password" name="password" id="password" placeholder="密码">
-                <a class="btn" href="/">注册</a>
-                <input class="btn" id="btnLogin" value="Login" />
-            </form>
-            
-        </div>
-        
-    </div>-->
+   
     <script src="~/scripts/jquery-1.10.2.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
     <script src="~/scripts/bootstrapValidator.min.js"></script>
@@ -90,12 +54,6 @@
             $("#btnLogin").click(function () {
                 
                 var url = "/Account/Login";
-                //var username1 = $.trim($('input[name=username').val());
-                
-                //var password1 = $.trim($('input[name=password').val());
-                
-               // var params = { "username": username1, "&password": password1 };
-                
                 var params = { "username": $("#username").val(), "password": $("#password").val() };
                 $.post(url, params, function (data) {
                     if (data == "success") {

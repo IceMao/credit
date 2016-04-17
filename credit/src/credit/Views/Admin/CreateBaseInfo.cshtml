@@ -49,25 +49,8 @@
                         regexp: {
                             regexp: /^\d{15}$/,
                             message: '只能是15位数字'
-                        },
-                        remote:{
-                            type:'post',
-                            url: 'Admin/CreateBaseInfo',
-                            
-                                data:function(){
-                                    $.post(url, { "RegistrationNumber": $("#RegistrationNumber").val() }, function (data) {
-                                        if (data == "error") {
-                                            RegistrationNumber: validator.getFieldElements('RegistrationNumber').val()
-                                        } else {
-                                            window.location.href = "/Admin/DetailsBaseInfo";
-                                        }
-                    
-
-                                    })
-                              },
-                            message:'注册号已存在',
-                            delay:1000
                         }
+                        
                     }
 
                 },

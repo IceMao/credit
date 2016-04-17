@@ -82,9 +82,8 @@ namespace credit.Controllers
                 .SingleOrDefault();
             DB.BaseInfo.Remove(baseInfo);
             DB.SaveChanges();
-            //System.Diagnostics.Debug.Write("id=" + id);
 
-            return RedirectToAction("DetailsBaseInfo", "Admin");
+            return Content("success");
         }
         #endregion
         #region //抽查填写
@@ -164,8 +163,7 @@ namespace credit.Controllers
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             DB.InfoRandom.Remove(infoRandom);
-            DB.SaveChanges();
-            System.Diagnostics.Debug.Write("id=" + id);
+            DB.SaveChanges(); 
             return RedirectToAction("DetailsInfoRandom", "Admin");
         }
         #endregion

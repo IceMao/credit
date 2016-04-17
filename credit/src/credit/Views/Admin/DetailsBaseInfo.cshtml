@@ -13,7 +13,7 @@
         <tbody>
             @foreach (var x in Model)
             {
-                <tr>
+                <tr id="table-tr-@x.Id">
                     <td>@x.Id</td>
                     <td>@x.RegistrationNumber</td>
                     <td>@x.EnterpriseName</td>
@@ -33,16 +33,22 @@
 
 @if (User.IsSignedIn())
 {
-    <form id="frmDelete" asp-controller="Admin" asp-action="DeleteBaseInfo" method="post">
-        <input type="hidden" id="Id" name="id" />
-    </form>
     <script>
         function remove(id)
         {
             var jug = confirm("确认删除？");
             if (jug == true) {
-                $('#Id').val(id);
-                $('#frmDelete').submit();
+                var url = "/Admin/DeleteBaseInfo";
+                var params={"id":id};
+                $.post(url, params, function (data) {
+                    if (data == "success") {
+                        alert("删除成功");
+                        $("#table-tr-" + id).remove();
+                    }
+                    else {
+                        alert("删除失败");
+                    }
+                });
             }
         }
     </script>
