@@ -1,5 +1,94 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>抽查公告创建</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreateAnnouncementRandom" method="post">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">公告标题</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="title" id="title" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">公告时间</label>
+                    <div class="col-lg-5">
+                        <input type="datetime" class="form-control" name="DateTime" id="DateTime" value="@DateTime.Now" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">内容</label>
+                    <div class="col-lg-5">
+                        <textarea  class="form-control" name="Content" id="Content"></textarea>
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        @*<button id="submit" class="btn btn-success">提交</button>*@
+                        <input type="submit" class="btn btn-success" value="提交" />
+                        <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var url = "/Admin/CreateAnnouncementRandom";
+            var params = { "title": $('#title').val(),"data":$("#DateTime").val(), "Content": $("#Content").val() };
+            $.post(url, params, function (data) {
+                if (data == "success") {
+                    alert("添加成功");
+                    window.location.href = "/Admin/DetailsAnnouncementRandom";
+                } else {
+                    alert("添加失败");
+
+                }
+            })
+        });
+
+        $("#defaultForm").bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+
+            },
+            fields: {//注册号不能重复 要有对比
+                title: {
+                    message: '标题没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '标题不能为空'
+                        }
+
+                    }
+
+                },
+                Content: {
+                    validators: {
+                        notEmpty: {
+                            message: '内容不能为空'
+                        }
+                    }
+
+                },
+                DateTime: {
+                    validators: {
+                        notEmpty: {
+                            message: '公示时间不能为空'
+                        }
+                    }
+
+                }
+            }
+
+        });
+    });
+</script>

@@ -1,0 +1,87 @@
+﻿@model AnnouncementRandom
+<form>
+    <h3>编辑抽查公告</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>标题</th>
+                <td><input type="text" class="form-control" name="title" id="title" value="@Model.title" /></td>
+             </tr>
+            <tr>
+                <th>公告时间</th>
+                <td><input type="DateTime" class="form-control" name="DateTime" id="DateTime" value="@Model.DateTime" /></td>
+            </tr>
+             <tr>
+                <th>内容</th>
+                 <td><textarea class="form-control" id="Content" name="Content">@Model.Content</textarea></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                
+                
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <input class="btn inverse" id="submit" value="提交" />
+        <a asp-controller="Admin" asp-action="DetailsAnnouncementRandom">取消</a>
+    </p>
+</form>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var url = "/Admin/EditAnnouncementRandom";
+            var params = { "title": $('#title').val(),"data":$("#DateTime").val(), "Content": $("#Content").val() };
+            $.post(url, params, function (data) {
+                if (data == "success") {
+                    alert("修改成功");
+                    window.location.href = "/Admin/DetailsAnnouncementRandom";
+                } else {
+                    alert("修改失败");
+
+                }
+            })
+        });
+
+        $("#defaultForm").bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+
+            },
+            fields: {//注册号不能重复 要有对比
+                title: {
+                    message: '标题没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '标题不能为空'
+                        }
+
+                    }
+
+                },
+                Content: {
+                    validators: {
+                        notEmpty: {
+                            message: '内容不能为空'
+                        }
+                    }
+
+                },
+                DateTime: {
+                    validators: {
+                        notEmpty: {
+                            message: '公示时间不能为空'
+                        }
+                    }
+
+                }
+            }
+
+        });
+    });
+</script>

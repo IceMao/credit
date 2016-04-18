@@ -17,7 +17,7 @@ namespace credit.Controllers
         [FromServices]
         public CreditContext DB { get; set; }
 
-        #region 管理员添加的基本信息（增删改查）
+        #region 管理员添加 注册号基本表（增删改查）
         [HttpGet]
         public IActionResult DetailsBaseInfo()
         {
@@ -43,7 +43,8 @@ namespace credit.Controllers
             {
                 DB.BaseInfo.Add(baseInfo);
                 DB.SaveChanges();
-                return RedirectToAction("DetailsBaseInfo", "Admin");
+                //return RedirectToAction("DetailsBaseInfo", "Admin");
+                return Content("success");
             }
             
         }
@@ -83,7 +84,85 @@ namespace credit.Controllers
             return Content("success");
         }
         #endregion
-        #region //抽查填写
+
+        #region 公告
+        //抽查公告
+        public IActionResult DetailsAnnouncementRandom()
+        {
+            var ARandom = DB.AnnouncementRandom.ToList();
+            return View(ARandom);
+        }
+        [HttpGet]
+        public IActionResult CreateAnnouncementRandom()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateAnnouncementRandom(AnnouncementRandom ARandom)
+        {
+
+            DB.AnnouncementRandom.Add(ARandom);
+            DB.SaveChanges();
+            //return Content("success");
+            return RedirectToAction("DetailsAnnouncementRandom", "Admin");
+        }
+
+        [HttpGet]
+        public IActionResult EditAnnouncementRandom(int id)
+        {
+            var ARandom = DB.AnnouncementRandom
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(ARandom == null)
+            {
+                return Content("不存在该记录");
+            }
+            else
+            {
+                return View(ARandom);
+            }
+            
+        }
+
+        [HttpPost]
+        public IActionResult EditAnnouncementRandom(AnnouncementRandom ARandom,int id)
+        {
+            var random = DB.AnnouncementRandom
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(random == null)
+            {
+                return Content("不存在该记录");
+            }
+            else
+            {
+                random.title = ARandom.title;
+                random.Content = ARandom.Content;
+                random.DateTime = ARandom.DateTime;
+                DB.SaveChanges();
+                return Content("success");
+            }
+        }
+        public IActionResult DeleteAnnouncementRandom(int id)
+        {
+            var ARandom = DB.AnnouncementRandom
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(ARandom == null)
+            {
+                return Content("error");
+            }
+            else
+            {
+                DB.AnnouncementRandom.Remove(ARandom);
+                DB.SaveChanges();
+                return Content("success");
+            }
+        }
+
+        #endregion
+
+        #region  抽查公示填写
         //显示表格内容
         [HttpGet]
         public IActionResult DetailsInfoRandom()
@@ -103,25 +182,41 @@ namespace credit.Controllers
             //判断 抽查时填入的注册号 在数据库中是否存在
             //下面这样写可以判断他在 baseInfo 中是否存在吗？
             //if (infoRandom.RegistrationNumber == baseInfo.RegistrationNumber)
-            if(HttpContext.User.Identity.IsAuthenticated)//判断用户是否登陆
+
+
+            //if(HttpContext.User.Identity.IsAuthenticated)//判断用户是否登陆
+            //{
+            //    var user = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();//找到当前用户
+            //    var baseinfo = DB.BaseInfo.Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber).SingleOrDefault();
+            //    if (baseinfo != null)
+            //    {
+            //        DB.InfoRandom.Add(infoRandom);
+            //        DB.SaveChanges();
+            //    }
+            //    else
+            //    {
+            //        return Content("注册号不存在，请检查");//需要用异步
+            //    }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            //return Content("添加成功");//需要用异步 
+
+            var baseinfo = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber)
+                .SingleOrDefault();
+            if (baseinfo != null)
             {
-                var user = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();//找到当前用户
-                var baseinfo = DB.BaseInfo.Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber).SingleOrDefault();
-                if (baseinfo != null)
-                {
-                    DB.InfoRandom.Add(infoRandom);
-                    DB.SaveChanges();
-                }
-                else
-                {
-                    return Content("注册号不存在，请检查");//需要用异步
-                }
+                DB.InfoRandom.Add(infoRandom);
+                DB.SaveChanges();
+                return Content("success");
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                return Content("error");//需要用异步
             }
-            return Content("添加成功");//需要用异步
         }
         
         // 编辑表格
@@ -159,9 +254,17 @@ namespace credit.Controllers
             var infoRandom = DB.InfoRandom
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            DB.InfoRandom.Remove(infoRandom);
-            DB.SaveChanges(); 
-            return RedirectToAction("DetailsInfoRandom", "Admin");
+            if(infoRandom == null)
+            {
+                return Content("null");
+            }
+            else
+            {
+                DB.InfoRandom.Remove(infoRandom);
+                DB.SaveChanges();
+                return Content("success");
+            }
+            
         }
         #endregion
 

@@ -31,6 +31,8 @@ namespace credit.Models
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456789012345", EnterpriseName = "哈尔滨码锋科技" });
+                db.InfoRandom.Add(new InfoRandom { EnterpriseName = "哈尔滨码锋科技", RegistrationNumber = "123456789012345", DateTime = DateTime.Now, Result = "正常" });
+                db.AnnouncementRandom.Add(new AnnouncementRandom { title = "抽查公告题目", Content = "这是抽查公告的内容", DateTime = DateTime.Now });
             }
             db.SaveChanges();
         }

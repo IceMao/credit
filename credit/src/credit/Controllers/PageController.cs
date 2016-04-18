@@ -14,6 +14,19 @@ namespace credit.Controllers
         [FromServices]
         public CreditContext DB { get; set; }
 
+        #region 企业年度信息填报
+        [HttpGet]
+        public IActionResult CreateYearReportEnterprise()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateYearReportEnterprise(int XX)
+        {
+            return View();
+        }
+        #endregion
+        //搜索总页
         [HttpGet]
         public IActionResult Search()
         {
@@ -58,11 +71,43 @@ namespace credit.Controllers
 
         #region 各个公示 显示 页面
 
+        //抽查公示
         [HttpGet]
         public IActionResult InfoRandom()
         {
-            return View();
+            var infoRandom = DB.InfoRandom
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return View(infoRandom);
         }
+        
+        public IActionResult SearchRandom(string key)
+        {
+
+            var enterprise = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == key)
+                .SingleOrDefault();
+            if (enterprise == null)
+            {
+                return Content("该注册号不存在");
+            }
+            else
+            {
+                var random = DB.InfoRandom
+                    .Where(x => x.RegistrationNumber == key)
+                    .ToList();
+                if (random == null)
+                {
+                    return Content("该注册号不在抽查范围");
+                }
+                else
+                {
+                    return View(random);
+                }
+            }
+
+        }
+        //异常公示
         [HttpGet]
         public IActionResult InfoIllegal()
         {

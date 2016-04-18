@@ -6,11 +6,9 @@ using Microsoft.AspNet.Mvc;
 using credit.Models;
 using Microsoft.AspNet.Identity;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace credit.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         [FromServices]
         public SignInManager<User> signInManager { get; set; }
@@ -27,45 +25,61 @@ namespace credit.Controllers
             if (result.Succeeded)
             {
                 return Content("success");
-                // return RedirectToAction("Manage", "Home");//后台管理页面
             }
             else
             {
-                
                 return RedirectToAction("Index", "Home");
-               
-            }
-
+             }
         }
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
-
+        #region 联络员
         [HttpGet]
-        public IActionResult Registe()
+        public IActionResult LoginLiaison()
         {
             return View();
-        }/*
+        }
         [HttpPost]
-        public async Task<IActionResult> Registe(string username, string password)
+        public async Task<IActionResult> LoginLiaison(string username, string password)
+        {
+            var user = await signInManager.PasswordSignInAsync(username, password, false, false);
+            if (user.Succeeded)
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("error");
+            }
+        }
+        //注册
+        [HttpGet]
+        public async Task<IActionResult> Register()
+        {
+            ViewBag.liaison = (await userManager.GetUsersInRoleAsync("联络员")).Count();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(string password, string RegistrationNumber, string LiaisonName,string LiaisonIdNumber,string CellPhoneNumber)
         {
             var user = new User
             {
-                UserName = username,
+                RegistrationNumber = RegistrationNumber,
+                LiaisonIdNumber = LiaisonIdNumber,
+                LiaisonName = LiaisonName,
+                CellPhoneNumber = CellPhoneNumber
             };
             //创建用户
-            var result = ?;
-            if (!result.Succeeded)
-            {
-                return Content(result.Errors.First().Description);
-            }
-            return RedirectToAction("Login", "Account");
-        }*/
-        
+            await userManager.CreateAsync(user, password);
+            await userManager.AddToRoleAsync(user, "联络员");
+            DB.SaveChanges();
+            return Content("success");
+        }
+        #endregion
         [HttpGet]
         public IActionResult Modify()
         {

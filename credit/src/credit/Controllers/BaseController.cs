@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using credit.Models;
 using Microsoft.AspNet.Mvc.Filters;
+using Microsoft.AspNet.Identity;
 
 namespace credit.Controllers
 {
@@ -13,6 +14,9 @@ namespace credit.Controllers
     {
         [FromServices]
         public CreditContext DB { get; set; }
+        [FromServices]
+        public UserManager<User> userManager { get; set; }
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);

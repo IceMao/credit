@@ -21,9 +21,14 @@ namespace credit
         public void ConfigureServices(IServiceCollection services)
         {
             var appEnv = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
+            //services.AddEntityFramework()
+            //    .AddSqlite()
+            //    .AddDbContext<CreditContext>(x => x.UseSqlite("data source=" + appEnv.ApplicationBasePath + "/Database/credit.db"));
+
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<CreditContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=credit;"));
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<CreditContext>()
                 .AddDefaultTokenProviders();

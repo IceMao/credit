@@ -1,35 +1,38 @@
 ﻿@model IEnumerable<BaseInfo>
-<div class="container-fluid">
-    <h3>企业基本信息</h3>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>序号</th>
-                <th>注册号</th>
-                <th>企业名称</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var x in Model)
-            {
-                <tr id="table-tr-@x.Id">
-                    <td>@x.Id</td>
-                    <td>@x.RegistrationNumber</td>
-                    <td>@x.EnterpriseName</td>
-                    @if (User.IsSignedIn())
-                {
-                        <td>
-                            <a asp-action="EditBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
-                            <a href="javascript:remove(@x.Id)">删除</a>
-                        </td>
-                    }
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <h3>企业基本信息</h3>
+        <table class="table table-hover" style="margin-top:-15px;">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>注册号</th>
+                    <th>企业名称</th>
+                    <th>操作</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr id="table-tr-@x.Id">
+                        <td>@x.Id</td>
+                        <td>@x.RegistrationNumber</td>
+                        <td>@x.EnterpriseName</td>
+                        @if (User.IsSignedIn())
+                        {
+                            <td>
+                                <a asp-action="EditBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
+                                <a href="javascript:remove(@x.Id)">删除</a>
+                            </td>
+                        }
+                    </tr>
 
-            }
-        </tbody>
-    </table>
+                    }
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
 @if (User.IsSignedIn())
 {

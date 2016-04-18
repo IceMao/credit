@@ -9,6 +9,9 @@ namespace credit.Models
 {
     public class CreditContext:IdentityDbContext<User>
     {
+        public DbSet<AnnouncementIllegal> AnnouncementIllegal { get; set; }
+        public DbSet<AnnouncementUnsual> AnnouncementUnsual { get; set; }
+        public DbSet<AnnouncementRandom> AnnouncementRandom { get; set; }
         public DbSet<InfoRandom> InfoRandom { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
         public DbSet<YearReportEnterprise> YearReportEnterprise { get; set; }
@@ -16,6 +19,18 @@ namespace credit.Models
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<AnnouncementRandom>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
+            builder.Entity<AnnouncementUnsual>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
+            builder.Entity<AnnouncementIllegal>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
             builder.Entity<InfoRandom>(e =>
             {
                 e.HasIndex(x => x.Id);
