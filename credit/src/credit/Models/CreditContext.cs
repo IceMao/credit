@@ -14,6 +14,7 @@ namespace credit.Models
         public DbSet<AnnouncementRandom> AnnouncementRandom { get; set; }
         public DbSet<InfoRandom> InfoRandom { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<YearReportEnterprise> YearReportEnterprise { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using credit.Models;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,11 +16,13 @@ namespace credit.Controllers
         public CreditContext DB { get; set; }
 
         #region 企业年度信息填报
+        [Authorize(Roles = ("联络员"))]
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()
         {
             return View();
         }
+        [Authorize(Roles = ("联络员"))]
         [HttpPost]
         public IActionResult CreateYearReportEnterprise(int XX)
         {
@@ -49,23 +52,60 @@ namespace credit.Controllers
         #endregion
 
         #region 各个公告页面
+
+        //单独公告显示——抽查
+        [HttpGet]
+        public IActionResult ArticlePageRandom(int id)
+        {
+            var article = DB.AnnouncementRandom
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            return View(article);
+        }
+        //单独公告显示——经营异常
+        [HttpGet]
+        public IActionResult ArticlePageUnsual(int id)
+        {
+            var article = DB.AnnouncementUnsual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            return View(article);
+        }
+        //单独公告显示——严重违法
+        [HttpGet]
+        public IActionResult ArticlePageIllegal(int id)
+        {
+            var article = DB.AnnouncementIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            return View(article);
+        }
         //异常公告
         [HttpGet]
         public IActionResult AnnouncementUnsual()
         {
-            return View();
+            var AUnsual = DB.AnnouncementUnsual
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return View(AUnsual);
         }
         //AnnouncementRandom 抽查检查信息公告
         [HttpGet]
         public IActionResult AnnouncementRandom()
         {
-            return View();
+            var ARandom = DB.AnnouncementRandom
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return View(ARandom);
         }
         //AnnouncementIllegal 严重违法信息公告
         [HttpGet]
         public IActionResult AnnouncementIllegal()
         {
-            return View();
+            var AIllegal = DB.AnnouncementIllegal
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return View(AIllegal);
         }
         #endregion
 

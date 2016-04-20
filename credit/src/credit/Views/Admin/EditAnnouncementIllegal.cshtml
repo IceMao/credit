@@ -1,32 +1,28 @@
-﻿@model AnnouncementRandom
-<form asp-controller="Admin" asp-action="EditAnnouncementRandom" method="post">
+﻿@model AnnouncementIllegal
+<form asp-controller="Admin" asp-action="EditAnnouncementIllegal" method="post">
     <h3>编辑抽查公告</h3>
     <table class="table">
         <thead>
             <tr>
                 <th>标题</th>
                 <td><input type="text" class="form-control" name="title" id="title" value="@Model.title" /></td>
-             </tr>
+            </tr>
             <tr>
                 <th>公告时间</th>
                 <td><input type="DateTime" class="form-control" name="DateTime" id="DateTime" value="@Model.DateTime" /></td>
             </tr>
-             <tr>
+            <tr>
                 <th>内容</th>
-                 <td><textarea class="form-control" id="Content" name="Content">@Model.Content</textarea></td>
+                <td><textarea class="form-control" id="Content" name="Content">@Model.Content</textarea></td>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                
-                
-                
-            </tr>
+            <tr></tr>
         </tbody>
     </table>
     <p>
         <input class="btn inverse" type="submit" value="提交" />
-        <a asp-controller="Admin" asp-action="DetailsAnnouncementRandom">取消</a>
+        <a asp-controller="Admin" asp-action="DetailsAnnouncementIllegal">取消</a>
     </p>
 </form>
 <script>

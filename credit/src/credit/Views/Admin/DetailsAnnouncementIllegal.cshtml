@@ -1,5 +1,59 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model IEnumerable<AnnouncementIllegal>
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <h3>严重违法公告管理</h3>
+        <table class="table table-hover" style="margin-top:-15px;">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>标题</th>
+                    <th>公告时间</th>
+                    <th>内容</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr id="table-tr-@x.Id">
+                        <td>@x.Id</td>
+                        <td>@x.title</td>
+                        <td>@x.DateTime</td>
+                        <td>@x.Content</td>
+                        @if (User.IsSignedIn())
+                        {
+                            <td>
+                                <a asp-action="EditAnnouncementIllegal" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
+                                <a href="javascript:remove(@x.Id)">删除</a>
+                            </td>
+                        }
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (User.IsSignedIn())
+{
+    <script>
+        function remove(id)
+        {
+            var jug = confirm("确认删除？");
+            if (jug == true) {
+                var url = "/Admin/DeleteAnnouncementIllegal";
+                var params={"id":id};
+                $.post(url, params, function (data) {
+                    if (data == "success") {
+                        alert("删除成功");
+                        $("#table-tr-" + id).remove();
+                    }
+                    else {
+                        alert("删除失败");
+                    }
+                });
+            }
+        }
+    </script>
 }

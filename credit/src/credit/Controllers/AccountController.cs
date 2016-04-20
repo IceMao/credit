@@ -64,20 +64,34 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(string password, string RegistrationNumber, string LiaisonName,string LiaisonIdNumber,string CellPhoneNumber)
+        public async Task<IActionResult> Register(string username,string password,string EnterpriseName, string RegistrationNumber, string LiaisonName,string LiaisonIdNumber,string CellPhoneNumber)
         {
-            var user = new User
+            
+            var register = DB.User
+                .Where(x => x.RegistrationNumber == RegistrationNumber)
+                .SingleOrDefault();
+            if(register == null)
             {
-                RegistrationNumber = RegistrationNumber,
-                LiaisonIdNumber = LiaisonIdNumber,
-                LiaisonName = LiaisonName,
-                CellPhoneNumber = CellPhoneNumber
-            };
-            //创建用户
-            await userManager.CreateAsync(user, password);
-            await userManager.AddToRoleAsync(user, "联络员");
-            DB.SaveChanges();
-            return Content("success");
+                return Content("error");
+            }
+            else
+            {
+                var user = new User
+                {
+                    UserName = username,
+                    EnterpriseName = EnterpriseName,
+                    RegistrationNumber = RegistrationNumber,
+                    LiaisonIdNumber = LiaisonIdNumber,
+                    LiaisonName = LiaisonName,
+                    CellPhoneNumber = CellPhoneNumber
+                };
+                //创建用户
+                await userManager.CreateAsync(user, password);
+                await userManager.AddToRoleAsync(user, "联络员");
+                DB.SaveChanges();
+                return Content("success");
+            }
+            
         }
         #endregion
         [HttpGet]

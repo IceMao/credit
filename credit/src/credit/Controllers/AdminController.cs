@@ -85,7 +85,7 @@ namespace credit.Controllers
         }
         #endregion
 
-        #region 公告
+        #region 抽查公告
         //抽查公告
         public IActionResult DetailsAnnouncementRandom()
         {
@@ -140,7 +140,7 @@ namespace credit.Controllers
                 random.Content = ARandom.Content;
                 random.DateTime = ARandom.DateTime;
                 DB.SaveChanges();
-                return Content("success");
+                return RedirectToAction("DetailsAnnouncementRandom", "Admin");
             }
         }
         public IActionResult DeleteAnnouncementRandom(int id)
@@ -155,6 +155,158 @@ namespace credit.Controllers
             else
             {
                 DB.AnnouncementRandom.Remove(ARandom);
+                DB.SaveChanges();
+                return Content("success");
+            }
+        }
+
+        #endregion
+        #region 经营异常公告
+        //经营异常公告
+        public IActionResult DetailsAnnouncementUnsual()
+        {
+            var AUnsual = DB.AnnouncementUnsual.ToList();
+            return View(AUnsual);
+        }
+        [HttpGet]
+        public IActionResult CreateAnnouncementUnsual()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateAnnouncementUnsual(AnnouncementUnsual AUnsual)
+        {
+
+            DB.AnnouncementUnsual.Add(AUnsual);
+            DB.SaveChanges();
+            //return Content("success");
+            return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
+        }
+
+        [HttpGet]
+        public IActionResult EditAnnouncementUnsual(int id)
+        {
+            var AUnsual = DB.AnnouncementUnsual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (AUnsual == null)
+            {
+                return Content("不存在该记录");
+            }
+            else
+            {
+                return View(AUnsual);
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult EditAnnouncementUnsual(AnnouncementUnsual AUnsual, int id)
+        {
+            var Unsual = DB.AnnouncementUnsual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (Unsual == null)
+            {
+                return Content("不存在该记录");
+            }
+            else
+            {
+                Unsual.title = AUnsual.title;
+                Unsual.Content = AUnsual.Content;
+                Unsual.DateTime = AUnsual.DateTime;
+                DB.SaveChanges();
+                return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
+            }
+        }
+        public IActionResult DeleteAnnouncementUnsual(int id)
+        {
+            var AUnsual = DB.AnnouncementUnsual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (AUnsual == null)
+            {
+                return Content("error");
+            }
+            else
+            {
+                DB.AnnouncementUnsual.Remove(AUnsual);
+                DB.SaveChanges();
+                return Content("success");
+            }
+        }
+
+        #endregion
+        #region 严重违法公告
+        //严重违法公告
+        public IActionResult DetailsAnnouncementIllegal()
+        {
+            var AIllegal = DB.AnnouncementIllegal.ToList();
+            return View(AIllegal);
+        }
+        [HttpGet]
+        public IActionResult CreateAnnouncementIllegal()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateAnnouncementIllegal(AnnouncementIllegal AIllegal)
+        {
+
+            DB.AnnouncementIllegal.Add(AIllegal);
+            DB.SaveChanges();
+            //return Content("success");
+            return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
+        }
+
+        [HttpGet]
+        public IActionResult EditAnnouncementIllegal(int id)
+        {
+            var AIllegal = DB.AnnouncementIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (AIllegal == null)
+            {
+                return Content("不存在该记录");
+            }
+            else
+            {
+                return View(AIllegal);
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult EditAnnouncementIllegal(AnnouncementIllegal AIllegal, int id)
+        {
+            var Illegal = DB.AnnouncementIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (Illegal == null)
+            {
+                return Content("不存在该记录");
+            }
+            else
+            {
+                Illegal.title = AIllegal.title;
+                Illegal.Content = AIllegal.Content;
+                Illegal.DateTime = AIllegal.DateTime;
+                DB.SaveChanges();
+                return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
+            }
+        }
+        public IActionResult DeleteAnnouncementIllegal(int id)
+        {
+            var AIllegal = DB.AnnouncementIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (AIllegal == null)
+            {
+                return Content("error");
+            }
+            else
+            {
+                DB.AnnouncementIllegal.Remove(AIllegal);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -270,11 +422,14 @@ namespace credit.Controllers
 
         #region 企业年度报表
         //创建
+        
         [HttpGet]
         public IActionResult DetailsYearReportEnterprise()
         {
+
             return View();
         }
+        
         [HttpPost]
         public IActionResult DetailsYearReportEnterprise(YearReportEnterprise YRE,int id)
         {

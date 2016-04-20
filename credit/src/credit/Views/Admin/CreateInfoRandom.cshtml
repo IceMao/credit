@@ -17,12 +17,7 @@
                         <input type="text" class="form-control" name="EnterpriseName" id="EnterpriseName" />
                     </div>
                 </div>
-                @*<div class="form-group">
-                    <label class="col-lg-3 control-label">抽查日期</label>
-                    <div class="col-lg-5" id="datetimepicker" data-date="@DateTime.Now" data-date-format="dd-mm-yyyy">
-                        <input id="time" type="date" class="form-control" name="DateTime" value="@DateTime.Now" />
-                    </div>
-                </div>*@
+                
                 <div class="form-group">
                     <label class="col-lg-3 control-label">抽查日期</label>
                     <div class="col-lg-5" id="datetimepicker" data-date="@DateTime.Now" data-date-format="dd-mm-yyyy">
@@ -66,7 +61,8 @@
            
             $("#submit").click(function () {
                 var url = "/Admin/CreateInfoRandom";
-                var params = { "RegistrationNumber": $("#RegistrationNumber").val(), "EnterpriseName": $("#EnterpriseName").val(),"DateTime":$("#time").val()};
+                var Result = $("input:radio[name='Result']:checked").val();
+                var params = { "RegistrationNumber": $("#RegistrationNumber").val(), "EnterpriseName": $("#EnterpriseName").val(), "DateTime": $("#time").val(), "Result": Result };
                 $.post(url, params, function (data) {
                     if (data == "error") {
                         alert("注册号不存在");

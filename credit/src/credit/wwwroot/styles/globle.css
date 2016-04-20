@@ -12,9 +12,12 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 .APage .leftSide ul li{margin:10px 50px 10px 0; height:30px; line-height: 30px;}
 .APage .leftSide ul li:hover{background:#eee;}
 .APage .leftSide ul li a{font-size:14px; font-family: Helvetica; color:#111;}
-.APage .leftSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float-right; margin-right: 25px;}
-.APage .rightSide{width:34%; background:#e23;float: right;}
+.APage .leftSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float:right; margin-right: 25px;}
+.APage .rightSide{width:34%; background-color:#fff; float: right;}
 .APage .rightSide h3{margin: 50px 0 25px 25px;font-size: 1.5em;font-family: Helvetica;}
+.APage .rightSide ul li{padding-left:25px;}
+.APage .rightSide ul li a{font-size:13px; font-family: Helvetica; color:#111;}
+.APage .rightSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float:right; margin-right: 25px;}
 /*异常公告 页面 begin*/
 .AnnouncementUnsualPage{}
 /*异常公告 页面 end*/

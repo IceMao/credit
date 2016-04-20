@@ -1,21 +1,32 @@
-﻿@{
+﻿@model IEnumerable<AnnouncementUnsual>
+@{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 <content class="APage AnnouncementUnsualPage">
     <div class="leftSide">
         <h3>经营异常信息公告</h3>
         <ul>
-            <li><a href="">齐齐哈尔市建钢厂经营异常信息公告通报</a><span>2013-2-12</span></li>
-            <li><a href="">齐齐哈尔市建钢厂经营异常信息公告通报</a><span>2013-2-23</span></li>
-            <li><a href="">齐齐哈尔市建钢厂经营异常信息公告通报</a><span>2013-2-31</span></li>
+            @foreach (var x in Model)
+            {
+                <li>
+                    <a asp-controller="Page" asp-action="ArticlePageUnsual" asp-route-id="@x.Id">@x.title</a>
+                    <span>@x.DateTime</span>
+                </li>
+
+            }
         </ul>
     </div>
     <div class="rightSide">
-        <h3>抽查信息公告</h3>
+        <h3>最新公告</h3>
         <ul>
-            <li><a href="">齐齐哈尔市建钢厂抽查信息公告通报</a><span>2013-2-12</span></li>
-            <li><a href="">齐齐哈尔市建钢厂抽查信息公告通报</a><span>2013-2-23</span></li>
-            <li><a href="">齐齐哈尔市建钢厂抽查信息公告通报</a><span>2013-2-31</span></li>
+            @foreach (var x in Model)
+            {
+                <li>
+                    <a href="#">@x.title</a>
+                    <span>@x.DateTime</span>
+                </li>
+
+            }
         </ul>
     </div>
 </content>
