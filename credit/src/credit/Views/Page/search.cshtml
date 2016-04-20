@@ -1,6 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BaseInfo
 @{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<h1>搜索页</h1>
+<content class="InfoPage">
+    <div class="search">
+        <form asp-action="Search" asp-controller="Page" method="post">
+            <input type="text" name="key" placeholder="请输入公司注册号搜索">
+            <input class="btn1" type="submit" vlaue="搜索" />
+        </form>
+    </div>
+    <div>
+        <ol class="breadcrumb">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="active">搜索详细</li>
+        </ol>
+    </div>
+    <div class="list">
+        <h3>搜索结果</h3>
+        <ul class="list-title">
+            <li class="list-name">企业名称</li>
+            <li>注册号</li>
+        </ul>
+        <ul class="list-content">
+            <li class="list-name"><a href="/">@Model.EnterpriseName</a></li>
+            <li>@Model.RegistrationNumber</li>
+        </ul>
+    </div>
+</content>

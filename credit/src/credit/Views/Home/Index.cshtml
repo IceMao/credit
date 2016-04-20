@@ -54,10 +54,12 @@
                 </li>
             </ul>
         </div>
+
         <div class="input">
-            <input type="text" placeholder="请输入公司注册号">
-            <a asp-controller="Page" asp-action="Search" class="btn1">提交</a>
-            <!--<input class="btn1" type="submit" vlaue="提交" />-->
+            <form asp-action="Search" asp-controller="Page" method="post">
+                <input type="text" name="key" placeholder="请输入公司注册号">
+                <input class="btn1" type="submit" vlaue="搜索" />
+            </form>
         </div>
     </nav>
 

@@ -36,6 +36,24 @@ namespace credit.Controllers
             return View();
         }
 
+        #region index search
+        
+        public IActionResult Search(string key)
+        {
+            var r = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == key)
+                .SingleOrDefault();
+            if(r == null)
+            {
+                return Content("该注册号不存在");
+            }
+            else
+            {
+                return View(r);
+            }
+        }
+        #endregion 
+
         #region “总页”
         //信息填报
         [HttpGet]
