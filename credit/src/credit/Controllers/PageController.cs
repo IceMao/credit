@@ -109,9 +109,8 @@ namespace credit.Controllers
         }
         #endregion
 
-        #region 各个公示 显示 页面
-
-        //抽查公示
+        #region 抽查公示 显示 页面
+        
         [HttpGet]
         public IActionResult InfoRandom()
         {
@@ -147,16 +146,78 @@ namespace credit.Controllers
             }
 
         }
-        //异常公示
+        #endregion
+        #region 违法公示 显示页面
+
         [HttpGet]
         public IActionResult InfoIllegal()
         {
-            return View();
+            var infoIllegal = DB.InfoIllegal
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return View(infoIllegal);
         }
+        public IActionResult SearchIllegal(string key)
+        {
+
+            var enterprise = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == key)
+                .SingleOrDefault();
+            if (enterprise == null)
+            {
+                return Content("该注册号不存在");
+            }
+            else
+            {
+                var illegal = DB.InfoIllegal
+                    .Where(x => x.RegistrationNumber == key)
+                    .ToList();
+                if (illegal == null)
+                {
+                    return Content("该注册号不在抽查范围");
+                }
+                else
+                {
+                    return View(illegal);
+                }
+            }
+
+        }
+        #endregion
+        #region 异常公示
         [HttpGet]
         public IActionResult InfoUnusual()
         {
-            return View();
+            var infoUnusual = DB.InfoUnusual
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return View(infoUnusual);
+        }
+        public IActionResult SearchUnusual(string key)
+        {
+
+            var enterprise = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == key)
+                .SingleOrDefault();
+            if (enterprise == null)
+            {
+                return Content("该注册号不存在");
+            }
+            else
+            {
+                var unusual = DB.InfoUnusual
+                    .Where(x => x.RegistrationNumber == key)
+                    .ToList();
+                if (unusual == null)
+                {
+                    return Content("该注册号不在抽查范围");
+                }
+                else
+                {
+                    return View(unusual);
+                }
+            }
+
         }
         #endregion
     }

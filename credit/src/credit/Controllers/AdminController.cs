@@ -393,6 +393,7 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if(infoRandom == null)
                 return Content("没有这个id记录");
+            
             info.DateTime = infoRandom.DateTime;
             info.Result = infoRandom.Result;
             
@@ -419,10 +420,170 @@ namespace credit.Controllers
             
         }
         #endregion
+        #region  严重违法公示填写
+        //显示表格内容
+        [HttpGet]
+        public IActionResult DetailsInfoIllegal()
+        {
+            return View(DB.InfoIllegal);
+        }
 
+        [HttpGet]
+        public IActionResult CreateInfoIllegal()//添加表格内容
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateInfoIllegal(InfoIllegal infoIllegal)
+        {
+
+
+            var baseinfo = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == infoIllegal.RegistrationNumber)
+                .SingleOrDefault();
+            if (baseinfo != null)
+            {
+                DB.InfoIllegal.Add(infoIllegal);
+                DB.SaveChanges();
+                return Content("success");
+            }
+            else
+            {
+                return Content("error");//需要用异步
+            }
+        }
+
+        // 编辑表格
+        [HttpGet]
+        public IActionResult EditInfoIllegal(int id)
+        {
+            var infoIllegal = DB.InfoIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (infoIllegal == null)
+                return Content("查无此人");
+            else
+                return View(infoIllegal);
+        }
+
+        //处理编辑表格请求
+        [HttpPost]
+        public IActionResult EditInfoIllegal(int id, InfoIllegal infoIllegal)
+        {
+            var info = DB.InfoIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (infoIllegal == null)
+                return Content("没有这个id记录");
+            info.DateTime = infoIllegal.DateTime;
+
+            DB.SaveChanges();
+            return RedirectToAction("DetailsInfoIllegal", "Admin");
+
+        }
+
+        public IActionResult DeleteInfoIllegal(int id)
+        {
+            var infoIllegal = DB.InfoIllegal
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (infoIllegal == null)
+            {
+                return Content("null");
+            }
+            else
+            {
+                DB.InfoIllegal.Remove(infoIllegal);
+                DB.SaveChanges();
+                return Content("success");
+            }
+
+        }
+        #endregion
+
+        #region  经营异常公示填写
+        //显示表格内容
+        [HttpGet]
+        public IActionResult DetailsInfoUnusual()
+        {
+            return View(DB.InfoUnusual);
+        }
+
+        [HttpGet]
+        public IActionResult CreateInfoUnusual()//添加表格内容
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateInfoUnusual(InfoUnusual infoUnusual)
+        {
+            var baseinfo = DB.BaseInfo
+                .Where(x => x.RegistrationNumber == infoUnusual.RegistrationNumber)
+                .SingleOrDefault();
+            if (baseinfo != null)
+            {
+                DB.InfoUnusual.Add(infoUnusual);
+                DB.SaveChanges();
+                return Content("success");
+            }
+            else
+            {
+                return Content("error");//需要用异步
+            }
+        }
+
+        // 编辑表格
+        [HttpGet]
+        public IActionResult EditInfoUnusual(int id)
+        {
+            var infoUnusual = DB.InfoUnusual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (infoUnusual == null)
+                return Content("查无此人");
+            else
+                return View(infoUnusual);
+        }
+
+        //处理编辑表格请求
+        [HttpPost]
+        public IActionResult EditInfoUnusual(int id, InfoUnusual infoUnusual)
+        {
+            var info = DB.InfoUnusual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (infoUnusual == null)
+                return Content("没有这个id记录");
+            info.DateTime = infoUnusual.DateTime;
+
+            DB.SaveChanges();
+            return RedirectToAction("DetailsInfoUnusual", "Admin");
+
+        }
+
+        public IActionResult DeleteInfoUnusual(int id)
+        {
+            var infoUnusual = DB.InfoUnusual
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (infoUnusual == null)
+            {
+                return Content("null");
+            }
+            else
+            {
+                DB.InfoUnusual.Remove(infoUnusual);
+                DB.SaveChanges();
+                return Content("success");
+            }
+
+        }
+        #endregion
         #region 企业年度报表
         //创建
-        
+
         [HttpGet]
         public IActionResult DetailsYearReportEnterprise()
         {

@@ -1,1 +1,101 @@
-﻿异常 创建
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>经营异常信息 录入</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">注册号</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="RegistrationNumber" id="RegistrationNumber" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">企业名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="EnterpriseName" id="EnterpriseName" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">异常日期</label>
+                    <div class="col-lg-5" id="datetimepicker" data-date="@DateTime.Now" data-date-format="dd-mm-yyyy">
+                        <input id="time" type="datetime" class="form-control" name="DateTime" value="@DateTime.Now" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        @*<input class="btn inverse" type="submit" value="提交" />*@
+                        <button id="submit" class="btn btn-success">提交</button>
+                        <a asp-controller="Admin" asp-action="DetailsInfoUnusual">取消</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+        $("document").ready(function () {
+
+            $("#submit").click(function () {
+                var url = "/Admin/CreateInfoUnusual";
+                var params = { "RegistrationNumber": $("#RegistrationNumber").val(), "EnterpriseName": $("#EnterpriseName").val(), "DateTime": $("#time").val()};
+                $.post(url, params, function (data) {
+                    if (data == "error") {
+                        alert("注册号不存在");
+
+                    } else {
+                        window.location.href = "/Admin/DetailsInfoUnusual";
+
+                    }
+
+                })
+            });
+            $('#time').datetimepicker({
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1
+
+            });
+            $("#defaultForm").bootstrapValidator({
+                live: 'disable',
+                message:'这个值不合法',
+                feedbackIcons:{
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating:'glyphicon glyphicon-refresh'
+
+                },
+                fields: {
+                    RegistrationNumber: {
+                        message: '注册号没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '注册号不能为空'
+                            },
+                            regexp: {
+                                regexp: /^\d{15}$/,
+                                message: '只能是15位数字'
+                            }
+                        }
+
+                    },
+                    EnterpriseName: {
+                        validators: {
+                            notEmpty: {
+                                message: '企业名不能为空'
+                            }
+                        }
+
+                    },
+                }
+            })
+        });
+</script>

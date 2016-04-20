@@ -1,32 +1,31 @@
-﻿@{
+﻿@model IEnumerable<InfoUnusual>
+@{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<content class="InfoPage InfoUnsualPage">
+<content class="InfoPage InfoUnusualPage">
     <div class="search">
-        <input type="text" placeholder="请输入公司注册号搜索相关异常公示">
-        <input class="btn1" type="submit" vlaue="搜索" />
+        <form asp-action="SearchUnusual" asp-controller="Page" method="post">
+            <input type="text" name="key" placeholder="请输入公司注册号搜索相关抽查公示">
+            <input class="btn1" type="submit" vlaue="搜索" />
+        </form>
+
     </div>
     <div class="list">
-        <h3>异常公示</h3>
+        <h3>严重违法公示</h3>
         <ul class="list-title">
             <li class="list-name">企业名称</li>
             <li>注册号</li>
-            <li>被列入经营异常名录日期</li>
+            <li>违法日期</li>
         </ul>
-        <ul class="list-content">
-            <li class="list-name"><a href="/">依安县丰田种业有限公司</a></li>
-            <li>230223100007689</li>
-            <li>2016年3月25日</li>
-        </ul>
-        <ul class="list-content">
-            <li class="list-name"><a href="/">依安县丰田种业有限公司</a></li>
-            <li>230223100007689</li>
-            <li>2016年3月25日</li>
-        </ul>
-        <ul class="list-content">
-            <li class="list-name"><a href="/">依安县丰田种业有限公司</a></li>
-            <li>230223100007689</li>
-            <li>2016年3月25日</li>
-        </ul>
+        @foreach (var x in Model)
+        {
+            <ul class="list-content">
+                <li class="list-name"><a href="/">@x.EnterpriseName</a></li>
+                <li>@x.RegistrationNumber</li>
+                <li>@x.DateTime</li>
+            </ul>
+
+        }
+
     </div>
 </content>

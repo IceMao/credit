@@ -13,6 +13,8 @@ namespace credit.Models
         public DbSet<AnnouncementUnsual> AnnouncementUnsual { get; set; }
         public DbSet<AnnouncementRandom> AnnouncementRandom { get; set; }
         public DbSet<InfoRandom> InfoRandom { get; set; }
+        public DbSet<InfoIllegal> InfoIllegal { get; set; }
+        public DbSet<InfoUnusual> InfoUnusual { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<YearReportEnterprise> YearReportEnterprise { get; set; }

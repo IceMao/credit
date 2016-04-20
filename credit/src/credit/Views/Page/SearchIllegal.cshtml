@@ -5,10 +5,15 @@
 <content class="InfoPage InfoIllegalPage">
     <div class="search">
         <form asp-action="SearchIllegal" asp-controller="Page" method="post">
-            <input type="text" name="key" placeholder="请输入公司注册号搜索相关抽查公示">
+            <input type="text" name="key" placeholder="请输入公司注册号搜索相关严重违法公示">
             <input class="btn1" type="submit" vlaue="搜索" />
         </form>
-
+    </div>
+    <div>
+        <ol class="breadcrumb">
+            <li><a asp-controller="Page" asp-action="InfoIllegal">InfoIllegal</a></li>
+            <li class="active">搜索详细</li>
+        </ol>
     </div>
     <div class="list">
         <h3>严重违法公示</h3>
@@ -26,6 +31,5 @@
             </ul>
 
         }
-
     </div>
 </content>

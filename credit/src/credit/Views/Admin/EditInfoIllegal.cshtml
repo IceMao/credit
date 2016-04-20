@@ -1,0 +1,23 @@
+﻿@model InfoIllegal
+<form asp-controller="Admin" asp-action="EditInfoIllegal" method="post">
+    <h3>编辑 违法公示信息</h3>
+    <table class="table">
+        <tr>
+            <th>注册号</th>
+            <td><input type="text" class="form-controller" value="@Model.RegistrationNumber" /></td>
+        </tr>
+        <tr>
+            <th>企业名</th>
+            <td><input type="text" class="form-controller" value="@Model.EnterpriseName" /></td>
+        </tr>
+        <tr>
+            <th>违法日期</th>
+            <td><input type="text" class="form-controller" value="@Model.DateTime" /></td>
+        </tr>
+        
+    </table>
+    <p>
+        <input class="btn inverse" type="submit" value="提交" />
+        <a asp-controller="Admin" asp-action="DetailsInfoIllegal">取消</a>
+    </p>
+</form>
