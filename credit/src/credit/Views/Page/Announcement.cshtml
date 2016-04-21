@@ -1,4 +1,46 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<h2>公告总页</h2>
+<div class="container">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-6 well" style="min-height:300px;">
+            <h3>抽查信息公告</h3>
+            <ul >
+                @foreach (var x in ViewBag.random)
+                {
+                    <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
+                        <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">@x.title</a>
+                        <span style="float:right;">@ViewBag.TimeR</span>
+                    </li>
+
+                }
+            </ul>
+        </div>
+        <div class="col-md-5 col-md-offset-1 well" style="min-height:300px;">
+            <h3>严重违法信息公告</h3>
+            <ul>
+                @foreach (var x in ViewBag.illegal)
+                {
+                    <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
+                        <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id">@x.title</a>
+                        <span style="float:right;">@ViewBag.TimeI</span>
+                    </li>
+
+                }
+            </ul>
+        </div>
+        <div class="col-md-6 well" style="min-height:300px;">
+            <h3>严重违法信息公告</h3>
+            <ul>
+                @foreach (var x in ViewBag.unusual)
+                {
+                    <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
+                        <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
+                        <span style="float:right;">@ViewBag.TimeU</span>
+                    </li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>

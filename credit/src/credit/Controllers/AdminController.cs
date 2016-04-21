@@ -12,10 +12,8 @@ using credit.Models;
 namespace credit.Controllers
 {
     [Authorize (Roles ="管理员")]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
-        [FromServices]
-        public CreditContext DB { get; set; }
 
         #region 管理员添加 注册号基本表（增删改查）
         [HttpGet]

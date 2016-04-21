@@ -10,34 +10,69 @@ using Microsoft.AspNet.Authorization;
 
 namespace credit.Controllers
 {
-    public class PageController : Controller
+    public class PageController : BaseController
     {
-        [FromServices]
-        public CreditContext DB { get; set; }
-
+        #region
+        public IActionResult Error()
+        {
+            return View();
+        }
+        #endregion
         #region 企业年度信息填报
         [Authorize(Roles = ("联络员"))]
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return Content("请联络员先登录");
+            }
+            
         }
         [Authorize(Roles = ("联络员"))]
         [HttpPost]
         public IActionResult CreateYearReportEnterprise(int XX)
         {
+            //var lianluo = DB.User
+            //    .Where(x=>x.RegistrationNumber == )
             return View();
         }
         #endregion
-        //搜索总页
+        #region 信息公告总页
+
         [HttpGet]
-        public IActionResult Search()
+        public IActionResult Announcement()
         {
+            var random = DB.AnnouncementRandom
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            ViewBag.TimeR = random.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
+            ViewBag.random = random;
+
+            var illegal = DB.AnnouncementIllegal
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            ViewBag.TimeI = illegal.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
+            ViewBag.illegal = illegal;
+
+            var unusual = DB.AnnouncementUnsual
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            ViewBag.TimeU = unusual.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
+            ViewBag.unusual = unusual;
+
             return View();
         }
+        #endregion
+
+
 
         #region index search
-        
+
         public IActionResult Search(string key)
         {
             var r = DB.BaseInfo
@@ -45,7 +80,7 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if(r == null)
             {
-                return Content("该注册号不存在");
+                return RedirectToAction("Error", "Page");
             }
             else
             {
@@ -61,12 +96,7 @@ namespace credit.Controllers
         {
             return View();
         }
-        //公告总页
-        [HttpGet]
-        public IActionResult Announcement()
-        {
-            return View();
-        }
+        
         #endregion
 
         #region 各个公告页面
@@ -105,6 +135,7 @@ namespace credit.Controllers
             var AUnsual = DB.AnnouncementUnsual
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+             ViewBag.Time = AUnsual.OrderByDescending(x=>x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(AUnsual);
         }
         //AnnouncementRandom 抽查检查信息公告
@@ -114,6 +145,7 @@ namespace credit.Controllers
             var ARandom = DB.AnnouncementRandom
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            ViewBag.Time = ARandom.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(ARandom);
         }
         //AnnouncementIllegal 严重违法信息公告
@@ -123,6 +155,7 @@ namespace credit.Controllers
             var AIllegal = DB.AnnouncementIllegal
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            ViewBag.Time = AIllegal.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(AIllegal);
         }
         #endregion
@@ -135,6 +168,7 @@ namespace credit.Controllers
             var infoRandom = DB.InfoRandom
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            ViewBag.Time = infoRandom.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(infoRandom);
         }
         
@@ -146,21 +180,14 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (enterprise == null)
             {
-                return Content("该注册号不存在");
+                return RedirectToAction("Error", "Page");
             }
             else
             {
                 var random = DB.InfoRandom
                     .Where(x => x.RegistrationNumber == key)
                     .ToList();
-                if (random == null)
-                {
-                    return Content("该注册号不在抽查范围");
-                }
-                else
-                {
-                    return View(random);
-                }
+                return View(random);
             }
 
         }
@@ -173,7 +200,9 @@ namespace credit.Controllers
             var infoIllegal = DB.InfoIllegal
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            ViewBag.Time = infoIllegal.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(infoIllegal);
+
         }
         public IActionResult SearchIllegal(string key)
         {
@@ -183,21 +212,14 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (enterprise == null)
             {
-                return Content("该注册号不存在");
+                return RedirectToAction("Error", "Page");
             }
             else
             {
                 var illegal = DB.InfoIllegal
                     .Where(x => x.RegistrationNumber == key)
                     .ToList();
-                if (illegal == null)
-                {
-                    return Content("该注册号不在抽查范围");
-                }
-                else
-                {
-                    return View(illegal);
-                }
+                return View(illegal);
             }
 
         }
@@ -209,7 +231,9 @@ namespace credit.Controllers
             var infoUnusual = DB.InfoUnusual
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            ViewBag.Time = infoUnusual.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(infoUnusual);
+
         }
         public IActionResult SearchUnusual(string key)
         {
@@ -219,21 +243,15 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (enterprise == null)
             {
-                return Content("该注册号不存在");
+                return RedirectToAction("Error", "Page");
             }
             else
             {
                 var unusual = DB.InfoUnusual
                     .Where(x => x.RegistrationNumber == key)
                     .ToList();
-                if (unusual == null)
-                {
-                    return Content("该注册号不在抽查范围");
-                }
-                else
-                {
-                    return View(unusual);
-                }
+                return View(unusual);
+                
             }
 
         }

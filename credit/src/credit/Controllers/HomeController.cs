@@ -6,15 +6,17 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Authorization;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace credit.Models
+namespace credit.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         [HttpGet]
         public IActionResult Index()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+
+            }
             return View();
         }
         [Authorize]

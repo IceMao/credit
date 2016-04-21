@@ -22,9 +22,9 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a href="/">@x.EnterpriseName</a></li>
+                <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageRandom">@x.EnterpriseName</a></li>
                 <li>@x.RegistrationNumber</li>
-                <li>@x.DateTime</li>
+                <li>@ViewBag.Time</li>
                 <li>@x.Result</li>
             </ul>
 

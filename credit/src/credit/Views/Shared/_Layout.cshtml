@@ -93,10 +93,11 @@
                             </ul>
                         </li>
                         <li>
-                            <a asp-action="Login" asp-controller="Account">
+                            <a href="javascript:$('#logout').submit()">
                                 <i class="glyphicon glyphicon-off"></i>
                                 退出后台
                             </a>
+                            <form asp-action="Logout" asp-controller="Account" id="logout" method="post"></form>
                         </li>
                     </ul>
                 </aside>

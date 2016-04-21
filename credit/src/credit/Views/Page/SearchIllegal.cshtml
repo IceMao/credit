@@ -9,14 +9,9 @@
             <input class="btn1" type="submit" vlaue="搜索" />
         </form>
     </div>
-    <div>
-        <ol class="breadcrumb">
-            <li><a asp-controller="Page" asp-action="InfoIllegal">InfoIllegal</a></li>
-            <li class="active">搜索详细</li>
-        </ol>
-    </div>
+    
     <div class="list">
-        <h3>严重违法公示</h3>
+        <h3><a asp-controller="Page" asp-action="InfoIllegal">严重违法公示</a>——搜索结果</h3>
         <ul class="list-title">
             <li class="list-name">企业名称</li>
             <li>注册号</li>
@@ -25,7 +20,7 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a href="/">@x.EnterpriseName</a></li>
+                <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageIllegal">@x.EnterpriseName</a></li>
                 <li>@x.RegistrationNumber</li>
                 <li>@x.DateTime</li>
             </ul>

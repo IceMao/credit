@@ -16,7 +16,9 @@ namespace credit.Controllers
         public CreditContext DB { get; set; }
         [FromServices]
         public UserManager<User> userManager { get; set; }
-
+        [FromServices]
+        public SignInManager<User> signInManager { get; set; }
+        
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
@@ -28,6 +30,5 @@ namespace credit.Controllers
                 ViewBag.UserCurrent = UserCurrent;
             }
         }
-
     }
 }

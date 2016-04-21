@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using credit.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Authorization;
 
 namespace credit.Controllers
 {
     public class AccountController : BaseController
     {
-        [FromServices]
-        public SignInManager<User> signInManager { get; set; }
+        
         
         [HttpGet]
         public IActionResult Login()
@@ -24,76 +24,35 @@ namespace credit.Controllers
             var result = await signInManager.PasswordSignInAsync(username, password,false, false);
             if (result.Succeeded)
             {
-                return Content("success");
+                if (User.IsInRole("管理员"))
+                {
+                    return Content("管理员");
+                }
+                else
+                {
+                    return Content("联络员");
+                }
             }
             else
             {
                 return RedirectToAction("Index", "Home");
-             }
+            }
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
-        }
-        #region 联络员
-        [HttpGet]
-        public IActionResult LoginLiaison()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> LoginLiaison(string username, string password)
-        {
-            var user = await signInManager.PasswordSignInAsync(username, password, false, false);
-            if (user.Succeeded)
+            if (User.IsInRole("管理员"))
             {
-                return Content("success");
+                return RedirectToAction("Login", "Account");
             }
             else
             {
-                return Content("error");
+                return RedirectToAction("Index", "Home");
             }
         }
-        //注册
-        [HttpGet]
-        public async Task<IActionResult> Register()
-        {
-            ViewBag.liaison = (await userManager.GetUsersInRoleAsync("联络员")).Count();
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(string username,string password,string EnterpriseName, string RegistrationNumber, string LiaisonName,string LiaisonIdNumber,string CellPhoneNumber)
-        {
-            
-            var register = DB.User
-                .Where(x => x.RegistrationNumber == RegistrationNumber)
-                .SingleOrDefault();
-            if(register == null)
-            {
-                return Content("error");
-            }
-            else
-            {
-                var user = new User
-                {
-                    UserName = username,
-                    EnterpriseName = EnterpriseName,
-                    RegistrationNumber = RegistrationNumber,
-                    LiaisonIdNumber = LiaisonIdNumber,
-                    LiaisonName = LiaisonName,
-                    CellPhoneNumber = CellPhoneNumber
-                };
-                //创建用户
-                await userManager.CreateAsync(user, password);
-                await userManager.AddToRoleAsync(user, "联络员");
-                DB.SaveChanges();
-                return Content("success");
-            }
-            
-        }
-        #endregion
+        
         [HttpGet]
         public IActionResult Modify()
         {

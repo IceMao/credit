@@ -5,24 +5,24 @@
 <content class="InfoPage InfoUnusualPage">
     <div class="search">
         <form asp-action="SearchUnusual" asp-controller="Page" method="post">
-            <input type="text" name="key" placeholder="请输入公司注册号搜索相关抽查公示">
+            <input type="text" name="key" placeholder="请输入公司注册号搜索相关经营异常公示">
             <input class="btn1" type="submit" vlaue="搜索" />
         </form>
 
     </div>
     <div class="list">
-        <h3>严重违法公示</h3>
+        <h3>经营异常公示</h3>
         <ul class="list-title">
             <li class="list-name">企业名称</li>
             <li>注册号</li>
-            <li>违法日期</li>
+            <li>异常日期</li>
         </ul>
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a href="/">@x.EnterpriseName</a></li>
+                <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageUnusual">@x.EnterpriseName</a></li>
                 <li>@x.RegistrationNumber</li>
-                <li>@x.DateTime</li>
+                <li>@ViewBag.Time</li>
             </ul>
 
         }

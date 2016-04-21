@@ -9,8 +9,8 @@
             @foreach (var x in Model)
             {
                 <li>
-                    <a asp-controller="Page" asp-action="ArticlePageUnsual" asp-route-id="@x.Id">@x.title</a>
-                    <span>@x.DateTime</span>
+                    <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
+                    <span>@ViewBag.Time</span>
                 </li>
 
             }
@@ -22,8 +22,8 @@
             @foreach (var x in Model)
             {
                 <li>
-                    <a href="#">@x.title</a>
-                    <span>@x.DateTime</span>
+                    <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
+                    <span>@ViewBag.Time</span>
                 </li>
 
             }
