@@ -27,7 +27,7 @@ namespace credit
 
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<CreditContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=credit;"));
+                .AddDbContext<CreditContext>(x => x.UseSqlServer("server=182.254.211.75;uid=sa;password=Cream2015!@#;database=credit;"));//182.254.211.75
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<CreditContext>()
