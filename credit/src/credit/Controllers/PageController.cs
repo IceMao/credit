@@ -50,19 +50,16 @@ namespace credit.Controllers
             var random = DB.AnnouncementRandom
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.TimeR = random.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             ViewBag.random = random;
 
             var illegal = DB.AnnouncementIllegal
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.TimeI = illegal.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             ViewBag.illegal = illegal;
 
             var unusual = DB.AnnouncementUnsual
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.TimeU = unusual.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             ViewBag.unusual = unusual;
 
             return View();
@@ -144,7 +141,6 @@ namespace credit.Controllers
             var ARandom = DB.AnnouncementRandom
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.Time = ARandom.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(ARandom);
         }
         //AnnouncementIllegal 严重违法信息公告
@@ -154,7 +150,6 @@ namespace credit.Controllers
             var AIllegal = DB.AnnouncementIllegal
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.Time = AIllegal.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(AIllegal);
         }
         #endregion
@@ -167,7 +162,6 @@ namespace credit.Controllers
             var infoRandom = DB.InfoRandom
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.Time = infoRandom.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(infoRandom);
         }
         
@@ -199,7 +193,6 @@ namespace credit.Controllers
             var infoIllegal = DB.InfoIllegal
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.Time = infoIllegal.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(infoIllegal);
 
         }
@@ -230,7 +223,6 @@ namespace credit.Controllers
             var infoUnusual = DB.InfoUnusual
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-            ViewBag.Time = infoUnusual.OrderByDescending(x => x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(infoUnusual);
 
         }

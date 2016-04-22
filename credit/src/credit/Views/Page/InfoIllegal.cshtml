@@ -22,7 +22,7 @@
             <ul class="list-content">
                 <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageIllegal">@x.EnterpriseName</a></li>
                 <li>@x.RegistrationNumber</li>
-                <li>@ViewBag.Time</li>
+                <li>@x.DateTime.ToString("yyyy年MM月dd日")</li>
             </ul>
 
         }

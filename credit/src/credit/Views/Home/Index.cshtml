@@ -19,12 +19,35 @@
             <h1>齐齐哈尔市企业信用信息管理系统</h1>
             
         </div>
+        @if (ViewBag.UserCurrent == null)
+        {
+            <p style="position:absolute; top:0; right:10px;">
+                <a asp-controller="Account" asp-action="Login">登录</a>
+            </p>
+         }
         @if (ViewBag.UserCurrent != null)
             {
-            <p style="position:absolute; top:0; right:10px;">欢迎&nbsp;@ViewBag.UserCurrent.UserName&nbsp;
-            <a href="javascript:$('#Logout').submit()">退出</a>
-            </p>
-            <form asp-action="Logout" asp-controller="Account" id="Logout"></form>
+            
+            @if (User.IsInRole("管理员"))
+            {
+                <p style="position:absolute; top:0; right:10px;">
+                    欢迎&nbsp;@ViewBag.UserCurrent.UserName&nbsp;
+                    <a asp-action="Manage" asp-controller="Home">进入后台</a>
+                    <a href="javascript:$('#Logout').submit()">退出</a>
+                </p>
+                <form asp-action="Logout" asp-controller="Account" id="Logout"></form>
+
+            }
+            @if (User.IsInRole("联络员"))
+            {
+                <p style="position:absolute; top:0; right:10px;">
+                    欢迎&nbsp;@ViewBag.UserCurrent.UserName&nbsp;
+                    <a href="javascript:$('#Logout').submit()">退出</a>
+                </p>
+                <form asp-action="Logout" asp-controller="Account" id="Logout"></form>
+
+            }
+
         }
     </header>
     <nav>
@@ -72,7 +95,7 @@
     </nav>
 
     <footer>
-        <p>&copy; copyright .yang<a asp-action="Login" asp-controller="Account" style="display:inline-block;">管理入口</a></p>
+        <p>&copy; copyright .yang</p>
     </footer>
     <script>
 
