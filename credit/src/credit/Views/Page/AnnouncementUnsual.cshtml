@@ -10,7 +10,7 @@
             {
                 <li>
                     <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
-                    <span>@ViewBag.Time</span>
+                    <span>@x.DateTime.ToString("yyyy年MM月dd日")</span>
                 </li>
 
             }
@@ -23,7 +23,7 @@
             {
                 <li>
                     <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
-                    <span>@ViewBag.Time</span>
+                    <span>@x.DateTime.ToString("yyyy年MM月DD日")</span>
                 </li>
 
             }

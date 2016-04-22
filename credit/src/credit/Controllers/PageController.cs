@@ -135,7 +135,6 @@ namespace credit.Controllers
             var AUnsual = DB.AnnouncementUnsual
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-             ViewBag.Time = AUnsual.OrderByDescending(x=>x.DateTime).First().DateTime.ToString("yyyy年MM月dd日");
             return View(AUnsual);
         }
         //AnnouncementRandom 抽查检查信息公告
