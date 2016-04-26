@@ -21,7 +21,7 @@
                         <a asp-controller="Home" asp-action="Index"><h2>Welcome</h2></a>
                     </div>
 
-                    <form id="defaultForm" asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" >
+                    <form id="defaultForm"  class="form-horizontal" >
 
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Username</label>
@@ -37,7 +37,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-9 col-lg-offset-3">
-                                <button class="btn btn-primary" type="submit" id="b-tnLogin">Sign up</button>
+                                <input class="btn btn-primary" id="btnLogin" value="提交" />
+                                <!--<button class="btn btn-primary" id="btnLogin">Sign up</button>-->
                                 <a asp-controller="Account" asp-action="Register">联络员注册</a>
                             </div>
                         </div>

@@ -19,19 +19,26 @@ namespace credit.Controllers
         }
         #endregion
         #region 企业年度信息填报
-        [Authorize(Roles = ("联络员"))]
+        [Authorize]
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (User.IsInRole("管理员"))
             {
-                return View();
+                return Content("不是联络员登录，不能填报");
+
             }
             else
             {
-                return Content("请联络员先登录");
-            }
-            
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return View();
+                }
+                else
+                {
+                    return Content("请联络员先登录");
+                }
+            }        
         }
         [Authorize(Roles = ("联络员"))]
         [HttpPost]
@@ -109,7 +116,7 @@ namespace credit.Controllers
         }
         //单独公告显示——经营异常
         [HttpGet]
-        public IActionResult ArticlePageUnsual(int id)
+        public IActionResult ArticlePageUnusual(int id)
         {
             var article = DB.AnnouncementUnsual
                 .Where(x => x.Id == id)

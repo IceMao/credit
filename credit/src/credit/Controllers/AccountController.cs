@@ -26,11 +26,11 @@ namespace credit.Controllers
             {
                 if (User.IsInRole("管理员"))
                 {
-                    return RedirectToAction("Manage", "Home"); 
+                    return Content("管理员"); 
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return Content("联络员");
                 }
             }
             else
