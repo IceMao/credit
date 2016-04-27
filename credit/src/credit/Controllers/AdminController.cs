@@ -317,48 +317,28 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsInfoRandom()
         {
+            
             return View(DB.InfoRandom);
         }
         
         [HttpGet]
         public IActionResult CreateInfoRandom()//添加表格内容
         {
+            var PType = DB.PublicityTypes
+                .ToList();
+            ViewBag.PType = PType;
             return View();
         }
        
         [HttpPost]
         public IActionResult CreateInfoRandom(InfoRandom infoRandom)
         {
-            //判断 抽查时填入的注册号 在数据库中是否存在
-            //下面这样写可以判断他在 baseInfo 中是否存在吗？
-            //if (infoRandom.RegistrationNumber == baseInfo.RegistrationNumber)
-
-
-            //if(HttpContext.User.Identity.IsAuthenticated)//判断用户是否登陆
-            //{
-            //    var user = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();//找到当前用户
-            //    var baseinfo = DB.BaseInfo.Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber).SingleOrDefault();
-            //    if (baseinfo != null)
-            //    {
-            //        DB.InfoRandom.Add(infoRandom);
-            //        DB.SaveChanges();
-            //    }
-            //    else
-            //    {
-            //        return Content("注册号不存在，请检查");//需要用异步
-            //    }
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
-            //return Content("添加成功");//需要用异步 
-
             var baseinfo = DB.BaseInfo
                 .Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber)
                 .SingleOrDefault();
             if (baseinfo != null)
             {
+                infoRandom.EnterpriseName = baseinfo.EnterpriseName;
                 DB.InfoRandom.Add(infoRandom);
                 DB.SaveChanges();
                 return Content("success");
@@ -379,7 +359,14 @@ namespace credit.Controllers
             if (infoRandom == null)
                 return Content("查无此人");
             else
-            return View(infoRandom);
+            {
+                var PType = DB.PublicityTypes
+                    .Where(x => x.Type != infoRandom.Result)
+                    .ToList();
+                ViewBag.PType = PType;
+                return View(infoRandom);
+            }
+                
         }
 
         //处理编辑表格请求
@@ -391,12 +378,21 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if(infoRandom == null)
                 return Content("没有这个id记录");
+            else
+            {
+                info.RegistrationNumber = infoRandom.RegistrationNumber;
+                var b = DB.BaseInfo
+                    .Where(x => x.RegistrationNumber == info.RegistrationNumber)
+                    .SingleOrDefault();
+
+                info.EnterpriseName = b.EnterpriseName;
+                info.DateTime = infoRandom.DateTime;
+                info.Result = infoRandom.Result;
+
+                DB.SaveChanges();
+                return Content("success");
+            }
             
-            info.DateTime = infoRandom.DateTime;
-            info.Result = infoRandom.Result;
-            
-            DB.SaveChanges();
-            return RedirectToAction("DetailsInfoRandom", "Admin");
 
         }
        
@@ -442,6 +438,7 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (baseinfo != null)
             {
+                infoIllegal.EnterpriseName = baseinfo.EnterpriseName;
                 DB.InfoIllegal.Add(infoIllegal);
                 DB.SaveChanges();
                 return Content("success");
@@ -474,11 +471,25 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (infoIllegal == null)
                 return Content("没有这个id记录");
-            info.DateTime = infoIllegal.DateTime;
-
-            DB.SaveChanges();
-            return RedirectToAction("DetailsInfoIllegal", "Admin");
-
+            else
+            {
+                var b = DB.BaseInfo
+                    .Where(x => x.RegistrationNumber == info.RegistrationNumber)
+                    .SingleOrDefault();
+                if (b == null)
+                {
+                    return Content("RegisterNo");
+                }
+                else
+                {
+                    info.RegistrationNumber = infoIllegal.RegistrationNumber;
+                    info.EnterpriseName = b.EnterpriseName;
+                    info.DateTime = infoIllegal.DateTime;
+                    DB.SaveChanges();
+                    return Content("success");
+                }
+                
+            }
         }
 
         public IActionResult DeleteInfoIllegal(int id)
@@ -522,6 +533,7 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (baseinfo != null)
             {
+                infoUnusual.EnterpriseName = baseinfo.EnterpriseName;
                 DB.InfoUnusual.Add(infoUnusual);
                 DB.SaveChanges();
                 return Content("success");
@@ -554,13 +566,25 @@ namespace credit.Controllers
                 .SingleOrDefault();
             if (infoUnusual == null)
                 return Content("没有这个id记录");
-            info.DateTime = infoUnusual.DateTime;
-
-            DB.SaveChanges();
-            return RedirectToAction("DetailsInfoUnusual", "Admin");
-
+            else
+            {
+                var b = DB.BaseInfo
+                    .Where(x => x.RegistrationNumber == info.RegistrationNumber)
+                    .SingleOrDefault();
+                if (b == null)
+                {
+                    return Content("RegisterNo");
+                }
+                else
+                {
+                    info.DateTime = infoUnusual.DateTime;
+                    info.RegistrationNumber = infoUnusual.RegistrationNumber;
+                    info.EnterpriseName = b.EnterpriseName;
+                    DB.SaveChanges();
+                    return Content("success");
+                }       
+            }
         }
-
         public IActionResult DeleteInfoUnusual(int id)
         {
             var infoUnusual = DB.InfoUnusual

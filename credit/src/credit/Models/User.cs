@@ -9,8 +9,7 @@ namespace credit.Models
 {
     public class User:IdentityUser
     {
-        //[StringLength(12,ErrorMessage ="注册号长度不对，请检查")]
-        //[RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        public string Level { get; set; } //管理员等级 99 / 10
         public string RegistrationNumber { get; set; }//注册号
         public string EnterpriseName { get; set; }
         public string LiaisonName { get; set; }//联系人姓名

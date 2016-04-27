@@ -14,135 +14,182 @@
     <script type="text/javascript" src="~/scripts/bootstrapValidator.min.js"></script>
     <script type="text/javascript" src="~/scripts/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="~/scripts/locales/bootstrap-datetimepicker.fr.js"></script>
+    <!--[if lt IE 9]>
+            <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <style>
+        .panel-group .panel+.panel{margin-top:0;}
+        .userIce{
+            height: 50px;display: inline-block;width: 100%;text-align: left;padding-top: 10px; padding-left: 15px;
+        }
 
+    </style>
 </head>
-<body class="LayoutPage">
-    <nav class="navbar navbar-fixed-top" role="navigation">
-        <div class="row">
-            <div class="col-md-2 title">
-                <a asp-action="Manage" asp-controller="Home">
-                    <span id="logo">
-                        后台首页
-                    </span>
-                </a>
-            </div>
-            <span style="float:right; position:absolute; top:8px; right:8px; display:inline-block;">
-                <button style="display:none; " type="button" class="btn" id="pull"><i class="glyphicon glyphicon-th-list"></i>  </button>
-            </span>
-        </div>
-        <div class="clr"></div>
-    </nav>
-    <div style="position:relative; top:50px;">
-        <div class="row" >
-            <div class="col-md-2" id="pullset" >
-                <aside class="left-aside">
-                    <div class="user"><a href="/">Welcome Manager</a></div>
-                    <ul id="main-nav" class="nav-list">
-                        <li>
-                            <a asp-action="Index" asp-controller="Home" target="_blank">
-                                <i class="glyphicon glyphicon-home"></i>
-                                网站首页
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#set" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
-                                系统基本信息
-                            </a>
-                            <ul id="set" class="collapse secondmenu">
-                                <li><a asp-controller="Admin" asp-action="DetailsBaseInfo">企业注册号管理</a></li>
-                                <li><a asp-controller="Admin" asp-action="CreateBaseInfo">企业注册号添加</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#set1" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
-                                信用报表管理
-                            </a>
-                            <ul id="set1" class="collapse secondmenu">
-                                <li><a asp-action="DetailsYearReportEnterprise" asp-controller="Admin">企业年度信用报表管理</a></li>
-                                <li><a asp-action="DetailsYearReportIndividual" asp-controller="Admin">个体年度信用报表管理</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#set2" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
-                                信用公示管理
-                            </a>
-                            <ul id="set2" class="collapse secondmenu">
-                                <li><a asp-action="DetailsInfoRandom" asp-controller="Admin">抽查公示管理</a></li>
-                                <li><a asp-action="CreateInfoRandom" asp-controller="Admin">抽查公示添加</a></li>
-                                <li><a asp-action="DetailsInfoUnusual" asp-controller="Admin">经营异常公示管理</a></li>
-                                <li><a asp-action="CreateInfoUnusual" asp-controller="Admin">经营异常公示添加</a></li>
-                                <li><a asp-action="DetailsInfoIllegal" asp-controller="Admin">严重违法公示管理</a></li>
-                                <li><a asp-action="CreateInfoIllegal" asp-controller="Admin">严重违法公示添加</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#set3" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
-                                公告管理
-                            </a>
-                            <ul id="set3" class="collapse secondmenu"> 
-                                <li><a asp-action="DetailsAnnouncementRandom" asp-controller="Admin">抽查公告管理</a></li>
-                                <li><a asp-action="CreateAnnouncementRandom" asp-controller="Admin">抽查公告添加</a></li>
-                                <li><a asp-action="DetailsAnnouncementUnsual" asp-controller="Admin">经营异常公告管理</a></li>
-                                <li><a asp-action="CreateAnnouncementUnsual" asp-controller="Admin">经营异常公告添加</a></li>
-                                <li><a asp-action="DetailsAnnouncementIllegal" asp-controller="Admin">严重违法公告管理</a></li>
-                                <li><a asp-action="CreateAnnouncementIllegal" asp-controller="Admin">严重违法公告添加</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:$('#logout').submit()">
-                                <i class="glyphicon glyphicon-off"></i>
-                                退出后台
-                            </a>
-                            <form asp-action="Logout" asp-controller="Account" id="logout" method="post"></form>
-                        </li>
+<body>
+    <nav class="navbar navbar-default" style="margin-bottom:0;">
+        <div class="">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="active">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">齐齐哈尔市企业信用信息管理系统 <span class="sr-only">(current)</span></a></li>
                     </ul>
-                </aside>
+                </div>
             </div>
-            <div class="col-md-10">
-                @RenderBody()
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-action="Index" asp-controller="Home" target="_blank">
+                        <i class="glyphicon glyphicon-home"></i>&nbsp;HOME    
+                        </a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="javascript:$('#logout').submit()">
+                            退出&nbsp;<i class="glyphicon glyphicon-off"></i>
+                        </a>
+                        <form asp-action="Logout" asp-controller="Account" id="logout" method="post"></form>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            
-            $("#main-nav li a").click(function () {
-                $(this).css("background", "#eee");
-            });
-        });
-        var oPull = document.getElementById('pull');
-        var oPullSet = document.getElementById('pullset');
+    </nav>
+    <div class="row">
+        <div class="col-md-2" style="min-height:500px; background-color:#eee;">
+            <aside class="panel-group" id="main">
+                <span class="label label-success userIce">
+                    <i class="glyphicon glyphicon-user" style="font-size:25px;"></i>&nbsp;Welcome&nbsp;@ViewBag.UserCurrent.UserName
+                </span>
+                
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#main" href="#base">
+                                基本信息<i class="glyphicon glyphicon-leaf"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="base" class="panel-collapse collapse ">
+                        <div class="panel-body list-group">
+                            <a class="list-group-item" asp-controller="Admin" asp-action="DetailsBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>企业注册号管理</a>
+                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>企业注册号添加</a>
 
-        //判断当前浏览器大小
-        fun();
-        function fun(){
-            if(window.innerWidth <990){
-                oPull.style.display = 'block';
-                oPullSet.style.display = 'none';
-            }
-        };
+                        </div>
+                    </div>
+                </div>
 
-        window.onresize = function fun(){
-            if (window.innerWidth < 990) {
-                oPull.style.display = 'block';
-            } else {
-                oPull.style.display = 'none';
-                oPullSet.style.display = 'block';
-            }
-        };
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#main" href="#Report">
+                                报表管理<i class="glyphicon glyphicon-leaf"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="Report" class="panel-collapse collapse ">
+                        <div class="panel-body list-group">
+                            <a class="list-group-item" asp-action="DetailsYearReportEnterprise" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>企业年度信用报表管理</a>
+                            <a class="list-group-item" asp-action="DetailsYearReportIndividual" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>个体年度信用报表管理</a>
+                        </div>
+                    </div>
+                </div>
 
-        oPull.onclick = function () {
-            if (oPullSet.style.display == 'block') {
-                oPullSet.style.display = 'none';
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#main" href="#Info">
+                                公示管理<i class="glyphicon glyphicon-leaf"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="Info" class="panel-collapse collapse ">
+                        <div class="panel-body list-group">
+                            <a class="list-group-item" asp-action="DetailsInfoRandom" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>抽查公示管理</a>
+                            <a class="list-group-item" asp-action="CreateInfoRandom" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>抽查公示添加</a>
+                            <a class="list-group-item" asp-action="DetailsInfoUnusual" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>经营异常公示管理</a>
+                            <a class="list-group-item" asp-action="CreateInfoUnusual" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>经营异常公示添加</a>
+                            <a class="list-group-item" asp-action="DetailsInfoIllegal" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>严重违法公示管理</a>
+                            <a class="list-group-item" asp-action="CreateInfoIllegal" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>严重违法公示添加</a>
+                        </div>
+                    </div>
+                </div>
 
-            } else {
-                oPullSet.style.display = 'block';
-            }
-        };
-    </script>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#main" href="#Announcement">
+                                公告管理<i class="glyphicon glyphicon-leaf"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="Announcement" class="panel-collapse collapse ">
+                        <div class="panel-body list-group">
+                            <a class="list-group-item" asp-action="DetailsAnnouncementRandom" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>抽查公告管理</a>
+                            <a class="list-group-item" asp-action="CreateAnnouncementRandom" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>抽查公告添加</a>
+                            <a class="list-group-item" asp-action="DetailsAnnouncementUnsual" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>经营异常公告管理</a>
+                            <a class="list-group-item" asp-action="CreateAnnouncementUnsual" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>经营异常公告添加</a>
+                            <a class="list-group-item" asp-action="DetailsAnnouncementIllegal" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>严重违法公告管理</a>
+                            <a class="list-group-item" asp-action="CreateAnnouncementIllegal" asp-controller="Admin"><i class="glyphicon glyphicon-triangle-right"></i>严重违法公告添加</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#main" href="#System">
+                                系统信息<i class="glyphicon glyphicon-leaf"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="System" class="panel-collapse collapse ">
+                        <div class="panel-body list-group">
+                            <a class="list-group-item" asp-controller="Admin" asp-action="DetailsBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>企业注册号管理</a>
+                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>企业注册号添加</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#main" href="#Member">
+                                管理员<i class="glyphicon glyphicon-leaf"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="Member" class="panel-collapse collapse ">
+                        <div class="panel-body list-group">
+                           
+                            @*{*@
+                                <a class="list-group-item" asp-controller="Admin" asp-action="DetailsBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>添加管理员</a>
+                                <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>管理管理员</a>
+                            @*}*@
+                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>查看管理员</a>
+                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>修改密码</a>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+        <div class="col-md-10">
+            @RenderBody()
+        </div>
+    </div>      
 </body>
 </html>

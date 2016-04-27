@@ -1,31 +1,92 @@
-﻿@model IEnumerable<InfoUnusual>
-@{
-    Layout = "~/Views/Shared/_Layout1.cshtml";
-}
-<content class="InfoPage InfoUnusualPage">
-    <div class="search">
-        <form asp-action="SearchUnusual" asp-controller="Page" method="post">
-            <input type="text" name="key" placeholder="请输入公司注册号搜索相关抽查公示">
-            <input class="btn1" type="submit" vlaue="搜索" />
-        </form>
+﻿@model InfoUnusual
+<form id="defaultForm" method="post">
+    <h3>编辑 经营异常公示信息</h3>
+    <input type="hidden" name="id" value="@Model.Id" />
+    <table class="table">
+        <tr>
+            <th>注册号</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>企业名</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="EnterpriseName" value="@Model.EnterpriseName" disabled="disabled" />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>经营异常日期</th>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="DateTime" value="@Model.DateTime" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <input class="btn inverse" type="submit" value="提交" />
+        <a asp-controller="Admin" asp-action="DetailsInfoUnusual">取消</a>
+    </p>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            live: 'disable',
+            message: '这个值不合法',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
 
-    </div>
-    <div class="list">
-        <h3>经营异常公示</h3>
-        <ul class="list-title">
-            <li class="list-name">企业名称</li>
-            <li>注册号</li>
-            <li>异常日期</li>
-        </ul>
-        @foreach (var x in Model)
-        {
-            <ul class="list-content">
-                <li class="list-name"><a href="/">@x.EnterpriseName</a></li>
-                <li>@x.RegistrationNumber</li>
-                <li>@x.DateTime</li>
-            </ul>
+            },
+            fields: {
+                RegistrationNumber: {
+                    message: '注册号没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '注册号不能为空'
+                        },
+                        regexp: {
+                            regexp: /^\d{15}$/,
+                            message: '只能是15位数字'
+                        }
+                    }
 
-        }
+                },
+                DateTime: {
+                    message: '时间没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '时间不能为空'
+                        }
+                    }
+                }
+            }
+        })
+            .on('success.form.bv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('bootstrapValidator');
 
-    </div>
-</content>
+                $.post("/Admin/EditInfoUnusual", $form.serialize(), function (data) {
+                    if (data == "success") {
+                        alert("修改成功");
+                        window.location.href = "/Admin/DetailsInfoUnusual";
+                    }
+                    else if (data == "RegisterNo") {
+                        alert("注册号不存在");
+
+                    }
+                    else {
+                        alert("修改失败");
+                    }
+                });
+            });;
+
+    });
+</script>

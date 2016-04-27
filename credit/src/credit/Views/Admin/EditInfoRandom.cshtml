@@ -1,25 +1,41 @@
 ﻿@model InfoRandom
-<form asp-controller="Admin" asp-action="EditInfoRandom" method="post">
+<form id="defaultForm" method="post">
     <h3>编辑 抽查公示信息</h3>
+    <input type="hidden" name="id" value="@Model.Id" />
     <table class="table">
         <tr>
             <th>注册号</th>
-            <td><input type="text" class="form-controller" value="@Model.RegistrationNumber"/></td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" />
+                </div>
+            </td>
         </tr>
         <tr>
             <th>企业名</th>
-            <td><input type="text" class="form-controller" value="@Model.EnterpriseName" /></td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="EnterpriseName" value="@Model.EnterpriseName" disabled="disabled" />
+                </div>
+            </td>
         </tr>
         <tr>
             <th>抽查日期</th>
-            <td><input type="text" class="form-controller" value="@Model.DateTime" /></td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="DateTime" value="@Model.DateTime" />
+                </div>
+            </td>
         </tr>
         <tr>
             <th>抽查结果</th>
-            <td><select value="@Model.Result">
-                <option>正常</option>
-                <option>经营异常</option>
-                <option>严重违法</option>
+            <td>
+                <select name="Result" class="form-control">
+                    <option>@Model.Result</option>
+                    @foreach (PublicityTypes x in ViewBag.PType)
+                    {
+                        <option>@x.Type</option>
+                    }
                 </select>
             </td>
         </tr>
@@ -29,3 +45,64 @@
         <a asp-controller="Admin" asp-action="DetailsInfoRandom">取消</a>
     </p>
 </form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            live: 'disable',
+            message: '这个值不合法',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+
+            },
+            fields: {
+                RegistrationNumber: {
+                    message: '注册号没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '注册号不能为空'
+                        },
+                        regexp: {
+                            regexp: /^\d{15}$/,
+                            message: '只能是15位数字'
+                        }
+                    }
+
+                },
+                DateTime: {
+                    message: '时间没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '时间不能为空'
+                        }
+                    }
+                },
+                Result: {
+                    validators: {
+                        notEmpty: {
+                            message: '必选一项'
+                        }
+                    }
+                }
+
+            }
+        })
+            .on('success.form.bv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('bootstrapValidator');
+
+                $.post("/Admin/EditInfoRandom", $form.serialize(), function (data) {
+                    if (data == "success") {
+                        alert("修改成功");
+                        window.location.href = "/Admin/DetailsInfoRandom";
+                    }
+                    else {
+                        alert("修改失败");
+                    }
+                });
+            });;
+
+    });
+</script>

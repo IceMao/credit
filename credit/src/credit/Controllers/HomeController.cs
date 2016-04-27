@@ -13,10 +13,7 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-
-            }
+            
             return View();
         }
         [Authorize]

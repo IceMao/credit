@@ -22,13 +22,22 @@ namespace credit.Models
                 await roleManager.CreateAsync(new IdentityRole { Name = "管理员" });
                 await roleManager.CreateAsync(new IdentityRole { Name = "联络员" });
 
-                var user = new User { UserName = "admin" };
+                var user = new User { UserName = "admin",Level="99" };
                 await userManager.CreateAsync(user, "Cream2015!@#");
                 await userManager.AddToRoleAsync(user, "管理员");
+
+                var manage = new User { UserName = "Manage",Level="10" };
+                await userManager.CreateAsync(manage, "Cream2015!@#");
+                await userManager.AddToRoleAsync(manage, "管理员");
 
                 var liaison = new User { UserName = "liaison",RegistrationNumber="123456789012345" };
                 await userManager.CreateAsync(liaison, "Cream2015!@#");
                 await userManager.AddToRoleAsync(liaison, "联络员");
+
+                //初始化 公示类型
+                db.PublicityTypes.Add(new PublicityTypes { Type = "正常" });
+                db.PublicityTypes.Add(new PublicityTypes { Type = "经营异常" });
+                db.PublicityTypes.Add(new PublicityTypes { Type = "严重违法" });
 
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456789012345", EnterpriseName = "齐齐哈尔星图科技" });
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456711111111", EnterpriseName = "齐齐哈尔建华区华图教育" });
