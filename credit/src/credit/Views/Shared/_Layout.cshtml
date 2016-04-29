@@ -174,10 +174,17 @@
                     </div>
                     <div id="Member" class="panel-collapse collapse ">
                         <div class="panel-body list-group">
-                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateManage"><i class="glyphicon glyphicon-triangle-right"></i>添加管理员</a>
-                            <a class="list-group-item" asp-controller="Admin" asp-action="DetailsUser"><i class="glyphicon glyphicon-triangle-right"></i>管理管理员</a>
-                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>查看管理员</a>
-                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>修改密码</a>
+                            @if (ViewBag.UserCurrent.Level == "99")
+                            {
+                                <a class="list-group-item" asp-controller="Admin" asp-action="DetailsUser"><i class="glyphicon glyphicon-triangle-right"></i>管理管理员</a>
+
+                            }
+                            else
+                            {
+                                <a class="list-group-item" asp-controller="Admin" asp-action="DetailsUser"><i class="glyphicon glyphicon-triangle-right"></i>查看管理员</a>
+                            }
+                            
+                            <a class="list-group-item" asp-controller="Account" asp-action="Modify"><i class="glyphicon glyphicon-triangle-right"></i>修改密码</a>
                         </div>
                     </div>
                 </div>

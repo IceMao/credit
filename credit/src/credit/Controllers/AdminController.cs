@@ -23,6 +23,7 @@ namespace credit.Controllers
                 .OrderByDescending(x=>x.Level)
                 .OrderBy(x => x.RegisterTime)
                 .ToList();
+            ViewBag.UserCount = user.Count;
             return PagedView(user);
         }
         #endregion
@@ -156,6 +157,11 @@ namespace credit.Controllers
         {
 
             DB.AnnouncementRandom.Add(ARandom);
+            var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+            ARandom.WriteTime = DateTime.Now;
+            ARandom.Writer = UserCurrent.UserName;
             DB.SaveChanges();
             //return Content("success");
             return RedirectToAction("DetailsAnnouncementRandom", "Admin");
@@ -190,6 +196,11 @@ namespace credit.Controllers
             }
             else
             {
+                var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+                random.WriteTime = DateTime.Now;
+                random.Writer = UserCurrent.UserName;
                 random.title = ARandom.title;
                 random.Content = ARandom.Content;
                 random.DateTime = ARandom.DateTime;
@@ -232,6 +243,11 @@ namespace credit.Controllers
         {
 
             DB.AnnouncementUnsual.Add(AUnsual);
+            var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+            AUnsual.WriteTime = DateTime.Now;
+            AUnsual.Writer = UserCurrent.UserName;
             DB.SaveChanges();
             //return Content("success");
             return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
@@ -266,6 +282,11 @@ namespace credit.Controllers
             }
             else
             {
+                var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+                Unsual.WriteTime = DateTime.Now;
+                Unsual.Writer = UserCurrent.UserName;
                 Unsual.title = AUnsual.title;
                 Unsual.Content = AUnsual.Content;
                 Unsual.DateTime = AUnsual.DateTime;
@@ -308,6 +329,11 @@ namespace credit.Controllers
         {
 
             DB.AnnouncementIllegal.Add(AIllegal);
+            var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+            AIllegal.WriteTime = DateTime.Now;
+            AIllegal.Writer = UserCurrent.UserName;
             DB.SaveChanges();
             //return Content("success");
             return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
@@ -325,6 +351,7 @@ namespace credit.Controllers
             }
             else
             {
+
                 return View(AIllegal);
             }
 
@@ -342,6 +369,11 @@ namespace credit.Controllers
             }
             else
             {
+                var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+                Illegal.WriteTime = DateTime.Now;
+                Illegal.Writer = UserCurrent.UserName;
                 Illegal.title = AIllegal.title;
                 Illegal.Content = AIllegal.Content;
                 Illegal.DateTime = AIllegal.DateTime;

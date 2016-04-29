@@ -45,9 +45,9 @@ namespace credit.Models
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔星图科技", RegistrationNumber = "123456789012345", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔建华区华图教育", RegistrationNumber = "123456711111111", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔审计局", RegistrationNumber = "123456722222222", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
-                db.AnnouncementRandom.Add(new AnnouncementRandom { title = "抽查公告题目", Content = "这是抽查公告的内容", DateTime = DateTime.Parse("2016/3/22") });
-                db.AnnouncementUnsual.Add(new AnnouncementUnsual { title = "异常题目", Content = "这是异常公告的内容", DateTime = DateTime.Parse("2016/2/19") });
-                db.AnnouncementIllegal.Add(new AnnouncementIllegal { title = "违法题目", Content = "这是违法公告的内容", DateTime = DateTime.Parse("2016/4/2") });
+                db.AnnouncementRandom.Add(new AnnouncementRandom { title = "抽查公告题目",Writer="张三", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是抽查公告的内容", DateTime = DateTime.Parse("2016/3/22") });
+                db.AnnouncementUnsual.Add(new AnnouncementUnsual { title = "异常题目", Writer = "张三", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是异常公告的内容", DateTime = DateTime.Parse("2016/2/19") });
+                db.AnnouncementIllegal.Add(new AnnouncementIllegal { title = "违法题目",Writer="李四",WriteTime=DateTime.Parse("2016/6/12"), Content = "这是违法公告的内容", DateTime = DateTime.Parse("2016/4/2") });
                 db.InfoIllegal.Add(new InfoIllegal { RegistrationNumber = "123456789012345", EnterpriseName = "齐齐哈尔星图科技", DateTime=DateTime.Parse("2016/4/12") });
                 db.InfoRandom.Add(new InfoRandom { RegistrationNumber = "123456711111111", EnterpriseName = "齐齐哈尔建华区华图教育", DateTime = DateTime.Parse("2016/2/12"), Result="正常" });
                 db.InfoUnusual.Add(new InfoUnusual { RegistrationNumber = "123456722222222", EnterpriseName = "齐齐哈尔审计局", DateTime = DateTime.Parse("2016/3/10") });

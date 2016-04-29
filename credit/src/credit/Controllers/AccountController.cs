@@ -11,8 +11,8 @@ namespace credit.Controllers
 {
     public class AccountController : BaseController
     {
-        
-        
+
+        #region 登录
         [HttpGet]
         public IActionResult Login()
         {
@@ -47,12 +47,17 @@ namespace credit.Controllers
                 return Content("登录失败");
             }
         }
+        #endregion
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
-            if (User.IsInRole("管理员"))
+            var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+            if (UserCurrent.Level == "99" || UserCurrent.Level=="10")
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -62,10 +67,30 @@ namespace credit.Controllers
             }
         }
         
+        [Authorize(Roles ="管理员")]
         [HttpGet]
         public IActionResult Modify()
         {
-            return View();//??当前用户修改密码
+            return View();
         }
+        [Authorize(Roles = "管理员")]
+        [HttpPost]
+        public async Task<IActionResult> Modify(string password, string NewPassword)
+        {
+            var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+            if (UserCurrent == null)
+            {
+                return Content("error");
+            }
+            else
+            {
+                await UserManager.ChangePasswordAsync(UserCurrent, password, NewPassword);
+                await SignInManager.SignOutAsync();
+                return Content("success");
+            }
+        }
+
     }
 }

@@ -1,7 +1,12 @@
 ﻿@model IEnumerable<User>
 <div class="row">
     <div class="col-md-12 col-xs-12">
-        <h3>管理员人员管理<small style="float:right; color:darkred;">sdffdsfsd</small></h3>
+        @if (ViewBag.UserCurrent.Level == "99")
+        {
+            <a asp-controller="Admin" asp-action="CreateManage">添加管理员</a>
+        }
+        
+        <h3>管理员人员管理<small style="float:right; color:darkred;">当前管理员人数：<strong style="color:red;">@ViewBag.UserCount</strong></small></h3>
         <table class="table table-hover" style="margin-top:-15px;">
             <thead>
                 <tr>
