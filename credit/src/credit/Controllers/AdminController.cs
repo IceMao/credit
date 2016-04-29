@@ -67,20 +67,30 @@ namespace credit.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateManage(string username,string password,string RealName,string Email,string PhoneNumber)
         {
-            var manager = new User
+            var user = DB.User
+                .Where(x => x.UserName == username)
+                .SingleOrDefault();
+            if(user == null)
             {
-                UserName = username,
-                Level = "10",
-                RegisterTime = DateTime.Now,
-                PhoneNumber = PhoneNumber,
-                Email = Email,
-                RealName = RealName,
-                
-            };
-            await UserManager.CreateAsync(manager, password);
-            await UserManager.AddToRoleAsync(manager, "管理员");
-            DB.SaveChanges();
-            return Content("success");
+                var manager = new User
+                {
+                    UserName = username,
+                    Level = "10",
+                    RegisterTime = DateTime.Now,
+                    PhoneNumber = PhoneNumber,
+                    Email = Email,
+                    RealName = RealName,
+
+                };
+                await UserManager.CreateAsync(manager, password);
+                await UserManager.AddToRoleAsync(manager, "管理员");
+                DB.SaveChanges();
+                return Content("success");
+            }
+            else
+            {
+                return Content("usernameHave");
+            }
         }
 
         #endregion
