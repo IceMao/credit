@@ -9,7 +9,11 @@ namespace credit.Models
 {
     public class User:IdentityUser
     {
+        public string RealName { get; set; }
         public string Level { get; set; } //管理员等级 99 / 10
+
+        public DateTime RegisterTime { get; set; }//注册时间
+
         public string RegistrationNumber { get; set; }//注册号
         public string EnterpriseName { get; set; }
         public string LiaisonName { get; set; }//联系人姓名

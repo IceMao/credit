@@ -32,6 +32,7 @@ namespace credit.Controllers
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
+
                     return View();
                 }
                 else

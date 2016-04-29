@@ -71,7 +71,7 @@
         <div class="col-md-2" style="min-height:500px; background-color:#eee;">
             <aside class="panel-group" id="main">
                 <span class="label label-success userIce">
-                    <i class="glyphicon glyphicon-user" style="font-size:25px;"></i>&nbsp;Welcome&nbsp;@ViewBag.UserCurrent.UserName
+                    <i class="glyphicon glyphicon-user" style="font-size:25px;"></i>&nbsp;Welcome&nbsp;<strong>@ViewBag.UserCurrent.UserName</strong>
                 </span>
                 
                 <div class="panel panel-primary">
@@ -174,11 +174,8 @@
                     </div>
                     <div id="Member" class="panel-collapse collapse ">
                         <div class="panel-body list-group">
-                           
-                            @*{*@
-                                <a class="list-group-item" asp-controller="Admin" asp-action="DetailsBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>添加管理员</a>
-                                <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>管理管理员</a>
-                            @*}*@
+                            <a class="list-group-item" asp-controller="Admin" asp-action="CreateManage"><i class="glyphicon glyphicon-triangle-right"></i>添加管理员</a>
+                            <a class="list-group-item" asp-controller="Admin" asp-action="DetailsUser"><i class="glyphicon glyphicon-triangle-right"></i>管理管理员</a>
                             <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>查看管理员</a>
                             <a class="list-group-item" asp-controller="Admin" asp-action="CreateBaseInfo"><i class="glyphicon glyphicon-triangle-right"></i>修改密码</a>
                         </div>

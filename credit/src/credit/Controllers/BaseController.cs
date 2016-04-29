@@ -10,15 +10,10 @@ using Microsoft.AspNet.Identity;
 namespace credit.Controllers
 {
     
-    public class BaseController : Controller
+    public class BaseController : BaseController<CreditContext,User,string>
     {
-        [FromServices]
-        public CreditContext DB { get; set; }
-        [FromServices]
-        public UserManager<User> userManager { get; set; }
-        [FromServices]
-        public SignInManager<User> signInManager { get; set; }
-        
+
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);

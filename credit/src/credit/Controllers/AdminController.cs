@@ -14,7 +14,63 @@ namespace credit.Controllers
     [Authorize (Roles ="管理员")]
     public class AdminController : BaseController
     {
+        #region 显示管理员
+        [HttpGet]
+        public IActionResult DetailsUser()
+        {
+            var user = DB.User
+                .Where(x => x.Level == "99" || x.Level == "10")
+                .OrderByDescending(x=>x.Level)
+                .OrderBy(x => x.RegisterTime)
+                .ToList();
+            return PagedView(user);
+        }
+        #endregion
+        #region Admin 添加其他管理员
+        [HttpGet]
+        public IActionResult CreateManage()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+                if (UserCurrent.Level == "99")
+                {
+                    return View();
+                }
+                else
+                {
+                    return Content("不是超级用户，不可以添加管理员");
+                }
+            }
+            else
+            {
+                return Content("请登录");
+            }
+            
+            
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateManage(string username,string password,string RealName,string Email,string PhoneNumber)
+        {
+            var manager = new User
+            {
+                UserName = username,
+                Level = "10",
+                RegisterTime = DateTime.Now,
+                PhoneNumber = PhoneNumber,
+                Email = Email,
+                RealName = RealName,
+                
+            };
+            await UserManager.CreateAsync(manager, password);
+            await UserManager.AddToRoleAsync(manager, "管理员");
+            DB.SaveChanges();
+            return Content("success");
+        }
 
+        #endregion
         #region 管理员添加 注册号基本表（增删改查）
         [HttpGet]
         public IActionResult DetailsBaseInfo()

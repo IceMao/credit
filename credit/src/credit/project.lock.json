@@ -3,6 +3,26 @@
   "version": 2,
   "targets": {
     "DNX,Version=v4.5.1": {
+      "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/CodeComb.AspNet.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net451/CodeComb.AspNet.Extensions.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1875,6 +1895,20 @@
       }
     },
     "DNXCore,Version=v5.0": {
+      "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
+        },
+        "compile": {
+          "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -4399,6 +4433,26 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x86": {
+      "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/CodeComb.AspNet.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net451/CodeComb.AspNet.Extensions.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6277,6 +6331,26 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x64": {
+      "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/CodeComb.AspNet.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net451/CodeComb.AspNet.Extensions.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -8155,6 +8229,20 @@
       }
     },
     "DNXCore,Version=v5.0/win7-x86": {
+      "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
+        },
+        "compile": {
+          "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -9696,34 +9784,6 @@
           "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.dll": {}
         }
       },
-      "runtime.any.System.Linq.Expressions/4.0.11-beta-23516": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.10",
-          "System.Diagnostics.Debug": "4.0.10",
-          "System.Globalization": "4.0.10",
-          "System.IO": "4.0.10",
-          "System.Linq": "4.0.0",
-          "System.ObjectModel": "4.0.10",
-          "System.Reflection": "4.0.10",
-          "System.Reflection.Emit": "4.0.0",
-          "System.Reflection.Emit.ILGeneration": "4.0.0",
-          "System.Reflection.Emit.Lightweight": "4.0.0",
-          "System.Reflection.Extensions": "4.0.0",
-          "System.Reflection.Primitives": "4.0.0",
-          "System.Reflection.TypeExtensions": "4.0.0",
-          "System.Resources.ResourceManager": "4.0.0",
-          "System.Runtime": "4.0.20",
-          "System.Runtime.Extensions": "4.0.10",
-          "System.Threading": "4.0.10"
-        },
-        "compile": {
-          "ref/dotnet/_._": {}
-        },
-        "runtime": {
-          "lib/DNXCore50/System.Linq.Expressions.dll": {}
-        }
-      },
       "runtime.win.System.Text.Encoding.CodePages/4.0.1-beta-23516": {
         "type": "package",
         "dependencies": {
@@ -11229,6 +11289,20 @@
       }
     },
     "DNXCore,Version=v5.0/win7-x64": {
+      "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
+        },
+        "compile": {
+          "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -12770,34 +12844,6 @@
           "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.dll": {}
         }
       },
-      "runtime.any.System.Linq.Expressions/4.0.11-beta-23516": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.10",
-          "System.Diagnostics.Debug": "4.0.10",
-          "System.Globalization": "4.0.10",
-          "System.IO": "4.0.10",
-          "System.Linq": "4.0.0",
-          "System.ObjectModel": "4.0.10",
-          "System.Reflection": "4.0.10",
-          "System.Reflection.Emit": "4.0.0",
-          "System.Reflection.Emit.ILGeneration": "4.0.0",
-          "System.Reflection.Emit.Lightweight": "4.0.0",
-          "System.Reflection.Extensions": "4.0.0",
-          "System.Reflection.Primitives": "4.0.0",
-          "System.Reflection.TypeExtensions": "4.0.0",
-          "System.Resources.ResourceManager": "4.0.0",
-          "System.Runtime": "4.0.20",
-          "System.Runtime.Extensions": "4.0.10",
-          "System.Threading": "4.0.10"
-        },
-        "compile": {
-          "ref/dotnet/_._": {}
-        },
-        "runtime": {
-          "lib/DNXCore50/System.Linq.Expressions.dll": {}
-        }
-      },
       "runtime.win.System.Text.Encoding.CodePages/4.0.1-beta-23516": {
         "type": "package",
         "dependencies": {
@@ -14304,6 +14350,19 @@
     }
   },
   "libraries": {
+    "CodeComb.AspNet.Extensions/2.0.0-rc1-final": {
+      "type": "package",
+      "sha512": "rX0de9uNRBGOy8JrBJL+mNpGWyyyZ4zsqd/s+j8Sw05UVGgZWcpJJqqDxycqklI+zwfnCq6jHFIpzqnHDuqpBg==",
+      "files": [
+        "CodeComb.AspNet.Extensions.2.0.0-rc1-final.nupkg",
+        "CodeComb.AspNet.Extensions.2.0.0-rc1-final.nupkg.sha512",
+        "CodeComb.AspNet.Extensions.nuspec",
+        "lib/dotnet5.4/CodeComb.AspNet.Extensions.dll",
+        "lib/dotnet5.4/CodeComb.AspNet.Extensions.xml",
+        "lib/net451/CodeComb.AspNet.Extensions.dll",
+        "lib/net451/CodeComb.AspNet.Extensions.xml"
+      ]
+    },
     "EntityFramework.Core/7.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -15725,28 +15784,6 @@
         "Remotion.Linq.2.0.1.nupkg",
         "Remotion.Linq.2.0.1.nupkg.sha512",
         "Remotion.Linq.nuspec"
-      ]
-    },
-    "runtime.any.System.Linq.Expressions/4.0.11-beta-23516": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "4sPxQCjllMJ1uZNlwz/EataPyHSH+AqSDlOIPPqcy/88R2B+abfhPPC78rd7gvHp8KmMX4qbJF6lcCeDIQpmVg==",
-      "files": [
-        "lib/DNXCore50/System.Linq.Expressions.dll",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net45/_._",
-        "lib/netcore50/System.Linq.Expressions.dll",
-        "lib/win8/_._",
-        "lib/wp80/_._",
-        "lib/wpa81/_._",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "ref/dotnet/_._",
-        "runtime.any.System.Linq.Expressions.4.0.11-beta-23516.nupkg",
-        "runtime.any.System.Linq.Expressions.4.0.11-beta-23516.nupkg.sha512",
-        "runtime.any.System.Linq.Expressions.nuspec",
-        "runtimes/aot/lib/netcore50/_._"
       ]
     },
     "runtime.win.System.Text.Encoding.CodePages/4.0.1-beta-23516": {
@@ -19889,6 +19926,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "CodeComb.AspNet.Extensions >= 2.0.0-rc1-final",
       "EntityFramework.Sqlite >= 7.0.0-rc1-final",
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
       "Microsoft.AspNet.Authorization >= 1.0.0-rc1-final",

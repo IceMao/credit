@@ -1,0 +1,144 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>创建管理员</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">真实姓名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="RealName" id="RealName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">联系电话</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Email" id="Email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">用户名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="username" id="username" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">密码</label>
+                    <div class="col-lg-5">
+                        <input type="password" class="form-control" name="password" id="password" />
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <button id="submit" class="btn btn-success">创建</button>
+                        @*<input type="submit" class="btn btn-success" value="提交" />*@
+                        <a asp-controller="Admin" asp-action="DetailsUser">取消</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var url = "/Admin/CreateManage";
+            var params = { "username": $('#username').val(), "password": $("#password").val(),"Email":$("#Email").val(),"PhoneNumber":$("#PhoneNumber").val(),"RealName":$("#RealName").val() };
+            $.post(url, params, function (data) {
+                if (data == "success") {
+                    alert("添加成功");
+                    window.location.href = "/Admin/DetailsUser";
+                } else {
+                    alert("添加失败");
+
+                }
+            })
+        });
+
+        $('#defaultForm').bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                RealName: {
+                    message: '姓名没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不能为空'
+                        }
+                    }
+
+                },
+                Email: {
+                    validators: {
+                        emailAddress: {
+                            message: '符合规范如:xx@163.cn'
+
+                        },
+                        notEmpty: {
+                            message: 'Email不能为空'
+
+                        }
+                    }
+                },
+                PhoneNumber:{
+                    message: '电话号码还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '电话号码不能为空'
+                        },
+                        regexp: {
+                            regexp: /^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\d{8}$/,
+                            message: '11位数字，格式如：13842174329'
+                        }
+                    }
+                },
+                username: {
+                    message: '用户名还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 16,
+                            message: '用户名长度在5到16之间'
+                        }
+                    }
+                },
+                password: {
+                    message: '密码还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 16,
+                            message: '密码长度在6到16之间'
+                        },
+                        regexp: {
+                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
+                            message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
+                        },
+                        different: {
+                            field: 'username',
+                            message: '密码不能和用户名相同'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

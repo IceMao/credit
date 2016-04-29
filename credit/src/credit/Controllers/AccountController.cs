@@ -21,17 +21,26 @@ namespace credit.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string username,string password)
         {
-            var result = await signInManager.PasswordSignInAsync(username, password,false, false);
+            var result = await SignInManager.PasswordSignInAsync(username, password,false, false);
             if (result.Succeeded)
             {
-                if (User.IsInRole("管理员"))
+                var user = await UserManager.FindByNameAsync(username);
+                if(await UserManager.IsInRoleAsync(user, "管理员"))
                 {
-                    return Content("管理员"); 
+                    return Content("管理员");
                 }
                 else
                 {
                     return Content("联络员");
                 }
+                //if (User.IsInRole("管理员"))
+                //{
+                //    return Content("管理员"); 
+                //}
+                //else
+                //{
+                //    return Content("联络员");
+                //}
             }
             else
             {
@@ -42,7 +51,7 @@ namespace credit.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            await SignInManager.SignOutAsync();
             if (User.IsInRole("管理员"))
             {
                 return RedirectToAction("Login", "Account");
