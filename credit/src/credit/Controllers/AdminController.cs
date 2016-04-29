@@ -14,6 +14,18 @@ namespace credit.Controllers
     [Authorize (Roles ="管理员")]
     public class AdminController : BaseController
     {
+        #region 联络员管理
+        [HttpGet]
+        public IActionResult DetailsLiaison()
+        {
+            var liaison = DB.User
+                .Where(x => x.Level == "1")
+                .OrderBy(x=>x.RegisterTime)
+                .ToList();
+            return PagedView(liaison);
+        }
+        #endregion
+
         #region 显示管理员
         [HttpGet]
         public IActionResult DetailsUser()

@@ -30,7 +30,7 @@ namespace credit.Models
                 await userManager.CreateAsync(manage, "Cream2015!@#");
                 await userManager.AddToRoleAsync(manage, "管理员");
 
-                var liaison = new User { UserName = "liaison",RegistrationNumber="123456789012345",LiaisonName="王二狗",LiaisonIdNumber="23272119901045874",LegalIdNumber= "232721196010423874",CellPhoneNumber="18874895210" };
+                var liaison = new User { UserName = "liaison",RegistrationNumber="123456789012345",LiaisonName="王二狗",LiaisonIdNumber="23272119901045874",LegalIdNumber= "232721196010423874",PhoneNumber="18874895210", Level = "1" };
                 await userManager.CreateAsync(liaison, "Cream2015!@#");
                 await userManager.AddToRoleAsync(liaison, "联络员");
 

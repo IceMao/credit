@@ -48,7 +48,7 @@ namespace credit.Controllers
             }
         }
         #endregion
-
+        #region 登出
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
@@ -66,7 +66,8 @@ namespace credit.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        
+        #endregion
+        #region 修改密码
         [Authorize(Roles ="管理员")]
         [HttpGet]
         public IActionResult Modify()
@@ -91,6 +92,63 @@ namespace credit.Controllers
                 return Content("success");
             }
         }
-
+        #endregion
+        #region 联络员注册
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(string RegistrationNumber,string username,string password,string PhoneNumber,string LiaisonIdNumber,string LiaisonName)
+        {
+            var register = DB.BaseInfo//判断注册号是不是存在
+                .Where(x => x.RegistrationNumber == RegistrationNumber)
+                .SingleOrDefault();
+            if(register == null)
+            {
+                return Content("nullRegisterN");
+            }
+            else
+            {
+                var reg = DB.User//判断该注册号是否有联络员
+                    .Where(x => x.RegistrationNumber == RegistrationNumber)
+                    .SingleOrDefault();
+                if(reg == null)
+                {
+                    var user = DB.User
+                        .Where(x => x.UserName == username)
+                        .SingleOrDefault();
+                    if(user == null)
+                    {
+                        var Register = new User
+                        {
+                            RegistrationNumber = RegistrationNumber,
+                            UserName = username,
+                            PhoneNumber = PhoneNumber,
+                            LiaisonIdNumber = LiaisonIdNumber,
+                            LiaisonName = LiaisonName,
+                            Level = "1",
+                            EnterpriseName = register.EnterpriseName,
+                        };
+                        await UserManager.CreateAsync(Register, password);
+                        await UserManager.AddToRoleAsync(Register, "联络员");
+                        DB.SaveChanges();
+                        return Content("success");
+                        
+                    }
+                    else
+                    {
+                        return Content("usernameHave");
+                    }
+                    
+                }
+                else
+                {
+                    return Content("have");
+                }
+            }
+        } 
+        #endregion
     }
 }

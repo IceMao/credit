@@ -14,12 +14,7 @@
                         <input type="text" class="form-control" name="RegistrationNumber" id="RegistrationNumber" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">企业名</label>
-                    <div class="col-lg-5">
-                        <input type="text" class="form-control" name="EnterpriseName" id="EnterpriseName" />
-                    </div>
-                </div>
+                
                 <div class="form-group">
                     <label class="col-lg-3 control-label">联络员真实姓名</label>
                     <div class="col-lg-5">
@@ -35,7 +30,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">联络员手机号码</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="CellPhoneNumber" id="CellPhoneNumber" />
+                        <input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -47,18 +42,18 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">登录密码</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="password" id="password" />
+                        <input type="password" class="form-control" name="password" id="password" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">再次输入密码</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="confirmpassword" id="confirmpassword" />
+                        <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
-                        <button id="submit" class="btn btn-success">提交</button>
+                        <button type="submit" class="btn btn-success">提交</button>
                         @*<input type="submit" class="btn btn-success" value="提交" />*@
                         <a asp-controller="Account" asp-action="LoginLiaison">取消</a>
                     </div>
@@ -70,28 +65,6 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("#submit").click(function () {
-            var url = "/Account/Register";
-            var params = {
-                "RegistrationNumber": $('#RegistrationNumber').val(),
-                "EnterpriseName": $("#EnterpriseName").val(),
-                "password": $("#password").val(),
-                "username":$("#username").val(),
-                "CellPhoneNumber": $("#CellPhoneNumber").val(),
-                "LiaisonIdNumber": $("#LiaisonIdNumber").val(),
-                "LiaisonName": $("#LiaisonName").val()
-            };
-            $.post(url, params, function (data) {
-                if (data == "success") {
-                    alert("注册成功");
-                    window.location.href = "/Account/LoginLiaison";
-                } else {
-                    alert("注册号不存在");
-
-                }
-            })
-        });
-
         $("#defaultForm").bootstrapValidator({
             message: '这个值没有被验证',
             feedbackIcons: {
@@ -115,15 +88,6 @@
                     }
 
                 },
-                EnterpriseName: {
-                    validators: {
-                        notEmpty: {
-                            message: '企业名不能为空'
-                        }
-                    }
-
-                },
-
                 LiaisonName: {
                     validators: {
                         notEmpty: {
@@ -134,11 +98,11 @@
                 LiaisonIdNumber: {
                     validators: {
                         notEmpty: {
-                            message: '联络员真实姓名不能为空'
+                            message: '联络员身份证号码不能为空'
                         }
                     }
                 },
-                CellPhoneNumber: {
+                PhoneNumber: {
                     message: '电话号码还没有验证',
                     validators: {
                         notEmpty: {
@@ -157,8 +121,8 @@
                             message: '用户名不能为空'
                         },
                         regexp: {
-                            regexp: /^[0-9a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{0,9}$/,
-                            message: '用户名长度在1到10位之间,可以包括数字，字母，中文,下划线。不能包括特殊字符。'
+                            regexp: /^[0-9a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{0,15}$/,
+                            message: '用户名长度在1到16位之间,可以包括数字，字母，中文,下划线。不能包括特殊字符。'
                         }
                     }
 
@@ -174,10 +138,10 @@
                             max: 16,
                             message: '密码长度在6到16之间'
                         },
-                        regexp: {
-                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
-                            message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
-                        },
+                        //regexp: {
+                        //    regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
+                        //    message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
+                        //},
                         different: {
                             field: 'username',
                             message: '密码不能和用户名相同'
@@ -195,10 +159,7 @@
                             max: 16,
                             message: '二次密码长度在6到16之间'
                         },
-                        regexp: {
-                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
-                            message: '二次密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
-                        },
+                        
                         identical: {
                             field: 'password',
                             message: '两次密码不同请重新输入'
@@ -207,5 +168,31 @@
                 }
             }
         });
+    })
+    .on('success.form.bv', function (e) {
+        e.preventDefault();
+        var $form = $(e.target);
+        var bv = $form.data('bootstrapValidator');
+
+        $.post("/Account/Register", $form.serialize(), function (data) {
+            if (data == "success") {
+                alert("注册成功");
+                window.location.href = "/Account/Login";
+            } else if (data == "nullRegisterN") {
+                alert("注册号不存在");
+
+            } else if (data == "have") {
+                alert("联络员已存在");
+
+            } else if (data == "usernameHave")
+            {
+                alert("用户名已存在");
+            }
+            else {
+                alert("未知错误");
+
+            }
+        });
     });
+    ;
 </script>
