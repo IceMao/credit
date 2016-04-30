@@ -1,67 +1,168 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<div class="createYearEnterPage">
-    <h3>请填写企业年度报表</h3>
-    <table class="table">
-        <tr>
-            <th>报告年度</th>
-            <td><input type="date" disabled="disabled" name="DateTime" value="@DateTime.Now.Year" /></td>
-        </tr>
-        <tr>
-            <th>企业名称</th>
-            <td><input type="text" disabled="disabled" name="" value="" /></td>
-        </tr>
-        <tr>
-            <th>注册号</th>
-            <td><input type="text" disabled="disabled" name="" value="" /></td>
-        </tr>
-        <tr>
-            <th>企业联系电话</th>
-            <td><input type="tel" name="Tel" value="" /></td>
-            <th>电子邮箱</th>
-            <td><input type="email" name="Email" value="" /></td>
-        </tr>
-        <tr>
-            <th>企业通信地址</th>
-            <td><input type="text" name="Address" value="" /></td>
-            <th>邮政编码</th>
-            <td><input type="text" name="ZipCode" value="" /></td>
-        </tr>
-        <tr>
-            <th>是否有网站或网点</th>
-            <td>
-            <select name="Address" value="请选择">
-                <option>是</option>
-                <option>否</option>
-            </select>
-            
-            <th>企业是否有投资信息或购买其他公司股权</th>
-            
-            <td>
-                <select name="ZipCode" value="请选择">
-                    <option>是</option>
-                    <option>否</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>企业经营状态</th>
-            <td>
-                <select name="Address" value="请选择">
-                    <option>开业</option>
-                    <option>歇业</option>
-                    <option>清算</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>从业人数</th>
-            <td><input type="text" name="" value="" /></td>
-        </tr>
-    </table>
-</div>
-<p>
-    <input type="submit" value="保存并提交" />
-    <a href="#">取消</a>
-</p>
+<form id="defaultForm">
+    <div class="createYearEnterPage">
+        <h3>请填写企业年度报表</h3>
+        <table class="table">
+            <tr>
+                <th>报告年度</th>
+                <td><input type="date" disabled="disabled" name="DateTime" value="@DateTime.Now.Year" /></td>
+            </tr>
+            <tr>
+                <th>企业名称</th>
+                <td><input type="text" disabled="disabled" name="RegistrationNumber" value="@ViewBag.RNumber" /></td>
+            </tr>
+            <tr>
+                <th>注册号</th>
+                <td><input type="text" disabled="disabled" name="EnterpriseName" value="@ViewBag.EName" /></td>
+            </tr>
+            <tr>
+                <th>企业联系电话</th>
+                <td class="form-group"><input type="tel" name="Tel" /></td>
+                <th>电子邮箱</th>
+                <td class="form-group"><input type="email" name="Email"  /></td>
+            </tr>
+            <tr>
+                <th>企业通信地址</th>
+                <td class="form-group"><input type="text" name="Address" /></td>
+                <th>邮政编码</th>
+                <td class="form-group"><input type="text" name="ZipCode" /></td>
+            </tr>
+            <tr>
+                <th>是否有网站或网点</th>
+                <td class="form-group">
+                    <select name="Website" value="请选择">
+                        <option>是</option>
+                        <option>否</option>
+                    </select>
+
+                <th>企业是否有投资信息或购买其他公司股权</th>
+
+                <td class="form-group">
+                    <select name="Investment" value="请选择">
+                        <option>是</option>
+                        <option>否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>企业经营状态</th>
+                <td>
+                    <select name="OperateState">
+                        @foreach (OperatStateType x in ViewBag.OType){
+                            <option>x.Type</option>
+                        }                      
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>从业人数</th>
+                <td class="form-group"><input type="text" name="EmployeeNum" value="" /></td>
+            </tr>
+        </table>
+    </div>
+    <p>
+        <input type="submit" value="保存并提交" />
+        <a asp-controller="Home" asp-action="Index">取消</a>
+    </p>
+</form>
+<script>
+        $("document").ready(function () {
+            $("#defaultForm").bootstrapValidator({
+                live: 'disable',
+                message:'这个值不合法',
+                feedbackIcons:{
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating:'glyphicon glyphicon-refresh'
+
+                },
+                fields: {
+                    Address: {
+                        message: '企业地址还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '企业地址不能为空'
+                            }
+                        }
+                    },
+                    ZipCode: {
+                        message: '邮编还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '邮编不能为空'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]\d{5}$/,
+                                message: '6位数字，格式如：150321'
+                            }
+                        }
+                    },
+                    Website: {
+                        message: '该项还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '该项没有选择'
+                            }
+                        }
+                    },
+                    Investment: {
+                        message: '该项还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '该项没有选择'
+                            }
+                        }
+                    },
+                    OperateState: {
+                        message: '经营状态还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '经营状态没有选择'
+                            }
+                        }
+                    },
+                    Tel: {
+                        message: '电话号码还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '电话号码不能为空'
+                            },
+                            regexp: {
+                                regexp: /^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\d{8}$/,
+                                message: '11位数字，格式如：13842174329'
+                            }
+                        }
+                    },
+                    Email: {
+                        validators: {
+                            emailAddress: {
+                                message: '符合规范如:xx@163.cn'
+
+                            },
+                            notEmpty: {
+                                message: 'Email不能为空'
+
+                            }
+                        }
+                    },
+                }
+            })
+            .on('success.form.bv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('bootstrapValidator');
+
+                $.post("/Admin/CreateYearReportEnterprise", $form.serialize(), function (data) {
+                    if (data == "success") {
+                        alert("保存成功");
+                        window.location.href = "/Home/Index";
+                    }
+                    else {
+                        alert("注册号不存在");
+                    }
+                });
+            });
+        });
+</script>

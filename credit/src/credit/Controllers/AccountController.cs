@@ -100,7 +100,7 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(string RegistrationNumber,string username,string password,string PhoneNumber,string LiaisonIdNumber,string LiaisonName)
+        public async Task<IActionResult> Register(string RegistrationNumber,string username,string password,string PhoneNumber,string LiaisonIdNumber,string RealName)
         {
             var register = DB.BaseInfo//判断注册号是不是存在
                 .Where(x => x.RegistrationNumber == RegistrationNumber)
@@ -127,7 +127,7 @@ namespace credit.Controllers
                             UserName = username,
                             PhoneNumber = PhoneNumber,
                             LiaisonIdNumber = LiaisonIdNumber,
-                            LiaisonName = LiaisonName,
+                            RealName = RealName,
                             Level = "1",
                             EnterpriseName = register.EnterpriseName,
                         };

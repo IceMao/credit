@@ -22,11 +22,41 @@ namespace credit.Controllers
                 .Where(x => x.Level == "1")
                 .OrderBy(x=>x.RegisterTime)
                 .ToList();
+            ViewBag.LiasionCount = liaison.Count;
             return PagedView(liaison);
         }
         #endregion
 
-        #region 显示管理员
+        #region 显示，删除管理员
+        
+        public IActionResult DeleteUser(string id)
+        {
+            var UserCurrent = DB.Users
+                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                    .SingleOrDefault();
+            if(UserCurrent.Level == "99")
+            {
+                var user = DB.User
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+                if (user == null)
+                {
+                    return Content("error");
+                }
+                else
+                {
+                    DB.User.Remove(user);
+                    DB.SaveChanges();
+                    return Content("success");
+                }
+            }
+            else
+            {
+                return Content("notRemove");
+            }
+            
+        }
+
         [HttpGet]
         public IActionResult DetailsUser()
         {
@@ -94,7 +124,7 @@ namespace credit.Controllers
         }
 
         #endregion
-        #region 管理员添加 注册号基本表（增删改查）
+        #region  注册号基本表（增删改查）
         [HttpGet]
         public IActionResult DetailsBaseInfo()
         {

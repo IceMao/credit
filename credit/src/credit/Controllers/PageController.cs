@@ -23,31 +23,54 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()
         {
-            if (User.IsInRole("管理员"))
-            {
-                return Content("不是联络员登录，不能填报");
+            //已经登录
+            var UserCurrent = DB.User
+                .Where(x => x.UserName == HttpContext.User.Identity.Name)
+                .Where(x=>x.Level == "1" )//是 联络员
+                .SingleOrDefault();
 
-            }
-            else
+            if (UserCurrent.Level == "1")//是联络员
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-
+                    var type = DB.OperatStateType
+                        .OrderBy(x => x.Id)
+                        .ToList();
+                    ViewBag.RNumber = UserCurrent.RegistrationNumber;
+                    ViewBag.EName = UserCurrent.EnterpriseName;
+                    ViewBag.OType = type;
                     return View();
                 }
                 else
                 {
                     return Content("请联络员先登录");
                 }
-            }        
+                
+            }
+            else
+            {
+                return Content("不是联络员，请联络员登录");
+
+            }
         }
         [Authorize(Roles = ("联络员"))]
         [HttpPost]
-        public IActionResult CreateYearReportEnterprise(int XX)
+        public IActionResult CreateYearReportEnterprise(string registerNumber,DateTime DateTime,string enterpriseName,string tel,string email,string address,string zipCode,string webSite,string investement,string operatState,int employeeNum)
         {
-            //var lianluo = DB.User
-            //    .Where(x=>x.RegistrationNumber == )
-            return View();
+            var table = new YearReportEnterprise
+            {
+                Tel = tel,
+                Email = email,
+                DateTime = DateTime,
+                Address = address,
+                ZipCode = zipCode,
+                Website = webSite,
+                Investment = investement,
+                EmployeeNum = employeeNum,
+                OperatState = operatState,
+            };
+            DB.SaveChanges();
+            return Content("success");
         }
         #endregion
         #region 信息公告总页

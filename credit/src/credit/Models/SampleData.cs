@@ -30,7 +30,7 @@ namespace credit.Models
                 await userManager.CreateAsync(manage, "Cream2015!@#");
                 await userManager.AddToRoleAsync(manage, "管理员");
 
-                var liaison = new User { UserName = "liaison",RegistrationNumber="123456789012345",LiaisonName="王二狗",LiaisonIdNumber="23272119901045874",LegalIdNumber= "232721196010423874",PhoneNumber="18874895210", Level = "1" };
+                var liaison = new User { UserName = "liaison",RegistrationNumber="123456789012345", RealName = "王二狗",LiaisonIdNumber="23272119901045874",LegalIdNumber= "232721196010423874",PhoneNumber="18874895210", Level = "1" };
                 await userManager.CreateAsync(liaison, "Cream2015!@#");
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
@@ -38,6 +38,12 @@ namespace credit.Models
                 db.PublicityTypes.Add(new PublicityTypes { Type = "正常" });
                 db.PublicityTypes.Add(new PublicityTypes { Type = "经营异常" });
                 db.PublicityTypes.Add(new PublicityTypes { Type = "严重违法" });
+                //初始化 经营状态类型
+                db.OperatStateType.Add(new OperatStateType { Type = "开业" });
+                db.OperatStateType.Add(new OperatStateType { Type = "歇业" });
+                db.OperatStateType.Add(new OperatStateType { Type = "停业" });
+                db.OperatStateType.Add(new OperatStateType { Type = "清算" });
+                db.OperatStateType.Add(new OperatStateType { Type = "续存" });
 
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456789012345", EnterpriseName = "齐齐哈尔星图科技" });
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456711111111", EnterpriseName = "齐齐哈尔建华区华图教育" });

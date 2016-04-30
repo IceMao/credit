@@ -16,7 +16,6 @@ namespace credit.Models
 
         public string RegistrationNumber { get; set; }//注册号
         public string EnterpriseName { get; set; }
-        public string LiaisonName { get; set; }//联系人姓名
         public string LiaisonIdNumber { get; set; }//联系人身份证号
         public string LegalIdNumber { get; set; }//法定代表人证件号
         
