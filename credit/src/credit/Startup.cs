@@ -27,7 +27,7 @@ namespace credit
                 .AddSqlServer()
                 .AddDbContext<CreditContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=Cream2015!@#;database=credit;"));//182.254.211.75
 
-            services.AddIdentity<User, IdentityRole>(x => {
+            services.AddIdentity<User, IdentityRole<long>>(x => {
                 x.Password.RequireDigit = false;
                 x.Password.RequiredLength = 0;
                 x.Password.RequireLowercase = false;
@@ -35,11 +35,11 @@ namespace credit
                 x.Password.RequireUppercase = false;
                 x.User.AllowedUserNameCharacters = null;
             })
-                .AddEntityFrameworkStores<CreditContext>()
+                .AddEntityFrameworkStores<CreditContext,long>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-            services.AddSmartUser<User, string>();
+            services.AddSmartUser<User, long>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

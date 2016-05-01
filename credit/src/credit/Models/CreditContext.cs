@@ -7,7 +7,7 @@ using Microsoft.Data.Entity;
 
 namespace credit.Models
 {
-    public class CreditContext:IdentityDbContext<User>
+    public class CreditContext:IdentityDbContext<User,IdentityRole<long>,long>
     {
         public DbSet<AnnouncementIllegal> AnnouncementIllegal { get; set; }
         public DbSet<AnnouncementUnsual> AnnouncementUnsual { get; set; }

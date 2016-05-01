@@ -24,20 +24,16 @@ namespace credit.Controllers
         public IActionResult CreateYearReportEnterprise()
         {
             //已经登录
-            var UserCurrent = DB.User
-                .Where(x => x.UserName == HttpContext.User.Identity.Name)
-                .Where(x=>x.Level == "1" )//是 联络员
-                .SingleOrDefault();
-
-            if (UserCurrent.Level == "1")//是联络员
+            
+            if (User.Current.Level == "1")//是联络员
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
                     var type = DB.OperatStateType
                         .OrderBy(x => x.Id)
                         .ToList();
-                    ViewBag.RNumber = UserCurrent.RegistrationNumber;
-                    ViewBag.EName = UserCurrent.EnterpriseName;
+                    ViewBag.RNumber = User.Current.RegistrationNumber;
+                    ViewBag.EName = User.Current.EnterpriseName;
                     ViewBag.OType = type;
                     return View();
                 }

@@ -15,12 +15,12 @@ namespace credit.Models
             var db = service.GetRequiredService<CreditContext>();
 
             var userManager = service.GetRequiredService<UserManager<User>>();
-            var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = service.GetRequiredService<RoleManager<IdentityRole<long>>>();
 
             if(db.Database != null && db.Database.EnsureCreated())
             {
-                await roleManager.CreateAsync(new IdentityRole { Name = "管理员" });
-                await roleManager.CreateAsync(new IdentityRole { Name = "联络员" });
+                await roleManager.CreateAsync(new IdentityRole<long> { Name = "管理员" });
+                await roleManager.CreateAsync(new IdentityRole<long> { Name = "联络员" });
 
                 var user = new User {RealName="张三",PhoneNumber="18845296017",Email="123@qq.com", UserName = "admin",Level="99" };
                 await userManager.CreateAsync(user, "Cream2015!@#");

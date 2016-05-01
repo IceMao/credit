@@ -29,7 +29,7 @@ namespace credit.Controllers
 
         #region 显示，删除管理员
         
-        public IActionResult DeleteUser(string id)
+        public IActionResult DeleteUser(int id)
         {
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)

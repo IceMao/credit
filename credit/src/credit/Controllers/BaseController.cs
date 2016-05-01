@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 namespace credit.Controllers
 {
     
-    public class BaseController : BaseController<CreditContext,User,string>
+    public class BaseController : BaseController<CreditContext,User,long>
     {
 
 

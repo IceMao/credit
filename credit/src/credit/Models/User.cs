@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace credit.Models
 {
-    public class User:IdentityUser
+    public class User:IdentityUser<long>
     {
         public string RealName { get; set; }
         public string Level { get; set; } //管理员等级 99 / 10
