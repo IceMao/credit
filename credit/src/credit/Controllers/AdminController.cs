@@ -18,7 +18,7 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsLiaison()
         {
-            var liaison = DB.User
+            var liaison = DB.Users
                 .Where(x => x.Level == "1")
                 .OrderBy(x=>x.RegisterTime)
                 .ToList();
@@ -31,12 +31,12 @@ namespace credit.Controllers
         
         public IActionResult DeleteUser(int id)
         {
-            var UserCurrent = DB.Users
-                    .Where(x => x.UserName == HttpContext.User.Identity.Name)
-                    .SingleOrDefault();
-            if(UserCurrent.Level == "99")
+            //var UserCurrent = DB.Users
+            //        .Where(x => x.UserName == HttpContext.User.Identity.Name)
+            //        .SingleOrDefault();
+            if(User.Current.Level == "99")
             {
-                var user = DB.User
+                var user = DB.Users
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
                 if (user == null)
@@ -45,7 +45,7 @@ namespace credit.Controllers
                 }
                 else
                 {
-                    DB.User.Remove(user);
+                    DB.Users.Remove(user);
                     DB.SaveChanges();
                     return Content("success");
                 }
@@ -60,7 +60,7 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsUser()
         {
-            var user = DB.User
+            var user = DB.Users
                 .Where(x => x.Level == "99" || x.Level == "10")
                 .OrderByDescending(x=>x.Level)
                 .OrderBy(x => x.RegisterTime)
@@ -97,7 +97,7 @@ namespace credit.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateManage(string username,string password,string RealName,string Email,string PhoneNumber)
         {
-            var user = DB.User
+            var user = DB.Users
                 .Where(x => x.UserName == username)
                 .SingleOrDefault();
             if(user == null)

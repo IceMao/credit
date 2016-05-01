@@ -111,12 +111,12 @@ namespace credit.Controllers
             }
             else
             {
-                var reg = DB.User//判断该注册号是否有联络员
+                var reg = DB.Users//判断该注册号是否有联络员
                     .Where(x => x.RegistrationNumber == RegistrationNumber)
                     .SingleOrDefault();
                 if(reg == null)
                 {
-                    var user = DB.User
+                    var user = DB.Users
                         .Where(x => x.UserName == username)
                         .SingleOrDefault();
                     if(user == null)

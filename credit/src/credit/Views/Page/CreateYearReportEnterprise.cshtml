@@ -7,7 +7,7 @@
         <table class="table">
             <tr>
                 <th>报告年度</th>
-                <td><input type="date" disabled="disabled" name="DateTime" value="@DateTime.Now.Year" /></td>
+                <td><input type="text" disabled="disabled" name="DateTime" value="@DateTime.Now.Year" /></td>
             </tr>
             <tr>
                 <th>企业名称</th>
@@ -70,7 +70,6 @@
 <script>
         $("document").ready(function () {
             $("#defaultForm").bootstrapValidator({
-                live: 'disable',
                 message:'这个值不合法',
                 feedbackIcons:{
                     valid: 'glyphicon glyphicon-ok',
