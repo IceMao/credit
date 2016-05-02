@@ -22,9 +22,9 @@
                     <label class="col-lg-3 control-label">抽查结果</label>
                     <div class="col-lg-5">
                         <select class="form-control" name="Result">
-                            @foreach (PublicityTypes x in ViewBag.PType)
+                            @foreach (TypeCS x in ViewBag.PType)
                             {
-                                <option>@x.Type</option>
+                                <option>@x.Types</option>
                             }
                         </select>
                     </div>

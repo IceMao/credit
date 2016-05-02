@@ -464,7 +464,8 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult CreateInfoRandom()//添加表格内容
         {
-            var PType = DB.PublicityTypes
+            var PType = DB.TypeCS
+                .Where(x=>x.NameType == "PType")
                 .ToList();
             ViewBag.PType = PType;
             return View();
@@ -500,8 +501,9 @@ namespace credit.Controllers
                 return Content("查无此人");
             else
             {
-                var PType = DB.PublicityTypes
-                    .Where(x => x.Type != infoRandom.Result)
+                var PType = DB.TypeCS
+                    .Where(x => x.Types != infoRandom.Result)
+                    .Where(x=>x.NameType == "PType")
                     .ToList();
                 ViewBag.PType = PType;
                 return View(infoRandom);

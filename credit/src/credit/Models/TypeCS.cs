@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace credit.Models
 {
-    public class OperatStateType
+    public class TypeCS
     {
-        //企业经营状态
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string NameType { get; set; }//EType(企业经营状态)，PType（抽查公示类别）
+        public string Types { get; set; }
     }
 }

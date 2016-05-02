@@ -35,15 +35,15 @@ namespace credit.Models
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
                 //初始化 公示类型
-                db.PublicityTypes.Add(new PublicityTypes { Type = "正常" });
-                db.PublicityTypes.Add(new PublicityTypes { Type = "经营异常" });
-                db.PublicityTypes.Add(new PublicityTypes { Type = "严重违法" });
+                db.TypeCS.Add(new TypeCS { NameType = "PType", Types = "正常" });
+                db.TypeCS.Add(new TypeCS { NameType = "PType", Types = "经营异常" });
+                db.TypeCS.Add(new TypeCS { NameType = "PType", Types = "严重违法" });
                 //初始化 经营状态类型
-                db.OperatStateType.Add(new OperatStateType { Type = "开业" });
-                db.OperatStateType.Add(new OperatStateType { Type = "歇业" });
-                db.OperatStateType.Add(new OperatStateType { Type = "停业" });
-                db.OperatStateType.Add(new OperatStateType { Type = "清算" });
-                db.OperatStateType.Add(new OperatStateType { Type = "续存" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "开业" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "歇业" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "停业" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "清算" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "续存" });
 
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456789012345", EnterpriseName = "齐齐哈尔星图科技" });
                 db.BaseInfo.Add(new BaseInfo { RegistrationNumber = "123456711111111", EnterpriseName = "齐齐哈尔建华区华图教育" });

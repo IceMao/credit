@@ -16,8 +16,7 @@ namespace credit.Models
         public DbSet<InfoIllegal> InfoIllegal { get; set; }
         public DbSet<InfoUnusual> InfoUnusual { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
-        public DbSet<PublicityTypes> PublicityTypes { get; set; }
-        public DbSet<OperatStateType> OperatStateType { get; set; }
+        public DbSet<TypeCS> TypeCS { get; set; }
         public DbSet<YearReportEnterprise> YearReportEnterprise { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

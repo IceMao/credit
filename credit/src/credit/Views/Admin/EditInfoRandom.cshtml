@@ -32,9 +32,9 @@
             <td>
                 <select name="Result" class="form-control">
                     <option>@Model.Result</option>
-                    @foreach (PublicityTypes x in ViewBag.PType)
+                    @foreach (TypeCS x in ViewBag.PType)
                     {
-                        <option>@x.Type</option>
+                        <option>@x.Types</option>
                     }
                 </select>
             </td>

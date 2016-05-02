@@ -19,9 +19,9 @@
             </tr>
             <tr>
                 <th>企业联系电话</th>
-                <td class="form-group"><input type="tel" name="Tel" /></td>
+                <td class="form-group"><input type="text" name="Tel" /></td>
                 <th>电子邮箱</th>
-                <td class="form-group"><input type="email" name="Email"  /></td>
+                <td class="form-group"><input type="text" name="Email"  /></td>
             </tr>
             <tr>
                 <th>企业通信地址</th>
@@ -32,17 +32,17 @@
             <tr>
                 <th>是否有网站或网点</th>
                 <td class="form-group">
-                    <select name="Website" value="请选择">
-                        <option>是</option>
+                    <select name="Website" >
                         <option>否</option>
+                        <option>是</option>
                     </select>
 
                 <th>企业是否有投资信息或购买其他公司股权</th>
 
                 <td class="form-group">
-                    <select name="Investment" value="请选择">
-                        <option>是</option>
+                    <select name="Investment" >
                         <option>否</option>
+                        <option>是</option>
                     </select>
                 </td>
             </tr>
@@ -50,15 +50,16 @@
                 <th>企业经营状态</th>
                 <td>
                     <select name="OperateState">
-                        @foreach (OperatStateType x in ViewBag.OType){
-                            <option>x.Type</option>
+                        @foreach (TypeCS x in ViewBag.EType)
+                        {
+                            <option>@x.Types</option>
                         }                      
                     </select>
                 </td>
             </tr>
             <tr>
                 <th>从业人数</th>
-                <td class="form-group"><input type="text" name="EmployeeNum" value="" /></td>
+                <td class="form-group"><input type="text" name="EmployeeNum" /></td>
             </tr>
         </table>
     </div>
@@ -78,6 +79,14 @@
 
                 },
                 fields: {
+                    EmployeeNum: {
+                        message: '从业人数还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '从业人数不能为空'
+                            }
+                        }
+                    },
                     Address: {
                         message: '企业地址还没有验证',
                         validators: {

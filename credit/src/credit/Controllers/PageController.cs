@@ -29,12 +29,13 @@ namespace credit.Controllers
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    var type = DB.OperatStateType
+                    var type = DB.TypeCS
+                        .Where(x=>x.NameType=="EType")
                         .OrderBy(x => x.Id)
                         .ToList();
                     ViewBag.RNumber = User.Current.RegistrationNumber;
                     ViewBag.EName = User.Current.EnterpriseName;
-                    ViewBag.OType = type;
+                    ViewBag.EType = type;
                     return View();
                 }
                 else
