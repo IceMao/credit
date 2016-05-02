@@ -16,6 +16,12 @@ namespace credit.Controllers
             
             return View();
         }
+        [HttpGet]
+        public IActionResult Index1()
+        {
+
+            return View();
+        }
         [Authorize]
         [HttpGet]
         public IActionResult Manage()
