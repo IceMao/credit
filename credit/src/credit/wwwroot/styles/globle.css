@@ -13,7 +13,7 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 .APage .leftSide ul li:hover{background:#eee;}
 .APage .leftSide ul li a{font-size:14px; font-family: Helvetica; color:#111;}
 .APage .leftSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float:right; margin-right: 25px;}
-.APage .rightSide{width:34%; background-color:#fff; float: right;}
+.APage .rightSide{width:34%; background-color:transparent; float: right;}
 .APage .rightSide h3{margin: 50px 0 25px 25px;font-size: 1.5em;font-family: Helvetica;}
 .APage .rightSide ul li{padding-left:25px;}
 .APage .rightSide ul li a{font-size:13px; font-family: Helvetica; color:#111;}
@@ -39,7 +39,7 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 .InfoPage .search input {
     width: 500px;
     height: 60px;
-    background: #FFE9AF;
+    background: rgb(218, 217, 222);
     border: 1px solid #fff;
     border-radius: 8px;
     box-shadow: 0 0 0 6px #fff;
@@ -52,21 +52,22 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     box-shadow: 0 0 0 3px #50a3a3;
 }
 .InfoPage .search input:focus{
-    background:#FFFAD7;
+    background:#fff;
+    color:#000;
 }
 
 .InfoPage .search .btn1 {
     width: 100px;
     margin-left:20px;
     height: 60px;
-    background: #FF7F66;
+    background: #23619E;
     
     text-align: center;
     line-height: 60px;
     font-size: 16px;
     color: #fff;
 }
-.InfoPage .list{width:90%; min-height:381px; margin:20px auto; background:#FFF6E5;padding:0 20px; }
+.InfoPage .list{width:90%; min-height:381px; margin:20px auto; background:#fff;padding:0 20px; }
 .InfoPage .list h3{font-size:1.5em; font-weight:400; padding:10px 0; border-bottom:1px solid #ddd;color:#3E454C;}
 .InfoPage .list ul.list-title{ overflow: hidden;}
 .InfoPage .list ul.list-title li{font-weight: 600; padding:10px 0; float:left; width:300px;color:#3E454C;}
@@ -104,8 +105,8 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 .Layout1Page .header .nav{ float:right;}
 .Layout1Page .header .nav ul{height:36px;margin-top:17px;}
 .Layout1Page .header .nav ul li{float: left;}
-.Layout1Page .header .nav ul li a{display:block; font-size:14px;font-weight: 400; color:#3E454C;text-align: center;line-height: 36px; padding:0 7px 0 7px;width:100px; border-right:1px solid #fff;}
-.Layout1Page .header .nav ul li a:hover{background:rgba(255,255,255,0.5);}
+.Layout1Page .header .nav ul li a{display:block; font-size:14px;font-weight: 400; color:#fff;text-align: center;line-height: 36px; padding:0 7px 0 7px;width:100px; border-right:1px solid #fff;}
+.Layout1Page .header .nav ul li a:hover{background:rgba(255,255,255,0.5); color:#000;}
 .Layout1Page .content{min-height:530px;}
 .Layout1Page footer {
     overflow: hidden;
@@ -122,10 +123,10 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
     line-height: 70px;
     color: #fff;
     font-size: 16px;
-    width:220px; 
+    width:260px; 
     margin: 0 auto;
 }
-.Layout1Page footer a{display:inline-block; font-size:14px; color:#6EFDBE; padding:0 10px;}
+.Layout1Page footer a{display:inline-block; font-size:16px; color:#fff; padding:0 10px;}
 .Layout1Page footer a:hover{color:#FFCE9F;}
 /*Layout1 end*/
 
