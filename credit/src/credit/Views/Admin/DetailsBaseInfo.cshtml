@@ -1,58 +1,63 @@
 ﻿@model IEnumerable<BaseInfo>
-<div class="row">
-    <div class="col-md-12 col-xs-12">
-        <h3>企业基本信息</h3>
-        <table class="table table-hover" style="margin-top:-15px;">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>注册号</th>
-                    <th>企业名称</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var x in Model)
-                {
-                    <tr id="table-tr-@x.Id">
-                        <td>@x.Id</td>
-                        <td>@x.RegistrationNumber</td>
-                        <td>@x.EnterpriseName</td>
-                        @if (User.IsSignedIn())
-                        {
-                            <td>
-                                <a asp-action="EditBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
-                                <a href="javascript:remove(@x.Id)">删除</a>
-                            </td>
-                        }
+<div id="content-header">
+    <h1>注册号管理</h1>
+</div>
+<div id="breadcrumb">
+    <a asp-controller="Home" asp-action="Manage" title="Go to BackHome" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+    <a href="#" class="current">注册号管理</a>
+</div>
+<div class="container-fluid" id="AllPageLayout">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <table class="table table-hover table-bordered" style="margin-top:-15px;">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>注册号</th>
+                        <th>企业名称</th>
+                        <th>操作</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr id="table-tr-@x.Id">
+                            <td>@x.Id</td>
+                            <td>@x.RegistrationNumber</td>
+                            <td>@x.EnterpriseName</td>
+                            @if (User.IsSignedIn())
+                            {
+                                <td>
+                                    <a asp-action="EditBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
+                                    <a href="javascript:remove(@x.Id)">删除</a>
+                                </td>
+                            }
+                        </tr>
 
                     }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
-
-@if (User.IsSignedIn())
-{
-    <script>
-        function remove(id)
-        {
-            var jug = confirm("确认删除？");
-            if (jug == true) {
-                var url = "/Admin/DeleteBaseInfo";
-                var params={"id":id};
-                $.post(url, params, function (data) {
-                    if (data == "success") {
-                        alert("删除成功");
-                        $("#table-tr-" + id).remove();
-                    }
-                    else {
-                        alert("删除失败");
-                    }
-                });
+    @if (User.IsSignedIn())
+    {
+        <script>
+            function remove(id) {
+                var jug = confirm("确认删除？");
+                if (jug == true) {
+                    var url = "/Admin/DeleteBaseInfo";
+                    var params = { "id": id };
+                    $.post(url, params, function (data) {
+                        if (data == "success") {
+                            alert("删除成功");
+                            $("#table-tr-" + id).remove();
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    });
+                }
             }
-        }
-    </script>
-}
+        </script>
+    }

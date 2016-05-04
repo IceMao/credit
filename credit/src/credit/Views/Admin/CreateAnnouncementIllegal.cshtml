@@ -1,9 +1,13 @@
-﻿<div class="container-fluid">
-    <div class="row">
+﻿<div id="content-header">
+    <h1>严重违法公告创建</h1> 
+</div>
+<div id="breadcrumb">
+    <a asp-controller="Home" asp-action="Manage" title="Go to BackHome" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+    <a href="#" class="current">严重违法公告创建</a>
+</div>
+<div class="container-fluid" id="AllPageLayout">
+    <div class="row-fluid">
         <div class="col-lg-8 col-lg-offset-2">
-            <div class="page-header">
-                <h3>严重违法公告创建</h3>
-            </div>
             <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreateAnnouncementIllegal" method="post">
                 <div class="form-group">
                     <label class="col-lg-3 control-label">公告标题</label>
@@ -35,7 +39,9 @@
             </form>
         </div>
     </div>
+    
 </div>
+<script src="~/scripts/jquery-1.8.3.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#submit").click(function () {

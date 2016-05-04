@@ -1,101 +1,108 @@
 ﻿@model IEnumerable<User>
-<div class="row">
-    <div class="col-md-12 col-xs-12">
-        @if (ViewBag.UserCurrent.Level == "99")
-        {
-            <a asp-controller="Admin" asp-action="CreateManage">添加管理员</a>
-        }
-        
-        <h3>管理员人员管理<small style="float:right; color:darkred;">当前管理员人数：<strong style="color:red;">@ViewBag.UserCount</strong></small></h3>
-        <table class="table table-hover" style="margin-top:-15px;">
-            <thead>
-                <tr>
-                    <th>注册时间</th>
-                    <th>用户名</th>
-                    <th>管理员等级</th>
-                    <th>真实姓名</th>
-                    <th>联系方式</th>
-                    <th>Email</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var x in Model)
-                {
-                    <tr id="table-tr-@x.Id">
-                        <td>@x.RegisterTime</td>
-                        <td>@x.UserName</td>
-                        <td>@x.Level</td>
-                        <td>@x.RealName</td>
-                        <td>@x.PhoneNumber</td>
-                        <td>@x.Email</td>
-                        @if (User.IsSignedIn())
-                        {
-                            <td>
-                                <a href="javascript:remove(@x.Id)">删除</a>
-                            </td>
-                        }
-                    </tr>
+<div id="content-header">
+    <h1>管理员人员管理</h1>
+</div>
+<div id="breadcrumb">
+    <a asp-controller="Home" asp-action="Manage" title="Go to BackHome" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+    <a href="#" class="current">管理员人员管理</a>
+</div>
+<div class="container-fluid" id="AllPageLayout">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            @if (ViewBag.UserCurrent.Level == "99")
+            {
+                <a asp-controller="Admin" asp-action="CreateManage">添加管理员</a>
+            }
 
-                }
-            </tbody>
-        </table>
+            <h3>管理员人员管理<small style="float:right; color:darkred;">当前管理员人数：<strong style="color:red;">@ViewBag.UserCount</strong></small></h3>
+            <table class="table table-hover" style="margin-top:-15px;">
+                <thead>
+                    <tr>
+                        <th>注册时间</th>
+                        <th>用户名</th>
+                        <th>管理员等级</th>
+                        <th>真实姓名</th>
+                        <th>联系方式</th>
+                        <th>Email</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr id="table-tr-@x.Id">
+                            <td>@x.RegisterTime</td>
+                            <td>@x.UserName</td>
+                            <td>@x.Level</td>
+                            <td>@x.RealName</td>
+                            <td>@x.PhoneNumber</td>
+                            <td>@x.Email</td>
+                            @if (User.IsSignedIn())
+                            {
+                                <td>
+                                    <a href="javascript:remove(@x.Id)">删除</a>
+                                </td>
+                            }
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+    @if (User.IsSignedIn())
+    {
+        <script>
+            function remove(id) {
+                var jug = confirm("确认删除？");
+                if (jug == true) {
+                    var url = "/Admin/DeleteUser";
+                    var params = { "id": id };
+                    $.post(url, params, function (data) {
+                        if (data == "success") {
+                            $("#table-tr-" + id).remove();
+                            alert("删除成功");
 
-@if (User.IsSignedIn())
-{
-    <script>
-        function remove(id)
-        {
-            var jug = confirm("确认删除？");
-            if (jug == true) {
-                var url = "/Admin/DeleteUser";
-                var params = { "id": id };
-                $.post(url, params, function (data) {
-                    if (data == "success") {
-                        $("#table-tr-" + id).remove();
-                        alert("删除成功");
+                        }
+                        else {
+                            alert("删除失败,找不到该记录");
 
-                    }
-                    else{
-                        alert("删除失败,找不到该记录");
+                        }
+                    });
 
-                    }
-                });
+                }
 
             }
+        </script>
 
-        }
-    </script>
+    }
 
-}
-
-@*@if (User.IsSignedIn())
-{
-    <script>
-        function remove(id)
+    @*@if (User.IsSignedIn())
         {
-            var jug = confirm("确认删除？");
-            if (jug == true) {
-                var url = "/Admin/DeleteUser";
-                var params={"id":id};
-                $.post(url, params, function (data) {
-                    if (data == "success") {
-                        alert("删除成功");
-                        $("#table-tr-" + id).remove();
-                    } else if (data == "error") {
-                        alert("管理员不存在");
+            <script>
+                function remove(id)
+                {
+                    var jug = confirm("确认删除？");
+                    if (jug == true) {
+                        var url = "/Admin/DeleteUser";
+                        var params={"id":id};
+                        $.post(url, params, function (data) {
+                            if (data == "success") {
+                                alert("删除成功");
+                                $("#table-tr-" + id).remove();
+                            } else if (data == "error") {
+                                alert("管理员不存在");
 
-                    } else if (data == "notRemove") {
-                        alert("不是超级管理员，不可以删除");
+                            } else if (data == "notRemove") {
+                                alert("不是超级管理员，不可以删除");
 
+                            }
+                            else {
+                                alert("删除失败");
+                            }
+                        });
                     }
-                    else {
-                        alert("删除失败");
-                    }
-                });
-            }
-        }
-    </script>
-}*@
+                }
+            </script>
+        }*@

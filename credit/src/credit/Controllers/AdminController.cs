@@ -176,7 +176,7 @@ namespace credit.Controllers
             baseInfo.EnterpriseName = BaseInfo.EnterpriseName;
             baseInfo.RegistrationNumber = BaseInfo.RegistrationNumber;
             DB.SaveChanges();
-            return RedirectToAction("DetailsBaseInfo", "Admin");
+            return Content("success");
 
         }
         //删除基本信息
