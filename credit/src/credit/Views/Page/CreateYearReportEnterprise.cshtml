@@ -11,11 +11,11 @@
             </tr>
             <tr>
                 <th>企业名称</th>
-                <td><input type="text" disabled="disabled" name="RegistrationNumber" value="@ViewBag.RNumber" /></td>
+                <td><input type="text" disabled="disabled" name="RegistrationNumber" value="@ViewBag.EName" /></td>
             </tr>
             <tr>
                 <th>注册号</th>
-                <td><input type="text" disabled="disabled" name="EnterpriseName" value="@ViewBag.EName" /></td>
+                <td><input type="text" disabled="disabled" name="EnterpriseName" value="@ViewBag.RNumber" /></td>
             </tr>
             <tr>
                 <th>企业联系电话</th>
@@ -36,7 +36,6 @@
                         <option>否</option>
                         <option>是</option>
                     </select>
-
                 <th>企业是否有投资信息或购买其他公司股权</th>
 
                 <td class="form-group">
@@ -48,7 +47,7 @@
             </tr>
             <tr>
                 <th>企业经营状态</th>
-                <td>
+                <td class="form-group">
                     <select name="OperateState">
                         @foreach (TypeCS x in ViewBag.EType)
                         {
@@ -131,7 +130,7 @@
                             }
                         }
                     },
-                    Tel: {
+                    Tel1: {
                         message: '电话号码还没有验证',
                         validators: {
                             notEmpty: {
@@ -155,6 +154,14 @@
                             }
                         }
                     },
+                    Tel: {
+                        message: '企业地址还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '企业地址不能为空'
+                            }
+                        }
+                    },
                 }
             })
             .on('success.form.bv', function (e) {
@@ -162,7 +169,7 @@
                 var $form = $(e.target);
                 var bv = $form.data('bootstrapValidator');
 
-                $.post("/Admin/CreateYearReportEnterprise", $form.serialize(), function (data) {
+                $.post("/Page/CreateYearReportEnterprise", $form.serialize(), function (data) {
                     if (data == "success") {
                         alert("保存成功");
                         window.location.href = "/Home/Index";

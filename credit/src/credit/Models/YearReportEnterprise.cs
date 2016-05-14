@@ -9,6 +9,7 @@ namespace credit.Models
     public class YearReportEnterprise
     {
         //企业年度报告
+        public DateTime WriteTime { get; set; }
 
         //个体年度报告
         public int Id { get; set; }

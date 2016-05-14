@@ -17,13 +17,7 @@ namespace credit.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Index4()
-        {
-
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Index3()
+        public IActionResult Index1()
         {
 
             return View();
@@ -35,7 +29,13 @@ namespace credit.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Index1()
+        public IActionResult Index3()
+        {
+
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Index4()
         {
 
             return View();

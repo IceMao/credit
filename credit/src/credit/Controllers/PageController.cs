@@ -23,8 +23,7 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()
         {
-            //已经登录
-            
+            //已经登录           
             if (User.Current.Level == "1")//是联络员
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
@@ -52,20 +51,27 @@ namespace credit.Controllers
         }
         [Authorize(Roles = ("联络员"))]
         [HttpPost]
-        public IActionResult CreateYearReportEnterprise(string registerNumber,DateTime DateTime,string enterpriseName,string tel,string email,string address,string zipCode,string webSite,string investement,string operatState,int employeeNum)
-        {
-            var table = new YearReportEnterprise
-            {
-                Tel = tel,
-                Email = email,
-                DateTime = DateTime,
-                Address = address,
-                ZipCode = zipCode,
-                Website = webSite,
-                Investment = investement,
-                EmployeeNum = employeeNum,
-                OperatState = operatState,
-            };
+        public IActionResult CreateYearReportEnterprise(YearReportEnterprise report)
+        {//string registerNumber,DateTime DateTime,string enterpriseName,string tel,string email,string address,string zipCode,string webSite,string investement,string operatState,int employeeNum
+
+
+            //var table = new YearReportEnterprise
+            //{
+            //    Tel = tel,
+            //    Email = email,
+            //    DateTime = DateTime,
+            //    Address = address,
+            //    ZipCode = zipCode,
+            //    Website = webSite,
+            //    Investment = investement,
+            //    EmployeeNum = employeeNum,
+            //    OperatState = operatState,
+            //    UserId = User.Current.Id,
+            //};
+            report.DateTime = DateTime.Now;
+            report.WriteTime = DateTime.Now.Date;
+            report.UserId = User.Current.Id;
+            DB.YearReportEnterprise.Add(report);
             DB.SaveChanges();
             return Content("success");
         }

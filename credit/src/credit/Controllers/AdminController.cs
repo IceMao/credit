@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
 using credit.Models;
+using Microsoft.Data.Entity;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -751,41 +752,15 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsYearReportEnterprise()
         {
-
-            return View();
+            var yreport = DB.YearReportEnterprise
+                .Include(x => x.User)
+                .OrderByDescending(x=>x.Id)
+                .ToList();
+            ViewBag.Count = yreport.Count();
+            return PagedView(yreport,10);
         }
         
-        [HttpPost]
-        public IActionResult DetailsYearReportEnterprise(YearReportEnterprise YRE,int id)
-        {
-            if (HttpContext.User.Identity.IsAuthenticated)//判断用户是否登陆
-            {
-                var user = DB.Users.Where(x => x.UserName == HttpContext.User.Identity.Name).SingleOrDefault();//找到当前用户
-                
-                //注册号从当前用户读取
-                var yre = DB.YearReportEnterprise
-                .Where(x => x.Id == id)
-                .SingleOrDefault();
-
-                /*var baseinfo = DB.BaseInfo.Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber).SingleOrDefault();
-                if (baseinfo != null)
-                {
-                    DB.InfoRandom.Add(infoRandom);
-                    DB.SaveChanges();
-                }
-                else
-                {
-                    return Content("注册号不存在，请检查");//需要用异步
-                }*/
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            return Content("添加成功");//需要用异步
-            
-
-        }
+       
         #endregion
     }
 }
