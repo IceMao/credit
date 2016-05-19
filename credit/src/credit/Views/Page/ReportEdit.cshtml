@@ -1,0 +1,183 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<form id="defaultForm">
+    <div class="createYearEnterPage">
+        <h3>请填写企业年度报表</h3>
+        <table class="table">
+            <tr>
+                <th>报告年度</th>
+                <td><input type="text" disabled="disabled" name="DateTime" value="@DateTime.Now.Year" /></td>
+            </tr>
+            <tr>
+                <th>企业名称</th>
+                <td><input type="text" disabled="disabled" name="RegistrationNumber" value="@ViewBag.EName" /></td>
+            </tr>
+            <tr>
+                <th>注册号</th>
+                <td><input type="text" disabled="disabled" name="EnterpriseName" value="@ViewBag.RNumber" /></td>
+            </tr>
+            <tr>
+                <th>企业联系电话</th>
+                <td class="form-group"><input type="text" name="Tel" /></td>
+                <th>电子邮箱</th>
+                <td class="form-group"><input type="text" name="Email" /></td>
+            </tr>
+            <tr>
+                <th>企业通信地址</th>
+                <td class="form-group"><input type="text" name="Address" /></td>
+                <th>邮政编码</th>
+                <td class="form-group"><input type="text" name="ZipCode" /></td>
+            </tr>
+            <tr>
+                <th>是否有网站或网点</th>
+                <td class="form-group">
+                    <select name="Website">
+                        <option>否</option>
+                        <option>是</option>
+                    </select>
+                <th>企业是否有投资信息或购买其他公司股权</th>
+
+                <td class="form-group">
+                    <select name="Investment">
+                        <option>否</option>
+                        <option>是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>企业经营状态</th>
+                <td class="form-group">
+                    <select name="OperateState">
+                        @foreach (TypeCS x in ViewBag.EType)
+                        {
+                            <option>@x.Types</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>从业人数</th>
+                <td class="form-group"><input type="text" name="EmployeeNum" /></td>
+            </tr>
+        </table>
+    </div>
+    <p>
+        <input type="submit" value="保存并提交" />
+        <a asp-controller="Home" asp-action="Index">取消</a>
+    </p>
+</form>
+<script>
+        $("document").ready(function () {
+            $("#defaultForm").bootstrapValidator({
+                message:'这个值不合法',
+                feedbackIcons:{
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating:'glyphicon glyphicon-refresh'
+
+                },
+                fields: {
+                    EmployeeNum: {
+                        message: '从业人数还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '从业人数不能为空'
+                            }
+                        }
+                    },
+                    Address: {
+                        message: '企业地址还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '企业地址不能为空'
+                            }
+                        }
+                    },
+                    ZipCode: {
+                        message: '邮编还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '邮编不能为空'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]\d{5}$/,
+                                message: '6位数字，格式如：150321'
+                            }
+                        }
+                    },
+                    Website: {
+                        message: '该项还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '该项没有选择'
+                            }
+                        }
+                    },
+                    Investment: {
+                        message: '该项还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '该项没有选择'
+                            }
+                        }
+                    },
+                    OperateState: {
+                        message: '经营状态还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '经营状态没有选择'
+                            }
+                        }
+                    },
+                    Tel1: {
+                        message: '电话号码还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '电话号码不能为空'
+                            },
+                            regexp: {
+                                regexp: /^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\d{8}$/,
+                                message: '11位数字，格式如：13842174329'
+                            }
+                        }
+                    },
+                    Email: {
+                        validators: {
+                            emailAddress: {
+                                message: '符合规范如:xx@163.cn'
+
+                            },
+                            notEmpty: {
+                                message: 'Email不能为空'
+
+                            }
+                        }
+                    },
+                    Tel: {
+                        message: '企业地址还没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '企业地址不能为空'
+                            }
+                        }
+                    },
+                }
+            })
+            .on('success.form.bv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('bootstrapValidator');
+
+                $.post("/Page/CreateYearReportEnterprise", $form.serialize(), function (data) {
+                    if (data == "success") {
+                        alert("保存成功");
+                        window.location.href = "/Home/Index";
+                    }
+                    else {
+                        alert("注册号不存在");
+                    }
+                });
+            });
+        });
+</script>

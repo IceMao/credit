@@ -12,6 +12,8 @@ namespace credit.Models
         //1.管理员录入公告
         public string title { get; set; }
         public string Writer { get; set; }//录入者
+
+        public string publicUnit { get; set; }//发布单位
         public DateTime WriteTime { get; set; }//录入时间
         public string Content { get; set; }
         public DateTime DateTime { get; set; }

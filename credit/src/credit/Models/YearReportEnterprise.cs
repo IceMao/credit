@@ -14,7 +14,7 @@ namespace credit.Models
         //个体年度报告
         public int Id { get; set; }
         //填报年度
-        public DateTime DateTime { get; set; }
+        public int DateTime { get; set; }
         //企业联系电话
         public string Tel { get; set; }
         //企业通信地址

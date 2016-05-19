@@ -19,6 +19,12 @@ namespace credit.Controllers
         }
         #endregion
         #region 企业年度信息填报
+        [HttpGet]
+        public IActionResult Report()
+        {
+            return View();
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()
@@ -26,10 +32,13 @@ namespace credit.Controllers
             //已经登录           
             if (User.Current.Level == "1")//是联络员
             {
-                if (HttpContext.User.Identity.IsAuthenticated)
+                var report = DB.YearReportEnterprise
+                    .Where(x => x.UserId == User.Current.Id && x.DateTime == DateTime.Now.Year)
+                    .SingleOrDefault();
+                if(report == null)
                 {
                     var type = DB.TypeCS
-                        .Where(x=>x.NameType=="EType")
+                        .Where(x => x.NameType == "EType")
                         .OrderBy(x => x.Id)
                         .ToList();
                     ViewBag.RNumber = User.Current.RegistrationNumber;
@@ -39,9 +48,9 @@ namespace credit.Controllers
                 }
                 else
                 {
-                    return Content("请联络员先登录");
+                    return RedirectToAction("Report","Page");
                 }
-                
+
             }
             else
             {
@@ -52,10 +61,10 @@ namespace credit.Controllers
         [Authorize(Roles = ("联络员"))]
         [HttpPost]
         public IActionResult CreateYearReportEnterprise(YearReportEnterprise report)
-        {//string registerNumber,DateTime DateTime,string enterpriseName,string tel,string email,string address,string zipCode,string webSite,string investement,string operatState,int employeeNum
+        {//string registerNumber, DateTime DateTime, string enterpriseName, string tel, string email, string address, string zipCode, string webSite, string investement, string operatState, int employeeNum
+            //
 
-
-            //var table = new YearReportEnterprise
+            //var report = new YearReportEnterprise
             //{
             //    Tel = tel,
             //    Email = email,
@@ -63,12 +72,13 @@ namespace credit.Controllers
             //    Address = address,
             //    ZipCode = zipCode,
             //    Website = webSite,
+            //    WriteTime = DateTime.Now.Date,
             //    Investment = investement,
             //    EmployeeNum = employeeNum,
             //    OperatState = operatState,
             //    UserId = User.Current.Id,
             //};
-            report.DateTime = DateTime.Now;
+            report.DateTime = DateTime.Now.Year;
             report.WriteTime = DateTime.Now.Date;
             report.UserId = User.Current.Id;
             DB.YearReportEnterprise.Add(report);

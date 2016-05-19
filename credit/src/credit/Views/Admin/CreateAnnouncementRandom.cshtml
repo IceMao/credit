@@ -16,6 +16,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-3 control-label">发布单位</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="publicUnit" id="publicUnit" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-lg-3 control-label">公告时间</label>
                     <div class="col-lg-5">
                         <input type="datetime" class="form-control" name="DateTime" id="DateTime" value="@DateTime.Now" />
@@ -44,7 +50,7 @@
     $(document).ready(function () {
         $("#submit").click(function () {
             var url = "/Admin/CreateAnnouncementRandom";
-            var params = { "title": $('#title').val(),"data":$("#DateTime").val(), "Content": $("#Content").val() };
+            var params = { "title": $('#title').val(), "data": $("#DateTime").val(), "Content": $("#Content").val(), "publicUnit": $("#publicUnit").val() };
             $.post(url, params, function (data) {
                 if (data == "success") {
                     alert("添加成功");
@@ -72,6 +78,14 @@
                             message: '标题不能为空'
                         }
 
+                    }
+
+                },
+                publicUnit: {
+                    validators: {
+                        notEmpty: {
+                            message: '发布单位不能为空'
+                        }
                     }
 
                 },

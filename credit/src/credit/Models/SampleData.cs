@@ -22,15 +22,15 @@ namespace credit.Models
                 await roleManager.CreateAsync(new IdentityRole<long> { Name = "管理员" });
                 await roleManager.CreateAsync(new IdentityRole<long> { Name = "联络员" });
 
-                var user = new User {RealName="张三",PhoneNumber="18845296017",Email="123@qq.com", UserName = "admin",Level="99" };
-                await userManager.CreateAsync(user, "Cream2015!@#");
+                var user = new User {RealName="张晨飞",PhoneNumber="18845296017",Email="1234@163.com", UserName = "admin",Level="99" };
+                await userManager.CreateAsync(user, "123456");
                 await userManager.AddToRoleAsync(user, "管理员");
 
-                var manage = new User { RealName = "李四", PhoneNumber = "18845296017", Email = "123@qq.com", UserName = "Manage",Level="10" };
+                var manage = new User { RealName = "李顾德", PhoneNumber = "18845296017", Email = "123@qq.com", UserName = "Manage",Level="10" };
                 await userManager.CreateAsync(manage, "Cream2015!@#");
                 await userManager.AddToRoleAsync(manage, "管理员");
 
-                var liaison = new User { UserName = "liaison",RegistrationNumber="123456789012345",EnterpriseName= "齐齐哈尔星图科技", RealName = "王二狗",LiaisonIdNumber="23272119901045874",LegalIdNumber= "232721196010423874",PhoneNumber="18874895210", Level = "1" };
+                var liaison = new User { RealName = "王志强", UserName = "liaison",RegistrationNumber="123456789012345",EnterpriseName= "齐齐哈尔星图科技", LiaisonIdNumber="23272119901045874",LegalIdNumber= "232721196010423874",PhoneNumber="18874895210", Level = "1" };
                 await userManager.CreateAsync(liaison, "Cream2015!@#");
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
@@ -51,9 +51,9 @@ namespace credit.Models
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔星图科技", RegistrationNumber = "123456789012345", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔建华区华图教育", RegistrationNumber = "123456711111111", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔审计局", RegistrationNumber = "123456722222222", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
-                db.AnnouncementRandom.Add(new AnnouncementRandom { title = "抽查公告题目",Writer="张三", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是抽查公告的内容", DateTime = DateTime.Parse("2016/3/22") });
-                db.AnnouncementUnsual.Add(new AnnouncementUnsual { title = "异常题目", Writer = "张三", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是异常公告的内容", DateTime = DateTime.Parse("2016/2/19") });
-                db.AnnouncementIllegal.Add(new AnnouncementIllegal { title = "违法题目",Writer="李四",WriteTime=DateTime.Parse("2016/6/12"), Content = "这是违法公告的内容", DateTime = DateTime.Parse("2016/4/2") });
+                db.AnnouncementRandom.Add(new AnnouncementRandom { title = "即时信息公示情况抽查",Writer="System", publicUnit= "黑垦字【2015】43号", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是抽查公告的内容", DateTime = DateTime.Parse("2016/3/22") });
+                db.AnnouncementUnsual.Add(new AnnouncementUnsual { title = "责令限期履行公示义务通知书", Writer = "System", publicUnit = "黑垦字【2015】4号", WriteTime = DateTime.Parse("2016/6/12"), Content = "经查，你单位未依法履行 即时 信息公示义务。根据《企业信息公示暂行条例》第十条、《经营异常名录管理办法》第七条的规定，限你单位在10日内履行公示义务。逾期不履行的，将依法被列入经营异常名录。", DateTime = DateTime.Parse("2016/2/19") });
+                db.AnnouncementIllegal.Add(new AnnouncementIllegal { title = "违法题目", Writer = "System", publicUnit = "黑垦字【2015】20号", WriteTime=DateTime.Parse("2016/6/12"), Content = "这是违法公告的内容", DateTime = DateTime.Parse("2016/4/2") });
                 db.InfoIllegal.Add(new InfoIllegal { RegistrationNumber = "123456789012345", EnterpriseName = "齐齐哈尔星图科技", DateTime=DateTime.Parse("2016/4/12") });
                 db.InfoRandom.Add(new InfoRandom { RegistrationNumber = "123456711111111", EnterpriseName = "齐齐哈尔建华区华图教育", DateTime = DateTime.Parse("2016/2/12"), Result="正常" });
                 db.InfoUnusual.Add(new InfoUnusual { RegistrationNumber = "123456722222222", EnterpriseName = "齐齐哈尔审计局", DateTime = DateTime.Parse("2016/3/10") });

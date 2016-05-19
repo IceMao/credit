@@ -1,4 +1,9 @@
 ﻿@model InfoRandom
+<style>
+    th {
+        margin-top: 10px;
+    }
+</style>
 <div id="content-header">
     <h1>编辑抽查公示</h1>
 </div>
@@ -11,7 +16,7 @@
         <input type="hidden" name="id" value="@Model.Id" />
         <table class="table">
             <tr>
-                <th>注册号</th>
+                <th class="form-control">注册号</th>
                 <td>
                     <div class="form-group">
                         <input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" />
@@ -19,7 +24,7 @@
                 </td>
             </tr>
             <tr>
-                <th>抽查日期</th>
+                <th class="form-control">抽查日期</th>
                 <td>
                     <div class="form-group">
                         <input type="text" class="form-control" name="DateTime" value="@Model.DateTime" />
@@ -27,7 +32,7 @@
                 </td>
             </tr>
             <tr>
-                <th>抽查结果</th>
+                <th class="form-control">抽查结果</th>
                 <td>
                     <select name="Result" class="form-control">
                         <option>@Model.Result</option>
@@ -40,11 +45,14 @@
             </tr>
         </table>
         <p>
-            <input class="btn inverse" type="submit" value="提交" />
+            <input class="btn btn-info inverse" type="submit" value="提交" />
             <a asp-controller="Admin" asp-action="DetailsInfoRandom">取消</a>
         </p>
     </form>
 </div>
+<script src="~/scripts/jquery-1.8.3.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#defaultForm").bootstrapValidator({

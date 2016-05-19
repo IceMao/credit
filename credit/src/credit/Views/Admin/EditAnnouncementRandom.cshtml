@@ -1,4 +1,7 @@
 ﻿@model AnnouncementRandom
+<style>
+    th{margin-top:10px;}
+</style>
 <div id="content-header">
     <h1>编辑违法公告</h1>
 </div>
@@ -11,16 +14,21 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>标题</th>
+                    <th class="form-control">标题</th>
                     <td class="form-group"><input type="text" class="form-control" name="title" id="title" value="@Model.title" /></td>
                 </tr>
                 <tr>
-                    <th>公告时间</th>
+                    <th class="form-control">公告时间</th>
                     <td class="form-group"><input type="DateTime" class="form-control" name="DateTime" id="DateTime" value="@Model.DateTime" /></td>
                 </tr>
                 <tr>
-                    <th>内容</th>
-                    <td class="form-group"><textarea class="form-control" id="Content" name="Content">@Model.Content</textarea></td>
+                    <th class="form-control">内容</th>
+                    <td>
+                        <div class="form-group">
+                            <textarea class="form-control" id="Content" name="Content">@Model.Content</textarea>
+                        </div>
+                    
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -28,11 +36,14 @@
             </tbody>
         </table>
         <p>
-            <input class="btn inverse" type="submit" value="提交" />
+            <input class="btn btn-info inverse" type="submit" value="提交" />
             <a asp-controller="Admin" asp-action="DetailsAnnouncementRandom">取消</a>
         </p>
     </form>
 </div>
+<script src="~/scripts/jquery-1.8.3.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/bootstrapValidator.min.js"></script>
     <script>
         $(document).ready(function () {
 

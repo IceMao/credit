@@ -1,4 +1,9 @@
 ﻿@model BaseInfo
+<style>
+    th {
+        margin-top: 10px;
+    }
+</style>
 <div id="content-header">
     <h1>编辑基本企业信息</h1>
 </div>
@@ -9,31 +14,26 @@
 <div class="container-fluid" id="AllPageLayout">
     <form id="defaultForm" asp-controller="Admin" asp-action="EditBaseInfo" method="post">
         <table class="table">
-            <thead>
-                <tr>
-                    <th>注册号</th>
-                    
-                </tr>
-                <tr>
-                    <th>企业名称</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
+                    <th class="form-control">注册号</th>
                     <td class="form-group"><input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" /></td>
-                    
                 </tr>
                 <tr>
+                    <th class="form-control">企业名称</th>
                     <td class="form-group"><input type="text" class="form-control" name="EnterpriseName" value="@Model.EnterpriseName" /></td>
                 </tr>
             </tbody>
         </table>
         <p>
-            <input class="btn inverse" type="submit" value="修改" />
+            <input class="btn btn-info inverse" type="submit" value="修改" />
             <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
         </p>
     </form>
 </div>
+<script src="~/scripts/jquery-1.8.3.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/bootstrapValidator.min.js"></script>
 <script type="text/javascript">
         $(document).ready(function () {
             $("#defaultForm").bootstrapValidator({
