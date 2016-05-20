@@ -1,4 +1,4 @@
-﻿@model AnnouncementRandom
+﻿@model Announcement
 <style>
     th{margin-top:10px;}
 </style>
@@ -14,12 +14,28 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="form-control">标题</th>
-                    <td class="form-group"><input type="text" class="form-control" name="title" id="title" value="@Model.title" /></td>
+                    <th class="form-control">公告标题</th>
+                    <td>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Title" id="Title" value="@Model.Title" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="form-control">公告单位</th>
+                    <td class="form-group">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="PublicUnit" id="PublicUnit" value="@Model.PublicUnit" />
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th class="form-control">公告时间</th>
-                    <td class="form-group"><input type="DateTime" class="form-control" name="DateTime" id="DateTime" value="@Model.DateTime" /></td>
+                    <td class="form-group">
+                        <div class="form-group">
+                            <input type="DateTime" class="form-control" name="PublicTime" id="PublicTime" value="@Model.PublicTime" />
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th class="form-control">内容</th>
@@ -27,13 +43,10 @@
                         <div class="form-group">
                             <textarea class="form-control" id="Content" name="Content">@Model.Content</textarea>
                         </div>
-                    
+
                     </td>
                 </tr>
             </thead>
-            <tbody>
-                <tr></tr>
-            </tbody>
         </table>
         <p>
             <input class="btn btn-info inverse" type="submit" value="提交" />
@@ -56,7 +69,7 @@
 
                 },
                 fields: {//注册号不能重复 要有对比
-                    title: {
+                    Title: {
                         message: '标题没有验证',
                         validators: {
                             notEmpty: {
@@ -66,6 +79,16 @@
                         }
 
                     },
+                    PublicUnit:{
+                        message: '发布单位没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '发布单位不能为空'
+                            }
+
+                        }
+                    
+                    },
                     Content: {
                         validators: {
                             notEmpty: {
@@ -74,7 +97,7 @@
                         }
 
                     },
-                    DateTime: {
+                    PublicTime: {
                         validators: {
                             notEmpty: {
                                 message: '公示时间不能为空'

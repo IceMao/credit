@@ -34,6 +34,10 @@ namespace credit.Models
                 await userManager.CreateAsync(liaison, "Cream2015!@#");
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
+                //初始化 抽查，异常，违法公告，公示类型名称
+                db.TypeCS.Add(new TypeCS { NameType = "R"});
+                db.TypeCS.Add(new TypeCS { NameType = "U" });
+                db.TypeCS.Add(new TypeCS { NameType = "I" });
                 //初始化 公示类型
                 db.TypeCS.Add(new TypeCS { NameType = "PType", Types = "正常" });
                 db.TypeCS.Add(new TypeCS { NameType = "PType", Types = "经营异常" });
@@ -51,9 +55,10 @@ namespace credit.Models
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔星图科技", RegistrationNumber = "123456789012345", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔建华区华图教育", RegistrationNumber = "123456711111111", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 db.InfoRandom.Add(new InfoRandom { EnterpriseName = "齐齐哈尔审计局", RegistrationNumber = "123456722222222", DateTime = DateTime.Parse("2016/1/12"), Result = "正常" });
-                db.AnnouncementRandom.Add(new AnnouncementRandom { title = "即时信息公示情况抽查",Writer="System", publicUnit= "黑垦字【2015】43号", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是抽查公告的内容", DateTime = DateTime.Parse("2016/3/22") });
-                db.AnnouncementUnsual.Add(new AnnouncementUnsual { title = "责令限期履行公示义务通知书", Writer = "System", publicUnit = "黑垦字【2015】4号", WriteTime = DateTime.Parse("2016/6/12"), Content = "经查，你单位未依法履行 即时 信息公示义务。根据《企业信息公示暂行条例》第十条、《经营异常名录管理办法》第七条的规定，限你单位在10日内履行公示义务。逾期不履行的，将依法被列入经营异常名录。", DateTime = DateTime.Parse("2016/2/19") });
-                db.AnnouncementIllegal.Add(new AnnouncementIllegal { title = "违法题目", Writer = "System", publicUnit = "黑垦字【2015】20号", WriteTime=DateTime.Parse("2016/6/12"), Content = "这是违法公告的内容", DateTime = DateTime.Parse("2016/4/2") });
+                //db.Announcement.Add(new Announcement { Title = "即时信息公示情况抽查", Writer = "System", PublicUnit = "黑垦字【2015】43号", WriteTime = DateTime.Parse("2016/6/12"), Content = "这是抽查公告的内容", PublicTime = DateTime.Parse("2016/3/22") });
+                ////db.AnnouncementUnsual.Add(new AnnouncementUnsual { title = "责令限期履行公示义务通知书", Writer = "System", publicUnit = "黑垦字【2015】4号", WriteTime = DateTime.Parse("2016/6/12"), Content = "经查，你单位未依法履行 即时 信息公示义务。根据《企业信息公示暂行条例》第十条、《经营异常名录管理办法》第七条的规定，限你单位在10日内履行公示义务。逾期不履行的，将依法被列入经营异常名录。", DateTime = DateTime.Parse("2016/2/19") });
+                //db.AnnouncementIllegal.Add(new AnnouncementIllegal { title = "违法题目", Writer = "System", publicUnit = "黑垦字【2015】20号", WriteTime=DateTime.Parse("2016/6/12"), Content = "这是违法公告的内容", DateTime = DateTime.Parse("2016/4/2") });
+
                 db.InfoIllegal.Add(new InfoIllegal { RegistrationNumber = "123456789012345", EnterpriseName = "齐齐哈尔星图科技", DateTime=DateTime.Parse("2016/4/12") });
                 db.InfoRandom.Add(new InfoRandom { RegistrationNumber = "123456711111111", EnterpriseName = "齐齐哈尔建华区华图教育", DateTime = DateTime.Parse("2016/2/12"), Result="正常" });
                 db.InfoUnusual.Add(new InfoUnusual { RegistrationNumber = "123456722222222", EnterpriseName = "齐齐哈尔审计局", DateTime = DateTime.Parse("2016/3/10") });

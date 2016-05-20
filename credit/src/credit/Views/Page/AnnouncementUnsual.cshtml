@@ -1,16 +1,16 @@
-﻿@model IEnumerable<AnnouncementUnsual>
+﻿@model IEnumerable<Announcement>
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<content class="APage AnnouncementUnsualPage">
+<content class="APage AnnouncementRandomPage">
     <div class="leftSide">
-        <h3>经营异常信息公告</h3>
+        <h3>抽查检查信息公告</h3>
         <ul>
             @foreach (var x in Model)
             {
                 <li>
-                    <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
-                    <span>@x.DateTime.ToString("yyyy年MM月dd日")</span>
+                    <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.Title</a>
+                    <span>@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                 </li>
 
             }
@@ -21,9 +21,9 @@
         <ul>
             @foreach (var x in Model)
             {
-                <li>
-                    <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.title</a>
-                    <span>@x.DateTime.ToString("yyyy年MM月dd日")</span>
+                <li style="padding-top:5px; padding-bottom:5px; margin-bottom:5px;">
+                    <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.Title</a>
+                    <span>@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                 </li>
 
             }

@@ -1,15 +1,22 @@
-﻿@model AnnouncementIllegal
+﻿@model Announcement
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+<style>
+    p {
+        font-size: 1.5em;
+        color: #000000;
+    }
+</style>
 <div class="container">
     <div class="row" style="margin-top:20px;">
         <div class="col-md-8 col-md-offset-2 well">
-            <h3 class="text-center">@Model.title</h3>
-            <p class="text-center"><small>@Model.DateTime.ToString("yyyy年MM月dd日")</small></p>
+            <h3 class="text-center" style="margin:10px 0 15px;">@Model.Title</h3>
+            <p class="text-center" style="margin-bottom:30px;">@Model.PublicUnit</p>
             <p class="text-justify">
-                @Model.Content
+                &nbsp;&nbsp;&nbsp;&nbsp;@Model.Content
             </p>
+            <p class="text-right" style="margin-top:50px;">@Model.PublicTime.ToString("yyyy年MM月dd日")</p>
         </div>
     </div>
 </div>

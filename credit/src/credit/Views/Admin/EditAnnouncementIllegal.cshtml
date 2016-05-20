@@ -1,4 +1,4 @@
-﻿@model AnnouncementIllegal
+﻿@model Announcement
 <style>
     th {
         margin-top: 10px;
@@ -12,25 +12,43 @@
     <a href="#" class="current">编辑异常公告</a>
 </div>
 <div class="container-fluid" id="AllPageLayout">
-    <form asp-controller="Admin" asp-action="EditAnnouncementIllegal" method="post">
+    <form id="defaultForm" asp-controller="Admin" asp-action="EditAnnouncementIllegal" method="post">
         <table class="table">
             <thead>
                 <tr>
-                    <th class="form-control">标题</th>
-                    <td class="form-group"><input type="text" class="form-control" name="title" id="title" value="@Model.title" /></td>
+                    <th class="form-control">公告标题</th>
+                    <td>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Title" id="Title" value="@Model.Title" />
+                        </div>        
+                    </td>
+                </tr>
+                <tr>
+                    <th class="form-control">公告单位</th>
+                    <td class="form-group">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="PublicUnit" id="PublicUnit" value="@Model.PublicUnit" />
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th class="form-control">公告时间</th>
-                    <td class="form-group"><input type="DateTime" class="form-control" name="DateTime" id="DateTime" value="@Model.DateTime" /></td>
+                    <td class="form-group">
+                        <div class="form-group">
+                            <input type="DateTime" class="form-control" name="PublicTime" id="PublicTime" value="@Model.PublicTime" />
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th class="form-control">内容</th>
-                    <td class="form-group"><textarea class="form-control" id="Content" name="Content">@Model.Content</textarea></td>
+                    <td>
+                        <div class="form-group">
+                            <textarea class="form-control" id="Content" name="Content">@Model.Content</textarea>
+                        </div>
+
+                    </td>
                 </tr>
             </thead>
-            <tbody>
-                <tr></tr>
-            </tbody>
         </table>
         <p>
             <input class="btn btn-info inverse" type="submit" value="提交" />
@@ -38,6 +56,9 @@
         </p>
     </form>
 </div>
+<script src="~/scripts/jquery-1.8.3.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/bootstrapValidator.min.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -50,11 +71,21 @@
 
                 },
                 fields: {//注册号不能重复 要有对比
-                    title: {
+                    Title: {
                         message: '标题没有验证',
                         validators: {
                             notEmpty: {
                                 message: '标题不能为空'
+                            }
+
+                        }
+
+                    },
+                    PublicUnit: {
+                        message: '发布单位没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '发布单位不能为空'
                             }
 
                         }
@@ -68,7 +99,7 @@
                         }
 
                     },
-                    DateTime: {
+                    PublicTime: {
                         validators: {
                             notEmpty: {
                                 message: '公示时间不能为空'

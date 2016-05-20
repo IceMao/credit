@@ -12,8 +12,6 @@ namespace credit.Controllers
     
     public class BaseController : BaseController<CreditContext,User,long>
     {
-
-
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);

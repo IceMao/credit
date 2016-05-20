@@ -22,24 +22,7 @@ namespace credit.Controllers
 
             return View();
         }
-        [HttpGet]
-        public IActionResult Index2()
-        {
-
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Index3()
-        {
-
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Index4()
-        {
-
-            return View();
-        }
+        
         [Authorize]
         [HttpGet]
         public IActionResult Manage()

@@ -12,19 +12,19 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">公告标题</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="title" id="title" />
+                        <input type="text" class="form-control" name="Title" id="Title" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">发布单位</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="publicUnit" id="publicUnit" />
+                        <input type="text" class="form-control" name="PublicUnit" id="PublicUnit" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">公告时间</label>
                     <div class="col-lg-5">
-                        <input type="datetime" class="form-control" name="DateTime" id="DateTime" value="@DateTime.Now" />
+                        <input type="datetime" class="form-control" name="PublicTime" id="PublicTime" value="@DateTime.Now" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -47,11 +47,13 @@
     
 </div>
 <script src="~/scripts/jquery-1.8.3.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/bootstrapValidator.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#submit").click(function () {
             var url = "/Admin/CreateAnnouncementIllegal";
-            var params = { "title": $('#title').val(), "data": $("#DateTime").val(), "Content": $("#Content").val(), "publicUnit": $("#publicUnit").val() };
+            var params = { "Title": $('#Title').val(), "PublicTime": $("#PublicTime").val(), "Content": $("#Content").val(), "PublicUnit": $("#publicUnit").val() };
             $.post(url, params, function (data) {
                 if (data == "success") {
                     alert("添加成功");
@@ -72,7 +74,7 @@
 
             },
             fields: {//注册号不能重复 要有对比
-                title: {
+                Title: {
                     message: '标题没有验证',
                     validators: {
                         notEmpty: {
@@ -82,7 +84,7 @@
                     }
 
                 },
-                publicUnit: {
+                PublicUnit: {
                     validators: {
                         notEmpty: {
                             message: '发布单位不能为空'
@@ -98,7 +100,7 @@
                     }
 
                 },
-                DateTime: {
+                PublicTime: {
                     validators: {
                         notEmpty: {
                             message: '公示时间不能为空'

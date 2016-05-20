@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AnnouncementRandom>
+﻿@model IEnumerable<Announcement>
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
@@ -9,8 +9,8 @@
             @foreach (var x in Model)
             {
                 <li>
-                    <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">@x.title</a>
-                    <span>@x.DateTime.ToString("yyyy年MM月dd日")</span>
+                    <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">@x.Title</a>
+                    <span>@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                 </li>
 
             }
@@ -23,8 +23,8 @@
             @foreach (var x in Model)
             {
                 <li style="padding-top:5px; padding-bottom:5px; margin-bottom:5px;">
-                    <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">@x.title</a>
-                    <span>@x.DateTime.ToString("yyyy年MM月dd日")</span>
+                    <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">@x.Title</a>
+                    <span>@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                 </li>
 
             }

@@ -197,7 +197,11 @@ namespace credit.Controllers
         //抽查公告
         public IActionResult DetailsAnnouncementRandom()
         {
-            var ARandom = DB.AnnouncementRandom.ToList();
+            var ARandom = DB.Announcement 
+                .Include(x => x.TypeCS)
+                .Where(x=>x.TypeCS.NameType == "R")
+                .OrderByDescending(x=>x.WriteTime)
+                .ToList();
             return View(ARandom);
         }
         [HttpGet]
@@ -206,13 +210,14 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateAnnouncementRandom(AnnouncementRandom ARandom)
+        public IActionResult CreateAnnouncementRandom(Announcement ARandom)
         {
 
-            DB.AnnouncementRandom.Add(ARandom);
+            DB.Announcement.Add(ARandom);
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
+            ARandom.TypeId = DB.TypeCS.Where(x=>x.NameType == "R").SingleOrDefault().Id;
             ARandom.WriteTime = DateTime.Now;
             ARandom.Writer = UserCurrent.UserName;
             DB.SaveChanges();
@@ -223,8 +228,8 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult EditAnnouncementRandom(int id)
         {
-            var ARandom = DB.AnnouncementRandom
-                .Where(x => x.Id == id)
+            var ARandom = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "R")
                 .SingleOrDefault();
             if(ARandom == null)
             {
@@ -238,10 +243,10 @@ namespace credit.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditAnnouncementRandom(AnnouncementRandom ARandom,int id)
+        public IActionResult EditAnnouncementRandom(Announcement ARandom,int id)
         {
-            var random = DB.AnnouncementRandom
-                .Where(x => x.Id == id)
+            var random = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "R")
                 .SingleOrDefault();
             if(random == null)
             {
@@ -254,17 +259,18 @@ namespace credit.Controllers
                     .SingleOrDefault();
                 random.WriteTime = DateTime.Now;
                 random.Writer = UserCurrent.UserName;
-                random.title = ARandom.title;
+                random.Title = ARandom.Title;
                 random.Content = ARandom.Content;
-                random.DateTime = ARandom.DateTime;
+                random.PublicTime = ARandom.PublicTime;
+                random.PublicUnit = ARandom.PublicUnit;
                 DB.SaveChanges();
                 return RedirectToAction("DetailsAnnouncementRandom", "Admin");
             }
         }
         public IActionResult DeleteAnnouncementRandom(int id)
         {
-            var ARandom = DB.AnnouncementRandom
-                .Where(x => x.Id == id)
+            var ARandom = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "R")
                 .SingleOrDefault();
             if(ARandom == null)
             {
@@ -272,7 +278,7 @@ namespace credit.Controllers
             }
             else
             {
-                DB.AnnouncementRandom.Remove(ARandom);
+                DB.Announcement.Remove(ARandom);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -283,7 +289,10 @@ namespace credit.Controllers
         //经营异常公告
         public IActionResult DetailsAnnouncementUnsual()
         {
-            var AUnsual = DB.AnnouncementUnsual.ToList();
+            var AUnsual = DB.Announcement
+                .Include(x=>x.TypeCS)
+                .Where(x=>x.TypeCS.NameType == "U")
+                .ToList();
             return View(AUnsual);
         }
         [HttpGet]
@@ -292,15 +301,16 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateAnnouncementUnsual(AnnouncementUnsual AUnsual)
+        public IActionResult CreateAnnouncementUnsual(Announcement AUnsual)
         {
 
-            DB.AnnouncementUnsual.Add(AUnsual);
+            DB.Announcement.Add(AUnsual);
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
             AUnsual.WriteTime = DateTime.Now;
             AUnsual.Writer = UserCurrent.UserName;
+            AUnsual.TypeId = DB.TypeCS.Where(x => x.NameType == "U").SingleOrDefault().Id;
             DB.SaveChanges();
             //return Content("success");
             return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
@@ -309,8 +319,8 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult EditAnnouncementUnsual(int id)
         {
-            var AUnsual = DB.AnnouncementUnsual
-                .Where(x => x.Id == id)
+            var AUnsual = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "U")
                 .SingleOrDefault();
             if (AUnsual == null)
             {
@@ -324,9 +334,9 @@ namespace credit.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditAnnouncementUnsual(AnnouncementUnsual AUnsual, int id)
+        public IActionResult EditAnnouncementUnsual(Announcement AUnsual, int id)
         {
-            var Unsual = DB.AnnouncementUnsual
+            var Unsual = DB.Announcement
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if (Unsual == null)
@@ -340,17 +350,18 @@ namespace credit.Controllers
                     .SingleOrDefault();
                 Unsual.WriteTime = DateTime.Now;
                 Unsual.Writer = UserCurrent.UserName;
-                Unsual.title = AUnsual.title;
+                Unsual.Title = AUnsual.Title;
                 Unsual.Content = AUnsual.Content;
-                Unsual.DateTime = AUnsual.DateTime;
+                Unsual.PublicTime = AUnsual.PublicTime;
+                Unsual.PublicUnit = AUnsual.PublicUnit;
                 DB.SaveChanges();
                 return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
             }
         }
         public IActionResult DeleteAnnouncementUnsual(int id)
         {
-            var AUnsual = DB.AnnouncementUnsual
-                .Where(x => x.Id == id)
+            var AUnsual = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "U")
                 .SingleOrDefault();
             if (AUnsual == null)
             {
@@ -358,7 +369,7 @@ namespace credit.Controllers
             }
             else
             {
-                DB.AnnouncementUnsual.Remove(AUnsual);
+                DB.Announcement.Remove(AUnsual);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -369,7 +380,11 @@ namespace credit.Controllers
         //严重违法公告
         public IActionResult DetailsAnnouncementIllegal()
         {
-            var AIllegal = DB.AnnouncementIllegal.ToList();
+            var AIllegal = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "I")
+                .OrderByDescending(x => x.WriteTime)
+                .ToList();
             return View(AIllegal);
         }
         [HttpGet]
@@ -378,13 +393,14 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateAnnouncementIllegal(AnnouncementIllegal AIllegal)
+        public IActionResult CreateAnnouncementIllegal(Announcement AIllegal)
         {
 
-            DB.AnnouncementIllegal.Add(AIllegal);
+            DB.Announcement.Add(AIllegal);
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
+            AIllegal.TypeId = DB.TypeCS.Where(x => x.NameType == "I").SingleOrDefault().Id;
             AIllegal.WriteTime = DateTime.Now;
             AIllegal.Writer = UserCurrent.UserName;
             DB.SaveChanges();
@@ -395,8 +411,8 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult EditAnnouncementIllegal(int id)
         {
-            var AIllegal = DB.AnnouncementIllegal
-                .Where(x => x.Id == id)
+            var AIllegal = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "I")
                 .SingleOrDefault();
             if (AIllegal == null)
             {
@@ -411,9 +427,9 @@ namespace credit.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditAnnouncementIllegal(AnnouncementIllegal AIllegal, int id)
+        public IActionResult EditAnnouncementIllegal(Announcement AIllegal, int id)
         {
-            var Illegal = DB.AnnouncementIllegal
+            var Illegal = DB.Announcement
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if (Illegal == null)
@@ -427,17 +443,18 @@ namespace credit.Controllers
                     .SingleOrDefault();
                 Illegal.WriteTime = DateTime.Now;
                 Illegal.Writer = UserCurrent.UserName;
-                Illegal.title = AIllegal.title;
+                Illegal.Title = AIllegal.Title;
                 Illegal.Content = AIllegal.Content;
-                Illegal.DateTime = AIllegal.DateTime;
+                Illegal.PublicTime = AIllegal.PublicTime;
+                Illegal.PublicUnit = AIllegal.PublicUnit;
                 DB.SaveChanges();
                 return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
             }
         }
         public IActionResult DeleteAnnouncementIllegal(int id)
         {
-            var AIllegal = DB.AnnouncementIllegal
-                .Where(x => x.Id == id)
+            var AIllegal = DB.Announcement
+                .Where(x => x.Id == id && x.TypeCS.NameType == "I")
                 .SingleOrDefault();
             if (AIllegal == null)
             {
@@ -445,7 +462,7 @@ namespace credit.Controllers
             }
             else
             {
-                DB.AnnouncementIllegal.Remove(AIllegal);
+                DB.Announcement.Remove(AIllegal);
                 DB.SaveChanges();
                 return Content("success");
             }

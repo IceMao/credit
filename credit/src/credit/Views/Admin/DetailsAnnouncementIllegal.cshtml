@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AnnouncementIllegal>
+﻿@model IEnumerable<Announcement>
 <div id="content-header">
     <h1>严重违法公告管理</h1>
 </div>
@@ -29,9 +29,9 @@
                             <td>@x.Id</td>
                             <td>@x.WriteTime</td>
                             <td>@x.Writer</td>
-                            <td>@x.title</td>
-                            <td>@x.publicUnit</td>
-                            <td>@x.DateTime</td>
+                            <td>@x.Title</td>
+                            <td>@x.PublicUnit</td>
+                            <td>@x.PublicTime</td>
                             <td>@x.Content</td>
                             @if (User.IsSignedIn())
                             {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using credit.Models;
 using Microsoft.AspNet.Authorization;
+using Microsoft.Data.Entity;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,7 +13,7 @@ namespace credit.Controllers
 {
     public class PageController : BaseController
     {
-        #region
+        #region 错误页面
         public IActionResult Error()
         {
             return View();
@@ -88,30 +89,17 @@ namespace credit.Controllers
         #endregion
         #region 信息公告总页
 
+        
+        #endregion
+        #region “信息填报总页”
+        //信息填报
         [HttpGet]
-        public IActionResult Announcement()
+        public IActionResult FillIn()
         {
-            var random = DB.AnnouncementRandom
-                .OrderByDescending(x => x.DateTime)
-                .ToList();
-            ViewBag.random = random;
-
-            var illegal = DB.AnnouncementIllegal
-                .OrderByDescending(x => x.DateTime)
-                .ToList();
-            ViewBag.illegal = illegal;
-
-            var unusual = DB.AnnouncementUnsual
-                .OrderByDescending(x => x.DateTime)
-                .ToList();
-            ViewBag.unusual = unusual;
-
             return View();
         }
+
         #endregion
-
-
-
         #region index search
 
         public IActionResult Search(string key)
@@ -128,25 +116,43 @@ namespace credit.Controllers
                 return View(r);
             }
         }
-        #endregion 
-
-        #region “总页”
-        //信息填报
-        [HttpGet]
-        public IActionResult FillIn()
-        {
-            return View();
-        }
-        
         #endregion
 
-        #region 各个公告页面
+        #region 公告页面
+        [HttpGet]
+        public IActionResult Announcement()
+        {
+            var random = DB.Announcement
+                .Include(x=>x.TypeCS)
+                .Where(x=>x.TypeCS.NameType == "R")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            ViewBag.random = random;
+
+            var illegal = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "I")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            ViewBag.illegal = illegal;
+
+            var unusual = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "U")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            ViewBag.unusual = unusual;
+
+            return View();
+        }
 
         //单独公告显示——抽查
         [HttpGet]
         public IActionResult ArticlePageRandom(int id)
         {
-            var article = DB.AnnouncementRandom
+            var article = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "R")
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             return View(article);
@@ -155,7 +161,9 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult ArticlePageUnusual(int id)
         {
-            var article = DB.AnnouncementUnsual
+            var article = DB.Announcement
+                 .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "U")
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             return View(article);
@@ -164,7 +172,9 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult ArticlePageIllegal(int id)
         {
-            var article = DB.AnnouncementIllegal
+            var article = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "I")
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             return View(article);
@@ -173,8 +183,10 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult AnnouncementUnsual()
         {
-            var AUnsual = DB.AnnouncementUnsual
-                .OrderByDescending(x => x.DateTime)
+            var AUnsual = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "U")
+                .OrderByDescending(x => x.PublicTime)
                 .ToList();
             return View(AUnsual);
         }
@@ -182,8 +194,10 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult AnnouncementRandom()
         {
-            var ARandom = DB.AnnouncementRandom
-                .OrderByDescending(x => x.DateTime)
+            var ARandom = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x=>x.TypeCS.NameType == "R")
+                .OrderByDescending(x => x.PublicTime)
                 .ToList();
             return View(ARandom);
         }
@@ -191,8 +205,10 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult AnnouncementIllegal()
         {
-            var AIllegal = DB.AnnouncementIllegal
-                .OrderByDescending(x => x.DateTime)
+            var AIllegal = DB.Announcement
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "I")
+                .OrderByDescending(x => x.PublicTime)
                 .ToList();
             return View(AIllegal);
         }
