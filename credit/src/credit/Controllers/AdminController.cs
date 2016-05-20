@@ -24,12 +24,11 @@ namespace credit.Controllers
                 .OrderBy(x=>x.RegisterTime)
                 .ToList();
             ViewBag.LiasionCount = liaison.Count;
-            return PagedView(liaison);
+            return PagedView(liaison,8);
         }
         #endregion
 
-        #region 显示，删除管理员
-        
+        #region 显示，删除，创建管理员    
         public IActionResult DeleteUser(int id)
         {
             //var UserCurrent = DB.Users
@@ -57,7 +56,6 @@ namespace credit.Controllers
             }
             
         }
-
         [HttpGet]
         public IActionResult DetailsUser()
         {
@@ -66,11 +64,10 @@ namespace credit.Controllers
                 .OrderByDescending(x=>x.Level)
                 .OrderBy(x => x.RegisterTime)
                 .ToList();
-            ViewBag.UserCount = user.Count;
-            return PagedView(user);
+            ViewBag.UserNumber = user.Count();
+            return PagedView(user,7);
         }
-        #endregion
-        #region Admin 添加其他管理员
+        //创建管理员
         [HttpGet]
         public IActionResult CreateManage()
         {
@@ -92,16 +89,14 @@ namespace credit.Controllers
             {
                 return Content("请登录");
             }
-            
-            
         }
         [HttpPost]
-        public async Task<IActionResult> CreateManage(string username,string password,string RealName,string Email,string PhoneNumber)
+        public async Task<IActionResult> CreateManage(string username, string password, string RealName, string Email, string PhoneNumber)
         {
             var user = DB.Users
                 .Where(x => x.UserName == username)
                 .SingleOrDefault();
-            if(user == null)
+            if (user == null)
             {
                 var manager = new User
                 {
@@ -111,7 +106,6 @@ namespace credit.Controllers
                     PhoneNumber = PhoneNumber,
                     Email = Email,
                     RealName = RealName,
-
                 };
                 await UserManager.CreateAsync(manager, password);
                 await UserManager.AddToRoleAsync(manager, "管理员");
@@ -123,13 +117,12 @@ namespace credit.Controllers
                 return Content("usernameHave");
             }
         }
-
         #endregion
         #region  注册号基本表（增删改查）
         [HttpGet]
         public IActionResult DetailsBaseInfo()
         {
-            return View(DB.BaseInfo);
+            return PagedView(DB.BaseInfo, 8);
         }
         
         [HttpGet]
@@ -202,7 +195,7 @@ namespace credit.Controllers
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x=>x.WriteTime)
                 .ToList();
-            return View(ARandom);
+            return PagedView(ARandom, 10);
         }
         [HttpGet]
         public IActionResult CreateAnnouncementRandom()
@@ -293,7 +286,7 @@ namespace credit.Controllers
                 .Include(x=>x.TypeCS)
                 .Where(x=>x.TypeCS.NameType == "U")
                 .ToList();
-            return View(AUnsual);
+            return PagedView(AUnsual, 10);
         }
         [HttpGet]
         public IActionResult CreateAnnouncementUnsual()
@@ -385,7 +378,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "I")
                 .OrderByDescending(x => x.WriteTime)
                 .ToList();
-            return View(AIllegal);
+            return PagedView(AIllegal, 10);
         }
         [HttpGet]
         public IActionResult CreateAnnouncementIllegal()
@@ -480,7 +473,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Rin")
                 .OrderByDescending(x=>x.PublicTime)
                 .ToList();
-            return View(infoRandom);
+            return PagedView(infoRandom, 10);
         }
         
         [HttpGet]
@@ -596,7 +589,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Iin")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
-            return View(InfoIllegal);
+            return PagedView(InfoIllegal, 10);
         }
 
         [HttpGet]
@@ -696,7 +689,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Uin")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
-            return View(InfoUnusual);
+            return PagedView(InfoUnusual, 10);
         }
 
         [HttpGet]
@@ -788,7 +781,6 @@ namespace credit.Controllers
         #endregion
         #region 企业年度报表
         //创建
-
         [HttpGet]
         public IActionResult DetailsYearReportEnterprise()
         {
@@ -799,8 +791,14 @@ namespace credit.Controllers
             ViewBag.Count = yreport.Count();
             return PagedView(yreport,10);
         }
-        
-       
+        #endregion
+
+        #region 系统管理
+        [HttpGet]
+        public IActionResult DetailsType()
+        {
+            return PagedView(DB.TypeCS, 10); 
+        }
         #endregion
     }
 }

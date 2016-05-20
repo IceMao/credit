@@ -54,10 +54,9 @@
                 </ul>
             </li>
             <li class="submenu">
-                <a href="#"><i class="icon icon-pencil"></i><span>报表</span><span class="label">2</span></a>
+                <a href="#"><i class="icon icon-pencil"></i><span>报表</span><span class="label">1</span></a>
                 <ul>
                     <li><a asp-action="DetailsYearReportEnterprise" asp-controller="Admin">企业年度信用报表管理</a></li>
-                    <li><a asp-action="DetailsYearReportIndividual" asp-controller="Admin">个体年度信用报表管理</a></li>
                 </ul>
             </li>
             <li class="submenu">
@@ -87,21 +86,26 @@
                 </ul>
             </li>
             <li class="submenu">
-                <a href="#"><i class="icon icon-pencil"></i><span>系统管理</span><span class="label">2</span></a>
-                <ul>
-                    <li>
-                        <a cass="list-group-item" asp-controller="Admin" asp-action="DetailsLiaison">企业经营类型</a>
-                        <a asp-controller="Admin" asp-action="DetailsLiaison">抽查公示类型</a>
-
-                    </li>
-                </ul>
-            </li>
-            <li class="submenu">
-                <a href="#"><i class="icon icon-pencil"></i><span>联络员</span><span class="label">2</span></a>
+                <a href="#"><i class="icon icon-pencil"></i><span>联络员</span><span class="label">1</span></a>
                 <ul>
                     <li><a asp-controller="Admin" asp-action="DetailsLiaison">企业联络员管理</a></li>
                 </ul>
             </li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-pencil"></i><span>管理员</span><span class="label">1</span></a>
+                <ul>
+                    <li><a asp-controller="Admin" asp-action="DetailsUser">管理员管理</a></li>
+                </ul>
+            </li>
+            <li class="submenu">
+                <a href="#"><i class="icon icon-pencil"></i><span>系统管理</span><span class="label">1</span></a>
+                <ul>
+                    <li>
+                        <a cass="list-group-item" asp-controller="Admin" asp-action="DetailsType">类型</a>
+                    </li>
+                </ul>
+            </li>
+            
         </ul>
     </div>
     <div id="content">

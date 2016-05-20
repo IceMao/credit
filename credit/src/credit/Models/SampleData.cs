@@ -35,23 +35,23 @@ namespace credit.Models
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
                 //初始化 抽查，异常，违法公告，公告类型名称
-                db.TypeCS.Add(new TypeCS { NameType = "R"});
-                db.TypeCS.Add(new TypeCS { NameType = "U" });
-                db.TypeCS.Add(new TypeCS { NameType = "I" });
+                db.TypeCS.Add(new TypeCS { NameType = "R",descript="这是抽查公告分类",Types = "无" });
+                db.TypeCS.Add(new TypeCS { NameType = "U", descript = "这是经营异常公告分类", Types = "无" });
+                db.TypeCS.Add(new TypeCS { NameType = "I", descript = "这是这是违法公告分类", Types = "无" });
                 //初始化 抽查，异常，违法公示，公示类型名称
-                db.TypeCS.Add(new TypeCS { NameType = "Rin" });
-                db.TypeCS.Add(new TypeCS { NameType = "Uin" });
-                db.TypeCS.Add(new TypeCS { NameType = "Iin" });
+                db.TypeCS.Add(new TypeCS { NameType = "Rin",descript= "这是抽查公示分类", Types = "无" });
+                db.TypeCS.Add(new TypeCS { NameType = "Uin", descript = "这是经营异常公示分类", Types = "无" });
+                db.TypeCS.Add(new TypeCS { NameType = "Iin", descript = "这是这是违法公示分类", Types = "无" });
                 //初始化 公示类型
-                db.TypeCS.Add(new TypeCS { NameType = "RType", Types = "正常" });
-                db.TypeCS.Add(new TypeCS { NameType = "RType", Types = "经营异常" });
-                db.TypeCS.Add(new TypeCS { NameType = "RType", Types = "严重违法" });
+                db.TypeCS.Add(new TypeCS { NameType = "RType", Types = "正常" ,descript="这是公示结果类型"});
+                db.TypeCS.Add(new TypeCS { NameType = "RType", Types = "经营异常", descript = "这是公示结果类型" });
+                db.TypeCS.Add(new TypeCS { NameType = "RType", Types = "严重违法", descript = "这是公示结果类型" });
                 //初始化 经营状态类型
-                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "开业" });
-                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "歇业" });
-                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "停业" });
-                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "清算" });
-                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "续存" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "开业", descript = "这是经营状态类型" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "歇业", descript = "这是经营状态类型" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "停业", descript = "这是经营状态类型" });
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "清算" , descript = "这是经营状态类型"});
+                db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "续存", descript = "这是经营状态类型" });
 
                 db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456789012345", CompanyName = "齐齐哈尔星图科技" });
                 db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456711111111", CompanyName = "齐齐哈尔建华区华图教育" });
