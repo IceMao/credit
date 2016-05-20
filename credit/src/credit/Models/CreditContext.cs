@@ -10,9 +10,7 @@ namespace credit.Models
     public class CreditContext:IdentityDbContext<User,IdentityRole<long>,long>
     {
         public DbSet<Announcement> Announcement { get; set; }
-        public DbSet<InfoRandom> InfoRandom { get; set; }
-        public DbSet<InfoIllegal> InfoIllegal { get; set; }
-        public DbSet<InfoUnusual> InfoUnusual { get; set; }
+        public DbSet<Info> Info { get; set; }
         public DbSet<BaseInfo> BaseInfo { get; set; }
         public DbSet<TypeCS> TypeCS { get; set; }
         public DbSet<YearReportEnterprise> YearReportEnterprise { get; set; }
@@ -24,7 +22,7 @@ namespace credit.Models
             {
                 e.HasIndex(x => x.Id);
             });
-            builder.Entity<InfoRandom>(e =>
+            builder.Entity<Info>(e =>
             {
                 e.HasIndex(x => x.Id);
             });

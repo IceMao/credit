@@ -12,21 +12,21 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">注册号</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="RegistrationNumber" id="RegistrationNumber" />
+                        <input type="text" class="form-control" name="RegisteNumber" id="RegisteNumber" />
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">抽查日期</label>
-                    <div class="col-lg-5" id="datetimepicker" data-date="@DateTime.Now" data-date-format="dd-mm-yyyy">
-                        <input id="time" type="datetime" class="form-control" name="DateTime" value="@DateTime.Now" />
+                    <div class="col-lg-5">
+                        <input id="PublicTime" type="datetime" class="form-control" name="PublicTime" value="@DateTime.Now" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">抽查结果</label>
                     <div class="col-lg-5">
                         <select class="form-control" name="Result">
-                            @foreach (TypeCS x in ViewBag.PType)
+                            @foreach (TypeCS x in ViewBag.RType)
                             {
                                 <option>@x.Types</option>
                             }
@@ -49,33 +49,7 @@
 <script src="~/scripts/bootstrap.min.js"></script>
 <script src="~/scripts/bootstrapValidator.min.js"></script>
     <script>
-        $("document").ready(function () {
-           
-            //$("#submit").click(function () {
-            //    var url = "/Admin/CreateInfoRandom";
-            //    var Result = $("input:radio[name='Result']:checked").val();
-            //    var params = { "RegistrationNumber": $("#RegistrationNumber").val(),  "DateTime": $("#time").val(), "Result": Result };
-            //    $.post(url, params, function (data) {
-            //        if (data == "error") {
-            //            alert("注册号不存在");
-
-            //        } else {
-            //            window.location.href = "/Admin/DetailsInfoRandom";
-
-            //        }
-
-            //    })
-            //});
-            //$('#time').datetimepicker({
-            //    weekStart: 1,
-            //    todayBtn: 1,
-            //    autoclose: 1,
-            //    todayHighlight: 1,
-            //    startView: 2,
-            //    forceParse: 0,
-            //    showMeridian: 1
-
-            //});
+        $("document").ready(function () {       
             $("#defaultForm").bootstrapValidator({
                 live: 'disable',
                 message:'这个值不合法',
@@ -83,10 +57,9 @@
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating:'glyphicon glyphicon-refresh'
-
                 },
                 fields: {
-                    RegistrationNumber: {
+                    RegisteNumber: {
                         message: '注册号没有验证',
                         validators: {
                             notEmpty: {
@@ -97,9 +70,7 @@
                                 message: '只能是15位数字'
                             }
                         }
-
                     },
-                    
                     Result: {
                         validators: {
                             notEmpty: {
@@ -107,21 +78,18 @@
                             }
                         }
                     }
-
                 }
             })
             .on('success.form.bv', function (e) {
                 e.preventDefault();
                 var $form = $(e.target);
                 var bv = $form.data('bootstrapValidator');
-
                 $.post("/Admin/CreateInfoRandom", $form.serialize(), function (data) {
                     if (data == "success") {
                         alert("提交成功");
                         window.location.href = "/Admin/DetailsInfoRandom";
                     } else if (data == "error") {
                         alert("注册号不存在")
-
                     }
                     else {
                         alert("未知错误");

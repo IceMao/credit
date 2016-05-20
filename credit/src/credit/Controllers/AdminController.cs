@@ -141,7 +141,7 @@ namespace credit.Controllers
         public IActionResult CreateBaseInfo(BaseInfo baseInfo)
         {
             var oldBase = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == baseInfo.RegistrationNumber)
+                .Where(x => x.RegisteNumber == baseInfo.RegisteNumber)
                 .SingleOrDefault();
             if (oldBase != null)
             {
@@ -174,8 +174,8 @@ namespace credit.Controllers
             var baseInfo = DB.BaseInfo
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            baseInfo.EnterpriseName = BaseInfo.EnterpriseName;
-            baseInfo.RegistrationNumber = BaseInfo.RegistrationNumber;
+            baseInfo.CompanyName = BaseInfo.CompanyName;
+            baseInfo.RegisteNumber = BaseInfo.RegisteNumber;
             DB.SaveChanges();
             return Content("success");
 
@@ -475,30 +475,36 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsInfoRandom()
         {
-            
-            return View(DB.InfoRandom);
+            var infoRandom = DB.Info
+                .Include(x=>x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Rin")
+                .OrderByDescending(x=>x.PublicTime)
+                .ToList();
+            return View(infoRandom);
         }
         
         [HttpGet]
         public IActionResult CreateInfoRandom()//添加表格内容
         {
-            var PType = DB.TypeCS
-                .Where(x=>x.NameType == "PType")
+
+            var RType = DB.TypeCS
+                .Where(x=>x.NameType == "RType")
                 .ToList();
-            ViewBag.PType = PType;
+            ViewBag.RType = RType;
             return View();
         }
        
         [HttpPost]
-        public IActionResult CreateInfoRandom(InfoRandom infoRandom)
+        public IActionResult CreateInfoRandom(Info infoRandom)
         {
             var baseinfo = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == infoRandom.RegistrationNumber)
+                .Where(x => x.RegisteNumber == infoRandom.RegisteNumber)
                 .SingleOrDefault();
             if (baseinfo != null)
             {
-                infoRandom.EnterpriseName = baseinfo.EnterpriseName;
-                DB.InfoRandom.Add(infoRandom);
+                infoRandom.TypeId = DB.TypeCS.Where(x => x.NameType == "Rin").SingleOrDefault().Id;
+                infoRandom.CompanyName = baseinfo.CompanyName;
+                DB.Info.Add(infoRandom);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -512,18 +518,19 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult EditInfoRandom(int id)
         {
-            var infoRandom = DB.InfoRandom
-                .Where(x => x.Id == id)
+            var infoRandom = DB.Info
+                .Include(x=>x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Rin")
                 .SingleOrDefault();
             if (infoRandom == null)
                 return Content("查无此人");
             else
             {
-                var PType = DB.TypeCS
+                var RType = DB.TypeCS
                     .Where(x => x.Types != infoRandom.Result)
-                    .Where(x=>x.NameType == "PType")
+                    .Where(x=>x.NameType == "RType")
                     .ToList();
-                ViewBag.PType = PType;
+                ViewBag.RType = RType;
                 return View(infoRandom);
             }
                 
@@ -531,35 +538,40 @@ namespace credit.Controllers
 
         //处理编辑表格请求
         [HttpPost]
-        public IActionResult EditInfoRandom(int id, InfoRandom infoRandom)
+        public IActionResult EditInfoRandom(int id, Info infoRandom)
         {
-            var info = DB.InfoRandom
-                .Where(x => x.Id == id)
+            var info = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Rin")
                 .SingleOrDefault();
             if(infoRandom == null)
                 return Content("没有这个id记录");
             else
-            {
-                info.RegistrationNumber = infoRandom.RegistrationNumber;
+            {          
                 var b = DB.BaseInfo
-                    .Where(x => x.RegistrationNumber == info.RegistrationNumber)
+                    .Where(x => x.RegisteNumber == infoRandom.RegisteNumber)
                     .SingleOrDefault();
-
-                info.EnterpriseName = b.EnterpriseName;
-                info.DateTime = infoRandom.DateTime;
-                info.Result = infoRandom.Result;
-
-                DB.SaveChanges();
-                return Content("success");
+                if(b== null)
+                {
+                    return Content("no");
+                }
+                else
+                {
+                    info.RegisteNumber = infoRandom.RegisteNumber;
+                    info.CompanyName = b.CompanyName;
+                    info.PublicTime = infoRandom.PublicTime;
+                    info.Result = infoRandom.Result;
+                    DB.SaveChanges();
+                    return Content("success");
+                }               
             }
-            
-
         }
        
         public IActionResult DeleteInfoRandom(int id)
         {
-            var infoRandom = DB.InfoRandom
-                .Where(x => x.Id == id)
+            var infoRandom = DB.Info
+                .Include(x=>x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Rin")
                 .SingleOrDefault();
             if(infoRandom == null)
             {
@@ -567,7 +579,7 @@ namespace credit.Controllers
             }
             else
             {
-                DB.InfoRandom.Remove(infoRandom);
+                DB.Info.Remove(infoRandom);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -579,7 +591,12 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsInfoIllegal()
         {
-            return View(DB.InfoIllegal);
+            var InfoIllegal = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Iin")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            return View(InfoIllegal);
         }
 
         [HttpGet]
@@ -589,17 +606,16 @@ namespace credit.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateInfoIllegal(InfoIllegal infoIllegal)
+        public IActionResult CreateInfoIllegal(Info infoIllegal)
         {
-
-
             var baseinfo = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == infoIllegal.RegistrationNumber)
+                .Where(x => x.RegisteNumber == infoIllegal.RegisteNumber)
                 .SingleOrDefault();
             if (baseinfo != null)
             {
-                infoIllegal.EnterpriseName = baseinfo.EnterpriseName;
-                DB.InfoIllegal.Add(infoIllegal);
+                infoIllegal.TypeId = DB.TypeCS.Where(x => x.NameType == "Iin").SingleOrDefault().Id;
+                infoIllegal.CompanyName = baseinfo.CompanyName;
+                DB.Info.Add(infoIllegal);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -613,8 +629,9 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult EditInfoIllegal(int id)
         {
-            var infoIllegal = DB.InfoIllegal
-                .Where(x => x.Id == id)
+            var infoIllegal = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Iin")
                 .SingleOrDefault();
             if (infoIllegal == null)
                 return Content("查无此人");
@@ -624,17 +641,18 @@ namespace credit.Controllers
 
         //处理编辑表格请求
         [HttpPost]
-        public IActionResult EditInfoIllegal(int id, InfoIllegal infoIllegal)
+        public IActionResult EditInfoIllegal(int id, Info infoIllegal)
         {
-            var info = DB.InfoIllegal
-                .Where(x => x.Id == id)
+            var info = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Iin")
                 .SingleOrDefault();
             if (infoIllegal == null)
                 return Content("没有这个id记录");
             else
             {
                 var b = DB.BaseInfo
-                    .Where(x => x.RegistrationNumber == info.RegistrationNumber)
+                    .Where(x => x.RegisteNumber == info.RegisteNumber)
                     .SingleOrDefault();
                 if (b == null)
                 {
@@ -642,19 +660,17 @@ namespace credit.Controllers
                 }
                 else
                 {
-                    info.RegistrationNumber = infoIllegal.RegistrationNumber;
-                    info.EnterpriseName = b.EnterpriseName;
-                    info.DateTime = infoIllegal.DateTime;
+                    info.RegisteNumber = infoIllegal.RegisteNumber;
+                    info.CompanyName = b.CompanyName;
+                    info.PublicTime = infoIllegal.PublicTime;
                     DB.SaveChanges();
                     return Content("success");
-                }
-                
+                }            
             }
         }
-
         public IActionResult DeleteInfoIllegal(int id)
         {
-            var infoIllegal = DB.InfoIllegal
+            var infoIllegal = DB.Info
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if (infoIllegal == null)
@@ -663,11 +679,10 @@ namespace credit.Controllers
             }
             else
             {
-                DB.InfoIllegal.Remove(infoIllegal);
+                DB.Info.Remove(infoIllegal);
                 DB.SaveChanges();
                 return Content("success");
             }
-
         }
         #endregion
 
@@ -676,7 +691,12 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult DetailsInfoUnusual()
         {
-            return View(DB.InfoUnusual);
+            var InfoUnusual = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Uin")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            return View(InfoUnusual);
         }
 
         [HttpGet]
@@ -686,15 +706,16 @@ namespace credit.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateInfoUnusual(InfoUnusual infoUnusual)
+        public IActionResult CreateInfoUnusual(Info infoUnusual)
         {
             var baseinfo = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == infoUnusual.RegistrationNumber)
+                .Where(x => x.RegisteNumber == infoUnusual.RegisteNumber)
                 .SingleOrDefault();
             if (baseinfo != null)
             {
-                infoUnusual.EnterpriseName = baseinfo.EnterpriseName;
-                DB.InfoUnusual.Add(infoUnusual);
+                infoUnusual.TypeId = DB.TypeCS.Where(x => x.NameType == "Uin").SingleOrDefault().Id;
+                infoUnusual.CompanyName = baseinfo.CompanyName;
+                DB.Info.Add(infoUnusual);
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -708,8 +729,9 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult EditInfoUnusual(int id)
         {
-            var infoUnusual = DB.InfoUnusual
-                .Where(x => x.Id == id)
+            var infoUnusual = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Uin")
                 .SingleOrDefault();
             if (infoUnusual == null)
                 return Content("查无此人");
@@ -719,17 +741,18 @@ namespace credit.Controllers
 
         //处理编辑表格请求
         [HttpPost]
-        public IActionResult EditInfoUnusual(int id, InfoUnusual infoUnusual)
+        public IActionResult EditInfoUnusual(int id, Info infoUnusual)
         {
-            var info = DB.InfoUnusual
-                .Where(x => x.Id == id)
+            var info = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "Uin")
                 .SingleOrDefault();
             if (infoUnusual == null)
                 return Content("没有这个id记录");
             else
             {
                 var b = DB.BaseInfo
-                    .Where(x => x.RegistrationNumber == info.RegistrationNumber)
+                    .Where(x => x.RegisteNumber == info.RegisteNumber)
                     .SingleOrDefault();
                 if (b == null)
                 {
@@ -737,9 +760,9 @@ namespace credit.Controllers
                 }
                 else
                 {
-                    info.DateTime = infoUnusual.DateTime;
-                    info.RegistrationNumber = infoUnusual.RegistrationNumber;
-                    info.EnterpriseName = b.EnterpriseName;
+                    info.PublicTime = infoUnusual.PublicTime;
+                    info.RegisteNumber = infoUnusual.RegisteNumber;
+                    info.CompanyName = b.CompanyName;
                     DB.SaveChanges();
                     return Content("success");
                 }       
@@ -747,7 +770,7 @@ namespace credit.Controllers
         }
         public IActionResult DeleteInfoUnusual(int id)
         {
-            var infoUnusual = DB.InfoUnusual
+            var infoUnusual = DB.Info
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if (infoUnusual == null)
@@ -756,7 +779,7 @@ namespace credit.Controllers
             }
             else
             {
-                DB.InfoUnusual.Remove(infoUnusual);
+                DB.Info.Remove(infoUnusual);
                 DB.SaveChanges();
                 return Content("success");
             }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InfoUnusual>
+﻿@model IEnumerable<Info>
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
@@ -20,9 +20,9 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageUnusual">@x.EnterpriseName</a></li>
-                <li>@x.RegistrationNumber</li>
-                <li>@x.DateTime.ToString("yyyy年MM月dd日")</li>
+                <li class="list-name"><a asp-controller="Page" asp-action="#">@x.CompanyName</a></li>
+                <li>@x.RegisteNumber</li>
+                <li>@x.PublicTime.ToString("yyyy年MM月dd日")</li>
             </ul>
 
         }

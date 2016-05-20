@@ -103,7 +103,7 @@ namespace credit.Controllers
         public async Task<IActionResult> Register(string RegistrationNumber,string username,string password,string PhoneNumber,string LiaisonIdNumber,string RealName)
         {
             var register = DB.BaseInfo//判断注册号是不是存在
-                .Where(x => x.RegistrationNumber == RegistrationNumber)
+                .Where(x => x.RegisteNumber == RegistrationNumber)
                 .SingleOrDefault();
             if(register == null)
             {
@@ -129,7 +129,7 @@ namespace credit.Controllers
                             LiaisonIdNumber = LiaisonIdNumber,
                             RealName = RealName,
                             Level = "1",
-                            EnterpriseName = register.EnterpriseName,
+                            EnterpriseName = register.CompanyName,
                         };
                         await UserManager.CreateAsync(Register, password);
                         await UserManager.AddToRoleAsync(Register, "联络员");

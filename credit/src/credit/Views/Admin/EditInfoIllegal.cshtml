@@ -1,4 +1,4 @@
-﻿@model InfoIllegal
+﻿@model Info
 <style>
     th {
         margin-top: 10px;
@@ -19,7 +19,7 @@
                 <th class="form-control">注册号</th>
                 <td>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" />
+                        <input type="text" class="form-control" name="RegisteNumber" value="@Model.RegisteNumber" />
                     </div>
                 </td>
             </tr>
@@ -27,7 +27,7 @@
                 <th class="form-control">违法日期</th>
                 <td>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="DateTime" value="@Model.DateTime" />
+                        <input type="text" class="form-control" name="PublicTime" value="@Model.PublicTime" />
                     </div>
                 </td>
             </tr>
@@ -42,7 +42,7 @@
 <script src="~/scripts/bootstrap.min.js"></script>
 <script src="~/scripts/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(function () {
             $("#defaultForm").bootstrapValidator({
                 live: 'disable',
                 message: '这个值不合法',
@@ -50,10 +50,9 @@
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
-
                 },
                 fields: {
-                    RegistrationNumber: {
+                    RegisteNumber: {
                         message: '注册号没有验证',
                         validators: {
                             notEmpty: {
@@ -65,7 +64,7 @@
                             }
                         }
                     },
-                    DateTime: {
+                    PublicTime: {
                         message: '时间没有验证',
                         validators: {
                             notEmpty: {
@@ -79,7 +78,6 @@
                     e.preventDefault();
                     var $form = $(e.target);
                     var bv = $form.data('bootstrapValidator');
-
                     $.post("/Admin/EditInfoIllegal", $form.serialize(), function (data) {
                         if (data == "success") {
                             alert("修改成功");
@@ -87,13 +85,11 @@
                         }
                         else if (data == "RegisterNo") {
                             alert("注册号不存在");
-
                         }
                         else {
                             alert("修改失败");
                         }
                     });
                 });;
-
         });
     </script>

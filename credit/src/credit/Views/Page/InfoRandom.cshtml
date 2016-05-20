@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InfoRandom>
+﻿@model IEnumerable<Info>
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
@@ -7,13 +7,11 @@
         <form asp-action="SearchRandom" asp-controller="Page" method="post" >
             <input type="text" name="key" placeholder="请输入公司注册号搜索相关抽查公示">
             <input class="btn1" type="submit" vlaue="搜索" />
-
-        </form>
-        
+        </form>       
     </div>
     <div class="list">
         <h3>抽查公示</h3>
-        <ul class="list-title">
+        <ul class="list-title"> 
             <li class="list-name">企业名称</li>
             <li>注册号</li>
             <li>抽查日期</li>
@@ -22,13 +20,11 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageRandom">@x.EnterpriseName</a></li>
-                <li>@x.RegistrationNumber</li>
-                <li>@x.DateTime.ToString("yyyy年MM月dd日")</li>
+                <li class="list-name"><a asp-controller="Page" asp-action="#">@x.CompanyName</a></li>
+                <li>@x.RegisteNumber</li>
+                <li>@x.PublicTime.ToString("yyyy年MM月dd日")</li>
                 <li>@x.Result</li>
             </ul>
-
-        }
-        
+        }        
     </div>
 </content>

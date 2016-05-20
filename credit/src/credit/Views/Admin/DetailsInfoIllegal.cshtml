@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InfoIllegal>
+﻿@model IEnumerable<Info>
 <div id="content-header">
     <h1>违法公示管理</h1>
 </div>
@@ -24,9 +24,9 @@
                     {
                         <tr id="table-tr-@x.Id">
                             <td>@x.Id</td>
-                            <td>@x.RegistrationNumber</td>
-                            <td>@x.EnterpriseName</td>
-                            <td>@x.DateTime</td>
+                            <td>@x.RegisteNumber</td>
+                            <td>@x.CompanyName</td>
+                            <td>@x.PublicTime</td>
                             @if (User.IsSignedIn())
                             {
                                 <td>
@@ -55,17 +55,12 @@
                         if (data == "success") {
                             $("#table-tr-" + id).remove();
                             alert("删除成功");
-
                         }
                         else {
                             alert("删除失败,找不到该记录");
-
                         }
                     });
-
                 }
-
             }
         </script>
-
-    }
+}

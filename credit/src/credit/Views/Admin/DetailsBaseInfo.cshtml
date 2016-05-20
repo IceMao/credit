@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BaseInfo>
+﻿@model IEnumerable<BaseInfo> 
 <div id="content-header">
     <h1>注册号管理</h1>
 </div>
@@ -23,8 +23,8 @@
                     {
                         <tr id="table-tr-@x.Id">
                             <td>@x.Id</td>
-                            <td>@x.RegistrationNumber</td>
-                            <td>@x.EnterpriseName</td>
+                            <td>@x.RegisteNumber</td>
+                            <td>@x.CompanyName</td>
                             @if (User.IsSignedIn())
                             {
                                 <td>

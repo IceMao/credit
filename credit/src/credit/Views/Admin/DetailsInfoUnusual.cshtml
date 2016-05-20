@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InfoUnusual>
+﻿@model IEnumerable<Info>
 <div id="content-header">
     <h1>经营异常公示管理</h1>
 </div>
@@ -24,9 +24,9 @@
                     {
                         <tr id="table-tr-@x.Id">
                             <td>@x.Id</td>
-                            <td>@x.RegistrationNumber</td>
-                            <td>@x.EnterpriseName</td>
-                            <td>@x.DateTime</td>
+                            <td>@x.RegisteNumber</td>
+                            <td>@x.CompanyName</td>
+                            <td>@x.PublicTime</td>
                             @if (User.IsSignedIn())
                             {
                                 <td>

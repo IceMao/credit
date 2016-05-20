@@ -17,11 +17,11 @@
             <tbody>
                 <tr>
                     <th class="form-control">注册号</th>
-                    <td class="form-group"><input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" /></td>
+                    <td class="form-group"><input type="text" class="form-control" name="RegisteNumber" value="@Model.RegisteNumber" /></td>
                 </tr>
                 <tr>
                     <th class="form-control">企业名称</th>
-                    <td class="form-group"><input type="text" class="form-control" name="EnterpriseName" value="@Model.EnterpriseName" /></td>
+                    <td class="form-group"><input type="text" class="form-control" name="CompanyName" value="@Model.CompanyName" /></td>
                 </tr>
             </tbody>
         </table>
@@ -46,7 +46,7 @@
 
                 },
                 fields: {
-                    RegistrationNumber: {
+                    RegisteNumber: {
                         message: '注册号没有验证',
                         validators: {
                             notEmpty: {
@@ -59,7 +59,7 @@
                         }
 
                     },
-                    EnterpriseName: {
+                    CompanyName: {
                         message: '企业名称没有验证',
                         validators: {
                             notEmpty: {

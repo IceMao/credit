@@ -1,4 +1,4 @@
-﻿@model InfoRandom
+﻿@model Info
 <style>
     th {
         margin-top: 10px;
@@ -19,7 +19,7 @@
                 <th class="form-control">注册号</th>
                 <td>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="RegistrationNumber" value="@Model.RegistrationNumber" />
+                        <input type="text" class="form-control" name="RegisteNumber" value="@Model.RegisteNumber" />
                     </div>
                 </td>
             </tr>
@@ -27,7 +27,7 @@
                 <th class="form-control">抽查日期</th>
                 <td>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="DateTime" value="@Model.DateTime" />
+                        <input type="text" class="form-control" name="PublicTime" value="@Model.PublicTime" />
                     </div>
                 </td>
             </tr>
@@ -36,7 +36,7 @@
                 <td>
                     <select name="Result" class="form-control">
                         <option>@Model.Result</option>
-                        @foreach (TypeCS x in ViewBag.PType)
+                        @foreach (TypeCS x in ViewBag.RType)
                         {
                             <option>@x.Types</option>
                         }
@@ -65,7 +65,7 @@
 
                 },
                 fields: {
-                    RegistrationNumber: {
+                    RegisteNumber: {
                         message: '注册号没有验证',
                         validators: {
                             notEmpty: {
@@ -78,22 +78,14 @@
                         }
 
                     },
-                    DateTime: {
+                    PublicTime: {
                         message: '时间没有验证',
                         validators: {
                             notEmpty: {
                                 message: '时间不能为空'
                             }
                         }
-                    },
-                    Result: {
-                        validators: {
-                            notEmpty: {
-                                message: '必选一项'
-                            }
-                        }
                     }
-
                 }
             })
                 .on('success.form.bv', function (e) {
@@ -105,6 +97,9 @@
                         if (data == "success") {
                             alert("修改成功");
                             window.location.href = "/Admin/DetailsInfoRandom";
+                        } else if (data == "no") {
+                            alert("该注册号不存在");
+
                         }
                         else {
                             alert("修改失败");

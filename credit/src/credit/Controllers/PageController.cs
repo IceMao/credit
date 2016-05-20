@@ -105,7 +105,7 @@ namespace credit.Controllers
         public IActionResult Search(string key)
         {
             var r = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == key)
+                .Where(x => x.RegisteNumber == key)
                 .SingleOrDefault();
             if(r == null)
             {
@@ -219,17 +219,18 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult InfoRandom()
         {
-            var infoRandom = DB.InfoRandom
-                .OrderByDescending(x => x.DateTime)
+            var infoRandom = DB.Info
+                .Include(x=>x.TypeCS)
+                .Where(x=>x.TypeCS.NameType == "Rin")
+                .OrderByDescending(x => x.PublicTime)
                 .ToList();
             return View(infoRandom);
         }
         
         public IActionResult SearchRandom(string key)
         {
-
             var enterprise = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == key)
+                .Where(x => x.RegisteNumber == key)
                 .SingleOrDefault();
             if (enterprise == null)
             {
@@ -237,8 +238,8 @@ namespace credit.Controllers
             }
             else
             {
-                var random = DB.InfoRandom
-                    .Where(x => x.RegistrationNumber == key)
+                var random = DB.Info
+                    .Where(x => x.RegisteNumber == key)
                     .ToList();
                 return View(random);
             }
@@ -250,8 +251,10 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult InfoIllegal()
         {
-            var infoIllegal = DB.InfoIllegal
-                .OrderByDescending(x => x.DateTime)
+            var infoIllegal = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Iin")
+                .OrderByDescending(x => x.PublicTime)
                 .ToList();
             return View(infoIllegal);
 
@@ -260,7 +263,7 @@ namespace credit.Controllers
         {
 
             var enterprise = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == key)
+                .Where(x => x.RegisteNumber == key)
                 .SingleOrDefault();
             if (enterprise == null)
             {
@@ -268,8 +271,8 @@ namespace credit.Controllers
             }
             else
             {
-                var illegal = DB.InfoIllegal
-                    .Where(x => x.RegistrationNumber == key)
+                var illegal = DB.Info
+                    .Where(x => x.RegisteNumber == key)
                     .ToList();
                 return View(illegal);
             }
@@ -280,8 +283,10 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult InfoUnusual()
         {
-            var infoUnusual = DB.InfoUnusual
-                .OrderByDescending(x => x.DateTime)
+            var infoUnusual = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Uin")
+                .OrderByDescending(x => x.PublicTime)
                 .ToList();
             return View(infoUnusual);
 
@@ -290,7 +295,7 @@ namespace credit.Controllers
         {
 
             var enterprise = DB.BaseInfo
-                .Where(x => x.RegistrationNumber == key)
+                .Where(x => x.RegisteNumber == key)
                 .SingleOrDefault();
             if (enterprise == null)
             {
@@ -298,8 +303,8 @@ namespace credit.Controllers
             }
             else
             {
-                var unusual = DB.InfoUnusual
-                    .Where(x => x.RegistrationNumber == key)
+                var unusual = DB.Info
+                    .Where(x => x.RegisteNumber == key)
                     .ToList();
                 return View(unusual);
                 
