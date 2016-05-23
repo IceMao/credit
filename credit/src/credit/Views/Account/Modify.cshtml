@@ -29,7 +29,9 @@
         </div>
     </div>
 </div>
-<script src="~/js/jQuery-2.1.4.min.js"></script>
+<script src="~/scripts/jquery-2.1.1.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/bootstrapValidator.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $('#defaultForm').bootstrapValidator({
@@ -51,10 +53,6 @@
                             max: 16,
                             message: '密码长度在6到16之间'
                         },
-                        regexp: {
-                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
-                            message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符中的三种'
-                        }
                     }
                 },
                 NewPassword: {
@@ -67,10 +65,6 @@
                             min: 6,
                             max: 16,
                             message: '密码长度在6到16之间'
-                        },
-                        regexp: {
-                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
-                            message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符中的三种'
                         },
                         identical: {
                             field: 'confirmPassword',
@@ -88,10 +82,6 @@
                             min: 6,
                             max: 16,
                             message: '密码长度在6到16之间'
-                        },
-                        regexp: {
-                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
-                            message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符中的三种'
                         },
                         identical: {
                             field: 'NewPassword',

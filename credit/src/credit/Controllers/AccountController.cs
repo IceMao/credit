@@ -68,13 +68,13 @@ namespace credit.Controllers
         }
         #endregion
         #region 修改密码
-        [Authorize(Roles ="管理员")]
+        [Authorize]
         [HttpGet]
         public IActionResult Modify()
         {
             return View();
         }
-        [Authorize(Roles = "管理员")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Modify(string password, string NewPassword)
         {

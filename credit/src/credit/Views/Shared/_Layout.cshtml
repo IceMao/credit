@@ -11,9 +11,8 @@
     <link rel="stylesheet" href="~/styles/back/unicorn.blue.css" class="skin-color" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
-        #user-nav > ul > li:hover > a {
-            color: #fff;
-            background: #000;
+        #user-nav > ul > li>a{
+            background: #33324b;
         }
         #breadcrumb{margin-bottom:50px;}
         div#AllPageLayout{min-height:390px;}
@@ -26,14 +25,7 @@
     </div>
     <div id="user-nav" class="navbar navbar-inverse" style="box-shadow:none; background:none; border:none;">
         <ul class="nav btn-group">
-            <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
-            <li class="btn btn-inverse dropdown" id="menu-messages">
-                <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">1</span> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a class="sAdd" title="" href="#">new message</a></li>
-                </ul>
-            </li>
-            <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+            <li class="btn btn-inverse"><a href="#" id="Modify"><i class="icon icon-cog"></i> <span class="text">修改密码</span></a></li>
             <li class="btn btn-inverse">
                 <a href="javascript:$('#logout').submit()">
                     <i class="glyphicon glyphicon-off"></i><span class="text">Logout</span>
@@ -119,8 +111,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editpassword">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="旧密码" /><br />
+                    <input type="password" id="NewPassword" name="NewPassword" class="form-control" placeholder="新密码" /><br />
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="再次输入新密码" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                    <button type="button" id="send" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/scripts/back/excanvas.min.js"></script>
-    <script src="~/scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/scripts/jquery-2.1.1.js"></script>
     <script src="~/scripts/back/jquery.ui.custom.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
     <script src="~/scripts/bootstrapValidator.min.js"></script>
@@ -130,6 +142,34 @@
     <script src="~/scripts/back/fullcalendar.min.js"></script>
     <script src="~/scripts/back/unicorn.js"></script>
     <script src="~/scripts/back/unicorn.dashboard.js"></script>
+    <script>
+        $("#Modify").click(function () {
+            $("#editpassword").modal("show");
+        });
+        $("#send").click(function () {
+            var password = $("#password").val();
+            var NewPassword = $("#NewPassword").val();
+            var confirmPassword = $("#confirmPassword").val();
+            if (password == "" || NewPassword == "" || confirmPassword == "") {
+                alert("任意项不能为空");
+            } else if (NewPassword != confirmPassword) {
+                alert("两次输入的密码不一致，请重新输入");
+            } else {
+                var url = "/Account/Modify";
+                var parmas = { "password": password, "NewPassword": NewPassword };
+                $.post(url, parmas, function (data) {
+                    if (data == "success") {
+                        alert("修改成功,确认后跳转到登录页重新登录...");
+                        window.location.href = "/Account/Login";
+                    }
+                    else {
+                        alert("修改失败...");
+                    }
+                });
+            }
+            
+        });
+    </script>
 </body>
 
 </html>

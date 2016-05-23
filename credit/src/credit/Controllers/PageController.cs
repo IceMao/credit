@@ -87,19 +87,33 @@ namespace credit.Controllers
             return Content("success");
         }
         #endregion
-        #region 信息公告总页
-
-        
-        #endregion
-        #region “信息填报总页”
-        //信息填报
+        #region 信息公示汇总页+公示具体页
         [HttpGet]
-        public IActionResult FillIn()
+        public IActionResult Info()
         {
+            var u = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Uin")
+                .OrderByDescending(x=>x.PublicTime)
+                .ToList();
+            ViewBag.u = u;
+            var i = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Iin")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            ViewBag.i = i;
+            var r = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.TypeCS.NameType == "Rin")
+                .OrderByDescending(x => x.PublicTime)
+                .ToList();
+            ViewBag.r = r;
             return View();
         }
-
+        
         #endregion
+        
         #region index search
 
         public IActionResult Search(string key)
