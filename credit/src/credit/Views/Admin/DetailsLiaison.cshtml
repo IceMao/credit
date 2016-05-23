@@ -13,34 +13,29 @@
             <table class="table table-hover table-bordered" style="margin-top:-15px;">
                 <thead>
                     <tr>
+                        <th>序号</th>
                         <th>注册时间</th>
+                        <th>注册号</th>
+                        <th>公司名称</th>
                         <th>用户名</th>
-                        <th>管理员等级</th>
                         <th>真实姓名</th>
-                        <th>联系方式</th>
+                        <th>联络员联系方式</th>
                         <th>Email</th>
-                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var x in Model)
                     {
                         <tr id="table-tr-@x.Id">
+                            <td>@x.Id</td>
                             <td>@x.RegisterTime</td>
+                            <td>@x.RegistrationNumber</td>
+                            <td>@x.EnterpriseName</td>
                             <td>@x.UserName</td>
-                            <td>@x.Level</td>
                             <td>@x.RealName</td>
                             <td>@x.PhoneNumber</td>
                             <td>@x.Email</td>
-                            @if (User.IsSignedIn())
-                            {
-                                <td>
-                                    <a asp-action="EditAnnouncementIllegal" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
-                                    <a href="javascript:remove(@x.Id)">删除</a>
-                                </td>
-                            }
                         </tr>
-
                     }
                 </tbody>
             </table>

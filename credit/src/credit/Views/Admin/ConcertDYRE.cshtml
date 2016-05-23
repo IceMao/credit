@@ -1,0 +1,53 @@
+﻿@model YearReportEnterprise
+<div id="content-header">
+    <h1>企业年度报表统计</h1>
+</div>
+<div id="breadcrumb">
+    <a asp-controller="Home" asp-action="Manage" title="Go to BackHome" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+    <a href="#" class="current">企业年度报表统计</a>
+    <small style="float:right; color:darkred; padding-top:6px; padding-right:20px;">当前企业年度报表数量：<strong style="color:red;">@ViewBag.Count</strong></small>
+</div>
+<div class="container-fluid" id="AllPageLayout">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <table class="table table-hover table-bordered" style="margin-top:-15px;">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>填写时间</th>
+                        <th>联络员</th>
+                        <th>企业名称</th>
+                        <th>注册号</th>
+                        <th>报表时间</th>
+                        <th>企业联系电话</th>
+                        <th>通信地址</th>
+                        <th>邮政编码</th>
+                        <th>电子邮箱</th>
+                        <th>经营状态</th>
+                        <th>是否有投资信息或购买其他公司股权</th>
+                        <th>是否有网店</th>
+                        <th>从业人数</th>                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.WriteTime.Date</td>
+                        <td>@Model.User.UserName</td>
+                        <td>@Model.User.EnterpriseName</td>
+                        <td>@Model.User.RegistrationNumber</td>
+                        <td>@Model.DateTime</td>
+                        <td>@Model.Tel</td>
+                        <td>@Model.Address</td>
+                        <td>@Model.ZipCode</td>
+                        <td>@Model.Email</td>
+                        <td>@Model.OperatState</td>
+                        <td>@Model.Investment</td>
+                        <td>@Model.Website</td>
+                        <td>@Model.EmployeeNum</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

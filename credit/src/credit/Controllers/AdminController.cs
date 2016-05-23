@@ -780,6 +780,23 @@ namespace credit.Controllers
         }
         #endregion
         #region 企业年度报表
+        //查看企业详情
+        [HttpGet]
+        public IActionResult ConcertDYRE(int id)
+        {
+            var report = DB.YearReportEnterprise
+                .Include(x=>x.User)
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(report == null)
+            {
+                return Content("没有该年度报表");
+            }
+            else
+            {
+                return View(report);
+            }
+        } 
         //创建
         [HttpGet]
         public IActionResult DetailsYearReportEnterprise()

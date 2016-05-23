@@ -35,7 +35,7 @@
                             @if (User.IsSignedIn())
                             {
                                 <td>
-                                    <a href="#">查看详情</a>
+                                    <a asp-action="ConcertDYRE" asp-controller="Admin" asp-route-id="@x.Id">查看详情</a>
                                 </td>
                             }
                         </tr>

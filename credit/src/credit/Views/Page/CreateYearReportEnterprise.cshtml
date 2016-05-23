@@ -48,7 +48,7 @@
             <tr>
                 <th>企业经营状态</th>
                 <td class="form-group">
-                    <select name="OperateState">
+                    <select name="OperatState">
                         @foreach (TypeCS x in ViewBag.EType)
                         {
                             <option>@x.Types</option>
@@ -122,7 +122,7 @@
                             }
                         }
                     },
-                    OperateState: {
+                    OperatState: {
                         message: '经营状态还没有验证',
                         validators: {
                             notEmpty: {
@@ -159,6 +159,10 @@
                         validators: {
                             notEmpty: {
                                 message: '企业地址不能为空'
+                            },
+                            regexp: {
+                                regexp: /^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\d{8}$/,
+                                message: '11位数字，格式如：13842174329'
                             }
                         }
                     },
