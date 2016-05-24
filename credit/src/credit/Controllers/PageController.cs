@@ -94,24 +94,155 @@ namespace credit.Controllers
             var u = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Uin")
-                .OrderByDescending(x=>x.PublicTime)
+                .OrderByDescending(x=>x.InTime)
                 .ToList();
             ViewBag.u = u;
             var i = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Iin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
             ViewBag.i = i;
             var r = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Rin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
             ViewBag.r = r;
             return View();
         }
         
+        [HttpGet]
+        public IActionResult OneInfo(int id,int typeId)
+        {
+            var info = DB.Info
+                .Include(x=>x.TypeCS)
+                .Where(x => x.Id == id && (x.TypeCS.NameType == "Uin" || x.TypeCS.NameType == "Rin"|| x.TypeCS.NameType == "Iin"))
+                .SingleOrDefault();
+            if(info == null)
+            {
+                var b = DB.BaseInfo
+                    .Include(x => x.TypeCS)
+                    .Where(x => x.Id == id && x.TypeCS.NameType == "basein")
+                    .SingleOrDefault();
+                if(b == null)
+                {
+                    return Content("该操作不存在");
+                }
+                else
+                {
+                    ViewBag.basein = "basein";
+                    ViewBag.rin = "0";
+                    ViewBag.uin = "0";
+                    ViewBag.iin = "0";
+
+                    ViewBag.infoBase = b;
+
+                    var infoU = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == b.RegisteNumber && x.TypeCS.NameType == "Uin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoU = infoU;
+                    var infoR = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == b.RegisteNumber && x.TypeCS.NameType == "Rin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoR = infoR;
+                    var infoI = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == b.RegisteNumber && x.TypeCS.NameType == "Iin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoI = infoI;
+                }
+            }
+            else
+            {
+                if(info.TypeCS.NameType == "Uin")
+                {
+                    ViewBag.uin = "uin";
+                    ViewBag.rin = "0";
+                    ViewBag.iin = "0";
+                    ViewBag.basein = "0";
+                    var infoU = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoU = infoU;
+                    var infoR = DB.Info
+                        .Include(x=>x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoR = infoR;
+                    var infoI = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Iin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoI = infoI;
+
+                }
+                else if(info.TypeCS.NameType == "Rin")
+                {
+                    ViewBag.rin = "rin";
+                    ViewBag.uin = "0";
+                    ViewBag.iin = "0";
+                    ViewBag.basein = "0";
+                    var infoU = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoU = infoU;
+                    var infoR = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoR = infoR;
+                    var infoI = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Iin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoI = infoI;
+                }
+                else if(info.TypeCS.NameType == "Iin")
+                {
+                    ViewBag.iin = "iin";
+                    ViewBag.rin = "0";
+                    ViewBag.uin = "0";
+                    ViewBag.basein = "0";
+                    var infoU = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoU = infoU;
+                    var infoR = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoR = infoR;
+                    var infoI = DB.Info
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Iin")
+                        .OrderByDescending(x => x.InTime)
+                        .ToList();
+                    ViewBag.infoI = infoI;
+                }
+                else
+                {
+                    return Content("未知异常");
+                }
+            }
+            return View();
+        }
         #endregion
         
         #region index search
@@ -236,7 +367,7 @@ namespace credit.Controllers
             var infoRandom = DB.Info
                 .Include(x=>x.TypeCS)
                 .Where(x=>x.TypeCS.NameType == "Rin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
             return View(infoRandom);
         }
@@ -268,7 +399,7 @@ namespace credit.Controllers
             var infoIllegal = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Iin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
             return View(infoIllegal);
 
@@ -300,9 +431,9 @@ namespace credit.Controllers
             var infoUnusual = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Uin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
-            return View(infoUnusual);
+            return PagedView(infoUnusual, 10);
 
         }
         public IActionResult SearchUnusual(string key)

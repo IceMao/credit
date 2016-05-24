@@ -20,9 +20,10 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a href="#" id="one">@x.CompanyName</a></li>
+                <li><input id="NameType" name="NameType" value="@x.TypeCS.NameType" type="hidden" /></li>
+                <li class="list-name"><a asp-controller="Page" asp-action="OneInfo" asp-route-id="@x.Id">@x.CompanyName</a></li>
                 <li>@x.RegisteNumber</li>
-                <li>@x.PublicTime.ToString("yyyy年MM月dd日")</li>
+                <li>@x.InTime.ToString("yyyy年MM月dd日")</li>
                 <li>@x.Result</li>
             </ul>
         }        

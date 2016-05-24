@@ -24,10 +24,34 @@
                 </td>
             </tr>
             <tr>
-                <th class="form-control">违法日期</th>
+                <th class="form-control">列入原因</th>
                 <td>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="PublicTime" value="@Model.PublicTime" />
+                        <input type="text" class="form-control" name="InReason" value="@Model.InReason" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-control">作出决定机关</th>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PublicUnit" value="@Model.PublicUnit" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-control">注册号</th>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="RegisteNumber" value="@Model.RegisteNumber" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-control">被列入日期</th>
+                <td>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="InTime" value="@Model.InTime" />
                     </div>
                 </td>
             </tr>
@@ -64,7 +88,7 @@
                             }
                         }
                     },
-                    PublicTime: {
+                    InTime: {
                         message: '时间没有验证',
                         validators: {
                             notEmpty: {

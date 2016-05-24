@@ -13,10 +13,13 @@
                 <thead>
                     <tr>
                         <th>序号</th>
+                        <th>录入信息管理员</th>
+                        <th>录入信息时间</th>
                         <th>注册号</th>
                         <th>企业名称</th>
-                        <th>抽查日期</th>
-                        <th>抽查结果</th>
+                        <th>检查日期</th>
+                        <th>检查实施机关</th>
+                        <th>结果</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -25,9 +28,12 @@
                     {
                         <tr id="table-tr-@x.Id">
                             <td>@x.Id</td>
+                            <td>@x.WriteName</td>
+                            <td>@x.WriteTime</td>
                             <td>@x.RegisteNumber</td>
                             <td>@x.CompanyName</td>
-                            <td>@x.PublicTime</td>
+                            <td>@x.InTime</td>
+                            <td>@x.PublicUnit</td>
                             <td>@x.Result</td>
                             @if (User.IsSignedIn())
                             {

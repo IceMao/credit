@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Info>
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#baseInfo" data-toggle="tab" class="@ViewBag.basein">
+                        登记信息
+                    </a>
+                </li>
+                <li><a href="#unusual" data-toggle="tab" class="@ViewBag.uin">经营异常信息</a></li>
+                <li><a href="#illegal" data-toggle="tab" class="@ViewBag.iin">严重违法信息</a></li>
+                <li><a href="#random" data-toggle="tab" class="@ViewBag.rin">抽查检查信息</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="baseInfo">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th class="text-center" colspan="2">登记信息</th>
+                                </tr>
+                                <tr>
+                                    <th>注册号</th>
+                                    <th>企业名称</th>
+                                </tr>
+                                <tbody>
+                                    @foreach (var x in ViewBag.basein)
+                                    {
+                                        <tr>
+                                            <td>@x.RegisteNumber</td>
+                                            <td>@x.CompanyName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>W3Cschoool菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
+                </div>
+                <div class="tab-pane fade" id="unusual">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-center" colspan="2">经营异常信息</th>
+                        </tr>
+                        <tr>
+                            <th>注册号</th>
+                            <th>企业名称</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var x in ViewBag.infoU)
+                            {
+                                <tr>
+                                    <td>@x.RegisteNumber</td>
+                                    <td>@x.CompanyName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p>
+                        iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+                        TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。
+                    </p>
+                </div>
+                <div class="tab-pane fade" id="illegal">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-center" colspan="2">严重违法信息</th>
+                        </tr>
+                        <tr>
+                            <th>注册号</th>
+                            <th>企业名称</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var x in ViewBag.infoI)
+                            {
+                                <tr>
+                                    <td>@x.RegisteNumber</td>
+                                    <td>@x.CompanyName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
+                </div>
+                <div class="tab-pane fade" id="random">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-center" colspan="2">严重违法信息</th>
+                        </tr>
+                        <tr>
+                            <th>注册号</th>
+                            <th>企业名称</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var x in ViewBag.infoR)
+                            {
+                                <tr>
+                                    <td>@x.RegisteNumber</td>
+                                    <td>@x.CompanyName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <p>
+                        Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/scripts/jquery-2.1.1.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#myTab a[class="basein"]').tab('show');
+        $('#myTab a[class="iin"]').tab('show');
+        $('#myTab a[class="uin"]').tab('show');
+        $('#myTab a[class="rin"]').tab('show');
+  })
+</script>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,5 +16,8 @@ namespace credit.Models
         //[StringLength(12, ErrorMessage = "注册号长度不对，请检查")]
         public string CompanyName { get; set; }
 
+        [ForeignKey("TypeCS")]
+        public int TypeId { get; set; }//basein
+        public virtual TypeCS TypeCS { get; set; }
     }
 }

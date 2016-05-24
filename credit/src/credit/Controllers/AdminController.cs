@@ -134,6 +134,7 @@ namespace credit.Controllers
         public IActionResult CreateBaseInfo(BaseInfo baseInfo)
         {
             var oldBase = DB.BaseInfo
+                .Include(x=>x.TypeCS)
                 .Where(x => x.RegisteNumber == baseInfo.RegisteNumber)
                 .SingleOrDefault();
             if (oldBase != null)
@@ -142,9 +143,9 @@ namespace credit.Controllers
             }
             else
             {
+                baseInfo.TypeId = DB.TypeCS.Where(x => x.NameType == "basein").SingleOrDefault().Id;
                 DB.BaseInfo.Add(baseInfo);
                 DB.SaveChanges();
-                //return RedirectToAction("DetailsBaseInfo", "Admin");
                 return Content("success");
             }
             
@@ -153,6 +154,7 @@ namespace credit.Controllers
         public IActionResult EditBaseInfo(int id)
         {
             var baseInfo = DB.BaseInfo
+                .Include(x=>x.TypeCS)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if (baseInfo == null)
@@ -165,10 +167,12 @@ namespace credit.Controllers
         public IActionResult EditBaseInfo(int id, BaseInfo BaseInfo)
         {
             var baseInfo = DB.BaseInfo
+                .Include(x => x.TypeCS)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             baseInfo.CompanyName = BaseInfo.CompanyName;
             baseInfo.RegisteNumber = BaseInfo.RegisteNumber;
+            baseInfo.TypeCS.NameType = "basein";
             DB.SaveChanges();
             return Content("success");
 
@@ -471,7 +475,7 @@ namespace credit.Controllers
             var infoRandom = DB.Info
                 .Include(x=>x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Rin")
-                .OrderByDescending(x=>x.PublicTime)
+                .OrderByDescending(x=>x.InTime)
                 .ToList();
             return PagedView(infoRandom, 10);
         }
@@ -497,6 +501,8 @@ namespace credit.Controllers
             {
                 infoRandom.TypeId = DB.TypeCS.Where(x => x.NameType == "Rin").SingleOrDefault().Id;
                 infoRandom.CompanyName = baseinfo.CompanyName;
+                infoRandom.WriteName = User.Current.UserName;
+                infoRandom.WriteTime = DateTime.Now;
                 DB.Info.Add(infoRandom);
                 DB.SaveChanges();
                 return Content("success");
@@ -552,8 +558,11 @@ namespace credit.Controllers
                 {
                     info.RegisteNumber = infoRandom.RegisteNumber;
                     info.CompanyName = b.CompanyName;
-                    info.PublicTime = infoRandom.PublicTime;
+                    info.PublicUnit = infoRandom.PublicUnit;
+                    info.InTime = infoRandom.InTime;
                     info.Result = infoRandom.Result;
+                    info.WriteTime = DateTime.Now;
+                    info.WriteName = User.Current.UserName;
                     DB.SaveChanges();
                     return Content("success");
                 }               
@@ -587,7 +596,7 @@ namespace credit.Controllers
             var InfoIllegal = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Iin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
             return PagedView(InfoIllegal, 10);
         }
@@ -608,6 +617,8 @@ namespace credit.Controllers
             {
                 infoIllegal.TypeId = DB.TypeCS.Where(x => x.NameType == "Iin").SingleOrDefault().Id;
                 infoIllegal.CompanyName = baseinfo.CompanyName;
+                infoIllegal.WriteName = User.Current.UserName;
+                infoIllegal.WriteTime = DateTime.Now;
                 DB.Info.Add(infoIllegal);
                 DB.SaveChanges();
                 return Content("success");
@@ -655,7 +666,11 @@ namespace credit.Controllers
                 {
                     info.RegisteNumber = infoIllegal.RegisteNumber;
                     info.CompanyName = b.CompanyName;
-                    info.PublicTime = infoIllegal.PublicTime;
+                    info.InTime = infoIllegal.InTime;
+                    info.WriteName = User.Current.UserName;
+                    info.WriteTime = DateTime.Now;
+                    info.InReason = infoIllegal.InReason;
+                    info.PublicUnit = infoIllegal.PublicUnit;
                     DB.SaveChanges();
                     return Content("success");
                 }            
@@ -687,7 +702,7 @@ namespace credit.Controllers
             var InfoUnusual = DB.Info
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "Uin")
-                .OrderByDescending(x => x.PublicTime)
+                .OrderByDescending(x => x.InTime)
                 .ToList();
             return PagedView(InfoUnusual, 10);
         }
@@ -708,6 +723,8 @@ namespace credit.Controllers
             {
                 infoUnusual.TypeId = DB.TypeCS.Where(x => x.NameType == "Uin").SingleOrDefault().Id;
                 infoUnusual.CompanyName = baseinfo.CompanyName;
+                infoUnusual.WriteName = User.Current.UserName;
+                infoUnusual.WriteTime = DateTime.Now;
                 DB.Info.Add(infoUnusual);
                 DB.SaveChanges();
                 return Content("success");
@@ -753,9 +770,13 @@ namespace credit.Controllers
                 }
                 else
                 {
-                    info.PublicTime = infoUnusual.PublicTime;
+                    info.InTime = infoUnusual.InTime;
                     info.RegisteNumber = infoUnusual.RegisteNumber;
                     info.CompanyName = b.CompanyName;
+                    info.WriteName = User.Current.UserName;
+                    info.WriteTime = DateTime.Now;
+                    info.InReason = infoUnusual.InReason;
+                    info.PublicUnit = infoUnusual.PublicUnit;
                     DB.SaveChanges();
                     return Content("success");
                 }       

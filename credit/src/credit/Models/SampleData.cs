@@ -34,6 +34,8 @@ namespace credit.Models
                 await userManager.CreateAsync(liaison, "Cream2015!@#");
                 await userManager.AddToRoleAsync(liaison, "联络员");
 
+                //基础信息
+                db.TypeCS.Add(new TypeCS { NameType = "basein", descript = "基础信息", Types = "无" });
                 //初始化 抽查，异常，违法公告，公告类型名称
                 db.TypeCS.Add(new TypeCS { NameType = "R",descript="这是抽查公告分类",Types = "无" });
                 db.TypeCS.Add(new TypeCS { NameType = "U", descript = "这是经营异常公告分类", Types = "无" });
@@ -53,9 +55,9 @@ namespace credit.Models
                 db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "清算" , descript = "这是经营状态类型"});
                 db.TypeCS.Add(new TypeCS { NameType = "EType", Types = "续存", descript = "这是经营状态类型" });
 
-                db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456789012345", CompanyName = "齐齐哈尔星图科技" });
-                db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456711111111", CompanyName = "齐齐哈尔建华区华图教育" });
-                db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456722222222", CompanyName = "齐齐哈尔审计局" });
+                //db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456789012345", CompanyName = "齐齐哈尔星图科技" });
+                //db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456711111111", CompanyName = "齐齐哈尔建华区华图教育" });
+                //db.BaseInfo.Add(new BaseInfo { RegisteNumber = "123456722222222", CompanyName = "齐齐哈尔审计局" });
                 //db.Info.Add(new Info { EnterpriseName = "齐齐哈尔星图科技", RegistrationNumber = "123456789012345", PublicTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 //db.Info.Add(new Info { EnterpriseName = "齐齐哈尔建华区华图教育", RegistrationNumber = "123456711111111", PublicTime = DateTime.Parse("2016/1/12"), Result = "正常" });
                 //db.Info.Add(new Info { EnterpriseName = "齐齐哈尔审计局", RegistrationNumber = "123456722222222", PublicTime = DateTime.Parse("2016/1/12"), Result = "正常" });

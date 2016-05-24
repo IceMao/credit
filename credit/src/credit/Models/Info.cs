@@ -11,7 +11,14 @@ namespace credit.Models
         public int Id { get; set; }
         public string RegisteNumber { get; set; }
         public string CompanyName { get; set; }
-        public DateTime PublicTime { get; set; }
+
+        public string InReason{get;set;}
+        public string OutReason { get; set; }
+        public DateTime InTime { get; set; }
+        public DateTime OutTime { get; set; }
+        public DateTime WriteTime { get; set; }
+        public string WriteName { get; set; }
+        public string PublicUnit { get; set; }//检查机关
         public string Result { get; set; } //抽查结果
 
         //公示类型

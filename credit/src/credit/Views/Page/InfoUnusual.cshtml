@@ -15,17 +15,38 @@
         <ul class="list-title">
             <li class="list-name">企业名称</li>
             <li>注册号</li>
-            <li>被列入经营异常日期</li>
+            <li>被列入经营异常名录日期</li>
         </ul>
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a asp-controller="Page" asp-action="#">@x.CompanyName</a></li>
+                <li class="list-name"><a href="javascript:void(0);" onclick="jump(@x.Id,@x.TypeId)">@x.CompanyName</a></li>
                 <li>@x.RegisteNumber</li>
-                <li>@x.PublicTime.ToString("yyyy年MM月dd日")</li>
+                <li>@x.InTime.ToString("yyyy年MM月dd日")</li>
             </ul>
 
         }
 
     </div>
 </content>
+@Html.MakePager("pager-item", "", "pager")
+
+<script type="text/javascript">
+    function jump(id,typeId) {
+        alert(1);
+            $(function () {
+                var url = "/Page/OneInfo";
+                var params = { "id": id,"typeId":typeId };
+                $.post(url, params, function (data) {
+                    if (data == "success") {
+                        alert("成功");
+
+                    }
+                    else {
+                        alert("失败");
+                    }
+
+                });
+            });
+        }
+</script>
