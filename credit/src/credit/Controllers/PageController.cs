@@ -115,23 +115,16 @@ namespace credit.Controllers
         [HttpGet]
         public IActionResult OneInfo(int id,int typeId)
         {
-            var info = DB.Info
-                .Include(x=>x.TypeCS)
-                .Where(x => x.Id == id && (x.TypeCS.NameType == "Uin" || x.TypeCS.NameType == "Rin"|| x.TypeCS.NameType == "Iin"))
+            var t = DB.TypeCS
+                .Where(x=>x.Id == typeId)
                 .SingleOrDefault();
-            if(info == null)
+            if (t.NameType == "basein")
             {
                 var b = DB.BaseInfo
                     .Include(x => x.TypeCS)
-                    .Where(x => x.Id == id && x.TypeCS.NameType == "basein")
+                    .Where(x => x.Id == id && t.NameType == "basein")
                     .SingleOrDefault();
-                if(b == null)
-                {
-                    return Content("该操作不存在");
-                }
-                else
-                {
-                    ViewBag.basein = "basein";
+                ViewBag.basein = "basein";
                     ViewBag.rin = "0";
                     ViewBag.uin = "0";
                     ViewBag.iin = "0";
@@ -156,16 +149,24 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoI = infoI;
-                }
             }
             else
             {
-                if(info.TypeCS.NameType == "Uin")
+                var info = DB.Info
+                .Include(x => x.TypeCS)
+                .Where(x => x.Id == id && x.TypeCS.NameType == t.NameType)
+                .SingleOrDefault();
+                if (info.TypeCS.NameType == "Uin")
                 {
                     ViewBag.uin = "uin";
                     ViewBag.rin = "0";
                     ViewBag.iin = "0";
                     ViewBag.basein = "0";
+                    var infoBase = DB.BaseInfo
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber)
+                        .ToList();
+                    ViewBag.infoBase = infoBase;
                     var infoU = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
@@ -173,7 +174,7 @@ namespace credit.Controllers
                         .ToList();
                     ViewBag.infoU = infoU;
                     var infoR = DB.Info
-                        .Include(x=>x.TypeCS)
+                        .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
                         .OrderByDescending(x => x.InTime)
                         .ToList();
@@ -186,12 +187,17 @@ namespace credit.Controllers
                     ViewBag.infoI = infoI;
 
                 }
-                else if(info.TypeCS.NameType == "Rin")
+                else if (info.TypeCS.NameType == "Rin")
                 {
                     ViewBag.rin = "rin";
                     ViewBag.uin = "0";
                     ViewBag.iin = "0";
                     ViewBag.basein = "0";
+                    var infoBase = DB.BaseInfo
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber)
+                        .SingleOrDefault();
+                    ViewBag.infoBase = infoBase;
                     var infoU = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
@@ -211,12 +217,17 @@ namespace credit.Controllers
                         .ToList();
                     ViewBag.infoI = infoI;
                 }
-                else if(info.TypeCS.NameType == "Iin")
+                else if (info.TypeCS.NameType == "Iin")
                 {
                     ViewBag.iin = "iin";
                     ViewBag.rin = "0";
                     ViewBag.uin = "0";
                     ViewBag.basein = "0";
+                    var infoBase = DB.BaseInfo
+                        .Include(x => x.TypeCS)
+                        .Where(x => x.RegisteNumber == info.RegisteNumber)
+                        .SingleOrDefault();
+                    ViewBag.infoBase = infoBase;
                     var infoU = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
@@ -236,12 +247,9 @@ namespace credit.Controllers
                         .ToList();
                     ViewBag.infoI = infoI;
                 }
-                else
-                {
-                    return Content("未知异常");
-                }
             }
-            return View();
+            
+            return Content("success");
         }
         #endregion
         

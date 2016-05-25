@@ -33,20 +33,10 @@
 
 <script type="text/javascript">
     function jump(id,typeId) {
-        alert(1);
             $(function () {
                 var url = "/Page/OneInfo";
                 var params = { "id": id,"typeId":typeId };
-                $.post(url, params, function (data) {
-                    if (data == "success") {
-                        alert("成功");
-
-                    }
-                    else {
-                        alert("失败");
-                    }
-
-                });
+                $.get(url, params);
             });
         }
 </script>
