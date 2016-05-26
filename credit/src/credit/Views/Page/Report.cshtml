@@ -1,12 +1,13 @@
-﻿@{ 
+﻿
+@{ 
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<div class="row">
+<div class="row" style="min-height:500px;">
     <div class="col-lg-4 col-lg-offset-4" style="margin-top:70px;">
         <h3>该年度的企业年度报表已经提交,请选择</h3>
     </div>
-    <div class="col-lg-2 col-lg-offset-5" style="margin-top:30px;">
-        <input type="submit" id="DetailsReport" class="btn btn-success" value="查看报表详细" />
-        <input type="submit" class="btn btn-primary" value="修改报表" />
+    <div class="col-lg-3 col-lg-offset-5" style="margin-top:30px;">
+        <a asp-action="DetailOneReport" asp-controller="Page" asp-route-id="@User.Current.Id" class="btn btn-success">查看报表详细</a>
+        <a asp-action="ReportEdit" asp-controller="Page" asp-route-id="@User.Current.Id" class="btn btn-primary" >修改报表</a>
     </div>
 </div>

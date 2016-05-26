@@ -2,8 +2,13 @@
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+<style>
+    li{
+        padding-top:5px; padding-bottom:5px; margin-bottom:5px; font-size:1.2em;
+    }
+</style>
 <content class="container-fluid">
-    <div class="row" style="min-height:330px;">
+    <div class="row" style="min-height:430px;">
         <div class="col-lg-12">
             <div class="col-lg-7">
                 <h3 style="margin:20px 0 10px;">抽查检查信息公告</h3>
@@ -11,7 +16,7 @@
                 <ul class="list-content">
                     @foreach (var x in Model)
                     {
-                        <li class="list-name">
+                        <li>
                             <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id"><strong class="aBtn" style="color:#000;">@x.Title</strong></a>
                             <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                         </li>
@@ -25,7 +30,7 @@
                 <ul>
                     @foreach (var x in Model)
                     {
-                        <li style="padding-top:5px; padding-bottom:5px; margin-bottom:5px;">
+                        <li>
                             <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id"><strong class="aBtn" style="color:#000;">@x.Title</strong></a>
                             <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                         </li>
@@ -43,8 +48,8 @@
             var btn = oBtn[i].innerHTML;
             var a = null;
             var cut = new String();
-            if (btn.length > 12) {
-                for (var j = 0; j <= 14; j++) {
+            if (btn.length > 10) {
+                for (var j = 0; j <= 10; j++) {
                     a = btn.charAt(j);
                     cut = cut.concat(a);
                 }

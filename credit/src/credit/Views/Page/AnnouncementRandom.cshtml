@@ -2,8 +2,16 @@
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+<style>
+    li {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        font-size: 1.2em;
+    }
+</style>
 <content class="container-fluid">
-    <div class="row" style="min-height:330px;">
+    <div class="row" style="min-height:430px;">
         <div class="col-lg-12">
             <div class="col-lg-7">
                 <h3 style="margin:20px 0 10px;">抽查检查信息公告</h3>
@@ -43,8 +51,8 @@
             var btn = oBtn[i].innerHTML;
             var a = null;
             var cut = new String();
-            if (btn.length > 12) {
-                for (var j = 0; j <= 14; j++) {
+            if (btn.length > 10) {
+                for (var j = 0; j <= 10; j++) {
                     a = btn.charAt(j);
                     cut = cut.concat(a);
                 }

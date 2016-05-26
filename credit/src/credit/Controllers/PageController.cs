@@ -20,6 +20,11 @@ namespace credit.Controllers
         }
         #endregion
         #region 企业年度信息填报
+        /// <summary>
+        /// 游客可以浏览的详情页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult OneReport(int id)
         {
@@ -29,12 +34,58 @@ namespace credit.Controllers
                 .SingleOrDefault();
             return View(report);
         }
+        /// <summary>
+        /// 这个report详情页是Report页面点击时的跳转，就是通过联络员查看的详情
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "联络员")]
+        [HttpGet]
+        public IActionResult DetailOneReport(int id)
+        {
+            var report = DB.YearReportEnterprise
+                .Include(x => x.User)
+                .Where(x => x.UserId == id)
+                .SingleOrDefault();
+            return View(report);
+        }
         [HttpGet]
         public IActionResult Report()
         {
             return View();
         }
 
+        [HttpGet]
+        public IActionResult ReportEdit(int id)
+        {
+            var report = DB.YearReportEnterprise
+                .Include(x => x.User)
+                .Where(x => x.UserId == id)
+                .SingleOrDefault();
+            var type = DB.TypeCS
+                .Where(x => x.Types != report.OperatState && x.NameType == "EType")
+                .ToList();
+            ViewBag.EType = type;
+            return View(report);
+        }
+        [HttpPost]
+        public IActionResult ReportEdit( int id,YearReportEnterprise oldReport)
+        {
+            var newReport = DB.YearReportEnterprise
+                .Include(x => x.User)
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            newReport.Tel = oldReport.Tel;
+            newReport.Address = oldReport.Address;
+            newReport.ZipCode = oldReport.ZipCode;
+            newReport.Email = oldReport.Email;
+            newReport.OperatState = oldReport.OperatState;
+            newReport.Investment = oldReport.Investment;
+            newReport.Website = oldReport.Website;
+            newReport.EmployeeNum = oldReport.EmployeeNum;
+            DB.SaveChanges();
+            return Content("success");
+        }
         [Authorize]
         [HttpGet]
         public IActionResult CreateYearReportEnterprise()

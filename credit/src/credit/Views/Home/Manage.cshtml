@@ -8,132 +8,81 @@
 
 <div class="container-fluid" id="AllPageLayout">
     <div class="row-fluid">
-        <div class="span12 center" style="text-align: center;">
-
-            <div id="main" style="width: 600px;height:400px;"></div>
-
-            <ul class="stat-boxes">
-                <li>
-                    <div class="left peity_bar_good"><span>2,4,9,7,12,10,12</span>+20%</div>
-                    <div class="right">
-                        <strong>36094</strong>
-                        Visits
-                    </div>
-                </li>
-                <li>
-                    <div class="left peity_bar_neutral"><span>20,15,18,14,10,9,9,9</span>0%</div>
-                    <div class="right">
-                        <strong>1433</strong>
-                        Users
-                    </div>
-                </li>
-                <li>
-                    <div class="left peity_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div>
-                    <div class="right">
-                        <strong>8650</strong>
-                        Orders
-                    </div>
-                </li>
-                <li>
-                    <div class="left peity_line_good"><span>12,6,9,23,14,10,17</span>+70%</div>
-                    <div class="right">
-                        <strong>8650</strong>
-                        Orders
-                    </div>
-                </li>
-            </ul>
+        <div class="span12 center" style="text-align: center;">            
+            <div class="col-lg-8">
+                <div id="info" style="width:600px; height:400px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="ann" style="width:300px; height:400px;"></div>
+            </div>
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="alert alert-info">
-                Welcome in the <strong>Unicorn Admin Theme</strong>. Don't forget to check all the pages!
-                <a href="#" data-dismiss="alert" class="close">×</a>
-            </div>
-            <div class="widget-box">
-                <div class="widget-title"><span class="icon"><i class="icon-signal"></i></span><h5>Site Statistics</h5><div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a></div></div>
-                <div class="widget-content">
-                    <div class="row-fluid">
-                        <div class="span4">
-                            <ul class="site-stats">
-                                <li><i class="icon-user"></i> <strong>1433</strong> <small>Total Users</small></li>
-                                <li><i class="icon-arrow-right"></i> <strong>16</strong> <small>New Users (last week)</small></li>
-                                <li class="divider"></li>
-                                <li><i class="icon-shopping-cart"></i> <strong>259</strong> <small>Total Shop Items</small></li>
-                                <li><i class="icon-tag"></i> <strong>8650</strong> <small>Total Orders</small></li>
-                                <li><i class="icon-repeat"></i> <strong>29</strong> <small>Pending Orders</small></li>
-                            </ul>
-                        </div>
-                        <div class="span8">
-                            <div class="chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  
+      
 </div>
 <script src="~/scripts/echarts.yang.min.js"></script>
 <script>
-    var myChart = echarts.init(document.getElementById('main'));
-    myChart.showLoading();
+    var infoChart = echarts.init(document.getElementById('info'));
+    infoChart.showLoading();
+    // 指定图表的配置项和数据
+    var option = {
+    title : {
+        text: '公示数量图解',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        x : 'center',
+        y : 'bottom',
+        data:['抽查','经营异常','严重违法']
+    },
+    
+    calculable : true,
+    series : [
+        {
+            name:'公示',
+            type:'pie',
+            radius : [30, 110],
+            center : ['75%', 200],
+            roseType : 'area',
+            data:[
+                { value: @ViewBag.infoR, name: '抽查' },
+                {value:@ViewBag.infoU, name:'经营异常'},
+                {value:@ViewBag.infoI, name:'严重违法'}
+            ]
+        }
+    ]
+};
+
+    infoChart.hideLoading();
+    infoChart.setOption(option);
+
+    var annChart = echarts.init(document.getElementById('ann'));
+    annChart.showLoading();
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: '企业年度报表统计'
+            text: '公告统计'
         },
         tooltip: {},
         legend: {
-            data: ['年度报表']
+            data: ['公告']
         },
         xAxis: {
-            data: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"]
+            data: ["抽查公告", "经营异常公告", "严重违法公告"]
         },
         yAxis: {},
         series: [{
-            name: '年度报表',
+            name: '公告',
             type: 'bar',
-            data: [894, 2341, 3241, 6098, 10432, 20123]
+            data: [@ViewBag.R, @ViewBag.U, @ViewBag.I]
         }]
     };
 
     // 使用刚指定的配置项和数据显示图表。
-    myChart.hideLoading();
-    myChart.setOption(option);
-   // 显示标题，图例和空的坐标轴
-    //myChart.setOption({
-    //    title: {
-    //        text: '异步数据加载示例'
-    //    },
-    //    tooltip: {},
-    //    legend: {
-    //        data: ['销量']
-    //    },
-    //    xAxis: {
-    //        data: []
-    //    },
-    //    yAxis: {},
-    //    series: [{
-    //        name: '销量',
-    //        type: 'bar',
-    //        data: []
-    //    }]
-    //});
-
-    // 异步加载数据
-    //$.get('data.json').done(function (data) {
-    //    myChart.hideLoading();
-    //    // 填入数据
-    //    myChart.setOption({
-    //        xAxis: {
-    //            data: data.categories
-    //        },
-    //        series: [{
-    //            // 根据名字对应到相应的系列
-    //            name: '销量',
-    //            data: data.data
-    //        }]
-    //    });
-    //});
+    annChart.hideLoading();
+    annChart.setOption(option);
 </script>
     

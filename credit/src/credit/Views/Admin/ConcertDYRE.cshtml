@@ -12,40 +12,43 @@
             <table class="table table-hover table-bordered" style="margin-top:-15px;">
                 <thead>
                     <tr>
-                        <th>序号</th>
-                        <th>填写时间</th>
-                        <th>联络员</th>
-                        <th>企业名称</th>
-                        <th>注册号</th>
-                        <th>报表时间</th>
-                        <th>企业联系电话</th>
-                        <th>通信地址</th>
-                        <th>邮政编码</th>
-                        <th>电子邮箱</th>
-                        <th>经营状态</th>
-                        <th>是否有投资信息或购买其他公司股权</th>
-                        <th>是否有网店</th>
-                        <th>从业人数</th>                      
+                        <th>序号</th><td>@Model.Id</td>
+                        
+                        <th>填写时间</th><td>@Model.WriteTime.Date</td>
+                    </tr>
+                    <tr>
+                        <th>联络员</th><td>@Model.User.UserName</td>
+                        
+                        <th>报表年度</th><td>@Model.User.CompanyName</td>
+                    </tr>
+                    <tr>                      
+                        <th>企业名称</th><td>@Model.User.RegisteNumber</td>
+                        
+                        <th>注册号</th><td>@Model.DateTime</td>
+                    </tr>
+                    <tr>
+                        <th>企业联系电话</th><td>@Model.Tel</td>
+                        
+                        <th>通信地址</th><td>@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th>邮政编码</th><td>@Model.ZipCode</td>
+                        
+                        <th>电子邮箱</th><td>@Model.Email</td>
+                        
+                    </tr>
+                    <tr>
+                        <th>经营状态</th><td>@Model.OperatState</td>
+                        
+                        <th>是否有投资信息或购买其他公司股权</th><td>@Model.Investment</td>
+                        
+                    </tr>
+                    <tr>
+                        <th>是否有网店</th><td>@Model.Website</td>
+                        
+                        <th>从业人数</th><td>@Model.EmployeeNum</td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>@Model.Id</td>
-                        <td>@Model.WriteTime.Date</td>
-                        <td>@Model.User.UserName</td>
-                        <td>@Model.User.CompanyName</td>
-                        <td>@Model.User.RegisteNumber</td>
-                        <td>@Model.DateTime</td>
-                        <td>@Model.Tel</td>
-                        <td>@Model.Address</td>
-                        <td>@Model.ZipCode</td>
-                        <td>@Model.Email</td>
-                        <td>@Model.OperatState</td>
-                        <td>@Model.Investment</td>
-                        <td>@Model.Website</td>
-                        <td>@Model.EmployeeNum</td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
