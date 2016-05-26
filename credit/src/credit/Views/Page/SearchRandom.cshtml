@@ -21,12 +21,37 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li class="list-name"><a asp-controller="Page" asp-action="ArticlePageRandom">@x.CompanyName</a></li>
+                <li class="list-name" style="font-size:1.2em;">
+                    <form asp-action="OneInfo" asp-controller="Page" method="get">
+                        <input type="hidden" name="Id" value="@x.Id" />
+                        <input type="hidden" name="TypeId" value="@x.TypeId" />
+                        <button type="submit" style="border:none;background:none; color:#02092e;"><strong class="aBtn">@x.CompanyName</strong></button>
+                    </form>
+                </li>
                 <li>@x.RegisteNumber</li>
-                <li>@x.PublicTime.ToString("yyyy年MM月dd日")</li>
+                <li>@x.InTime.ToString("yyyy年MM月dd日")</li>
                 <li>@x.Result</li>
             </ul>
 
         }
     </div>
 </content>
+<script type="text/javascript">
+    $(window).load(function(){
+        var oBtn = document.getElementsByClassName("aBtn");
+        for(var i=0;i<oBtn.length;i++){
+            var btn = oBtn[i].innerHTML;
+            var a = null;
+            var cut = new String();
+            if (btn.length > 12) {
+                for (var j = 0; j <= 14; j++) {
+                    a = btn.charAt(j);
+                    cut = cut.concat(a);
+                }
+                oBtn[i].innerHTML = cut+"...";
+            } else {
+                oBtn[i].innerHTML = btn;
+            }
+        }
+    })
+</script>

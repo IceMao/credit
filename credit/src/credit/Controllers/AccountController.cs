@@ -100,10 +100,10 @@ namespace credit.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(string RegistrationNumber,string username,string password,string PhoneNumber,string LiaisonIdNumber,string RealName)
+        public async Task<IActionResult> Register(string RegisteNumber,string username,string password,string PhoneNumber,string LiaisonIdNumber,string RealName)
         {
             var register = DB.BaseInfo//判断注册号是不是存在
-                .Where(x => x.RegisteNumber == RegistrationNumber)
+                .Where(x => x.RegisteNumber == RegisteNumber)
                 .SingleOrDefault();
             if(register == null)
             {
@@ -112,7 +112,7 @@ namespace credit.Controllers
             else
             {
                 var reg = DB.Users//判断该注册号是否有联络员
-                    .Where(x => x.RegistrationNumber == RegistrationNumber)
+                    .Where(x => x.RegisteNumber == RegisteNumber)
                     .SingleOrDefault();
                 if(reg == null)
                 {
@@ -123,13 +123,13 @@ namespace credit.Controllers
                     {
                         var Register = new User
                         {
-                            RegistrationNumber = RegistrationNumber,
+                            RegisteNumber = RegisteNumber,
                             UserName = username,
                             PhoneNumber = PhoneNumber,
                             LiaisonIdNumber = LiaisonIdNumber,
                             RealName = RealName,
                             Level = "1",
-                            EnterpriseName = register.CompanyName,
+                            CompanyName = register.CompanyName,
                         };
                         await UserManager.CreateAsync(Register, password);
                         await UserManager.AddToRoleAsync(Register, "联络员");

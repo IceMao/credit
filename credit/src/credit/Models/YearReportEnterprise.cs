@@ -23,7 +23,7 @@ namespace credit.Models
         public string ZipCode { get; set; }
         //电子邮箱
         public string Email { get; set; }
-        //类别
+        //类别，经营状态
         public string OperatState { get; set; }
         //企业是否有投资信息或购买其他公司股权（是否）
         public string Investment { get; set; }

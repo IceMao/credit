@@ -10,7 +10,7 @@
                 @foreach (var x in ViewBag.random)
                 {
                     <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
-                        <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">@x.Title</a>
+                        <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id"><span class="aBtn">@x.Title</span></a>
                         <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                     </li>
 
@@ -24,7 +24,7 @@
                 @foreach (var x in ViewBag.illegal)
                 {
                     <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
-                        <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id">@x.Title</a>
+                        <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id"><span class="aBtn">@x.Title</span></a>
                         <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                     </li>
 
@@ -38,7 +38,7 @@
                 @foreach (var x in ViewBag.unusual)
                 {
                     <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
-                        <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">@x.Title</a>
+                        <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id"><span class="aBtn">@x.Title</span></a>
                         <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                     </li>
 
@@ -47,3 +47,22 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(window).load(function(){
+        var oBtn = document.getElementsByClassName("aBtn");
+        for(var i=0;i<oBtn.length;i++){
+            var btn = oBtn[i].innerHTML;
+            var a = null;
+            var cut = new String();
+            if (btn.length > 12) {
+                for (var j = 0; j <= 14; j++) {
+                    a = btn.charAt(j);
+                    cut = cut.concat(a);
+                }
+                oBtn[i].innerHTML = cut+"...";
+            } else {
+                oBtn[i].innerHTML = btn;
+            }
+        }
+    })
+</script>

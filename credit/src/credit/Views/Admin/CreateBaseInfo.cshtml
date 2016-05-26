@@ -22,10 +22,45 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-3 control-label">住所</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Address" id="Address" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">营业期限自</label>
+                    <div class="col-lg-5">
+                        <input type="datetime" class="form-control" name="BeginTime" id="BeginTime" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">营业期限至</label>
+                    <div class="col-lg-5">
+                        <input type="datetime" class="form-control" name="EndTime" id="EndTime" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">经营范围</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Scope" id="Scope" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">登记机关</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="PublicUnit" id="PublicUnit" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">核准日期</label>
+                    <div class="col-lg-5">
+                        <input type="datetime" class="form-control" name="ApproveTime" id="ApproveTime" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
                         <button id="submit" class="btn btn-success">提交</button>
-                         @*<input type="submit" class="btn btn-success" value="提交" />*@
-                        <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
+                         <a asp-controller="Admin" asp-action="DetailsBaseInfo">取消</a>
                     </div>
                 </div>
                 
@@ -38,19 +73,19 @@
 <script src="~/scripts/bootstrapValidator.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#submit").click(function () {
-            var url = "/Admin/CreateBaseInfo";
-            var params = { "RegisteNumber": $('#RegisteNumber').val(), "CompanyName": $("#CompanyName").val() };
-            $.post(url, params, function (data) {
-                if (data == "error") {
-                    alert("注册号已存在");
+        //$("#submit").click(function () {
+        //    var url = "/Admin/CreateBaseInfo";
+        //    var params = { "RegisteNumber": $('#RegisteNumber').val(), "CompanyName": $("#CompanyName").val() };
+        //    $.post(url, params, function (data) {
+        //        if (data == "error") {
+        //            alert("注册号已存在");
 
-                } else {
-                    window.location.href = "/Admin/DetailsBaseInfo";
+        //        } else {
+        //            window.location.href = "/Admin/DetailsBaseInfo";
 
-                }
-            })
-        });
+        //        }
+        //    })
+        //});
 
         $("#defaultForm").bootstrapValidator({
             message: '这个值没有被验证',
@@ -70,22 +105,71 @@
                         regexp: {
                             regexp: /^\d{15}$/,
                             message: '只能是15位数字'
-                        }
-                        
+                        }                        
                     }
-
                 },
                 CompanyName: {
                     validators: {
                         notEmpty: {
-                            message: '企业名不能为空'
+                            message: '不能为空'
                         }
                     }
-
-                }
-
+                },
+                Address: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+                    }
+                },
+                BeginTime: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+                    }
+                },
+                EndTime: {
+                    message: '可以为空',
+                },
+                Scope: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+                    }
+                },
+                PublicUnit: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+                    }
+                },
+                ApproveTime: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+                    }
+                },
             }
 
+        })
+        .on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('bootstrapValidator');
+
+            $.post("/Admin/CreateBaseInfo", $form.serialize(), function (data) {
+                if (data == "error") {
+                    alert("注册号已存在");
+                    window.location.href = "/Admin/DetailsBaseInfo";
+                }
+                else {
+                    window.location.href = "/Admin/DetailsBaseInfo";
+                }
+            });
         });
     });
 </script>

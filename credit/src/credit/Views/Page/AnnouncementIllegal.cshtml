@@ -2,31 +2,57 @@
 @{
 Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<content class="APage AnnouncementIllegalPage">
-    <div class="leftSide">
-        <h3>严重违法信息公告</h3>
-        <ul>
-            @foreach (var x in Model)
-            {
-            <li>
-                <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id">@x.Title</a>
-                <span>@x.PublicTime.ToString("yyyy年MM月dd日")</span>
-            </li>
+<content class="container-fluid">
+    <div class="row" style="min-height:330px;">
+        <div class="col-lg-12">
+            <div class="col-lg-7">
+                <h3 style="margin:20px 0 10px;">严重违法信息公告</h3>
+                <hr />
+                <ul class="list-content">
+                    @foreach (var x in Model)
+                    {
+                        <li class="list-name">
+                            <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id"><strong class="aBtn" style="color:#000;">@x.Title</strong></a>
+                            <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
+                        </li>
+                    }
+                </ul>
+                @Html.MakePager("pager-item", "", "pager")
+            </div>
+            <div class="col-lg-4 col-lg-offset-1">
+                <h3 style="margin:20px 0 10px;">最新公告</h3>
+                <hr />
+                <ul>
+                    @foreach (var x in Model)
+                    {
+                        <li style="padding-top:5px; padding-bottom:5px; margin-bottom:5px;">
+                            <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id"><strong class="aBtn" style="color:#000;">@x.Title</strong></a>
+                            <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
+                        </li>
 
-            }
-        </ul>
-    </div>
-    <div class="rightSide">
-        <h3>最新公告</h3>
-        <ul>
-            @foreach (var x in Model)
-            {
-            <li style="padding-top:5px; padding-bottom:5px; margin-bottom:5px;">
-                <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id">@x.Title</a>
-                <span>@x.PublicTime.ToString("yyyy年MM月dd日")</span>
-            </li>
-
-            }
-        </ul>
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
 </content>
+<script type="text/javascript">
+    $(window).load(function(){
+        var oBtn = document.getElementsByClassName("aBtn");
+        for(var i=0;i<oBtn.length;i++){
+            var btn = oBtn[i].innerHTML;
+            var a = null;
+            var cut = new String();
+            if (btn.length > 12) {
+                for (var j = 0; j <= 14; j++) {
+                    a = btn.charAt(j);
+                    cut = cut.concat(a);
+                }
+                oBtn[i].innerHTML = cut+"...";
+            } else {
+                oBtn[i].innerHTML = btn;
+            }
+        }
+    })
+</script>
+

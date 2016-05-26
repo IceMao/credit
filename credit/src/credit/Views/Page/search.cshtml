@@ -17,8 +17,33 @@
             <li>注册号</li>
         </ul>
         <ul class="list-content">
-            <li class="list-name"><a href="/">@Model.EnterpriseName</a></li>
-            <li>@Model.RegistrationNumber</li>
+            <li class="list-name">
+                <form asp-action="OneInfo" asp-controller="Page" method="get">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="TypeId" value="@Model.TypeId" />
+                    <button type="submit" style="border:none;background:none; color:#02092e;"><strong class="aBtn">@Model.CompanyName</strong></button>
+                </form>
+            </li>
+            <li>@Model.RegisteNumber</li>
         </ul>
     </div>
 </content>
+<script type="text/javascript">
+    $(window).load(function(){
+        var oBtn = document.getElementsByClassName("aBtn");
+        for(var i=0;i<oBtn.length;i++){
+            var btn = oBtn[i].innerHTML;
+            var a = null;
+            var cut = new String();
+            if (btn.length > 12) {
+                for (var j = 0; j <= 14; j++) {
+                    a = btn.charAt(j);
+                    cut = cut.concat(a);
+                }
+                oBtn[i].innerHTML = cut+"...";
+            } else {
+                oBtn[i].innerHTML = btn;
+            }
+        }
+    })
+</script>

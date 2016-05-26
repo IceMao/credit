@@ -1,0 +1,50 @@
+﻿@model YearReportEnterprise
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<div class="container-fluid">
+    <div class="row" style="font-size:1.2em;">
+        <div class="col-lg-8 col-lg-offset-2">
+            <table class="table table-hover table-bordered" style="margin-top:36px;">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="4">@Model.DateTime<span>年度报表基本信息</span></th>
+                    </tr>
+                    <tr>
+                        <th>注册号</th>
+                        <td>@Model.User.RegisteNumber</td>
+                        <th>企业名称</th>
+                        <td>@Model.User.CompanyName</td>
+                    </tr>
+                    <tr>
+                        <th>企业联系电话</th>
+                        <td>@Model.Tel</td>
+                        <th>邮政编码</th>
+                        <td>@Model.ZipCode</td>
+                    </tr>
+                    <tr>
+                        <th>企业通信地址</th>
+                        <td colspan="3">@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th>企业电子邮箱</th>
+                        <td>@Model.Email</td>
+                        <th>企业是否有投资信息或购买其他公司股权</th>
+                        <td>@Model.Investment</td>
+                    </tr>
+                    <tr>
+                        <th>企业营业状态</th>
+                        <td>@Model.OperatState</td>
+                        <th>是否有网站或网店</th>
+                        <td>@Model.Website</td>
+                    </tr>
+                    <tr>
+                        <th>从业人数</th>
+                        <td colspan="3">@Model.EmployeeNum</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+

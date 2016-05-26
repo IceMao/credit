@@ -14,8 +14,8 @@ namespace credit.Models
 
         public DateTime RegisterTime { get; set; }//注册时间
 
-        public string RegistrationNumber { get; set; }//注册号
-        public string EnterpriseName { get; set; }
+        public string RegisteNumber { get; set; }//注册号
+        public string CompanyName { get; set; }
         public string LiaisonIdNumber { get; set; }//联系人身份证号
         public string LegalIdNumber { get; set; }//法定代表人证件号
         

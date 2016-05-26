@@ -29,6 +29,7 @@
                             {
                                 <td>
                                     <a asp-action="EditBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
+                                    <a asp-action="OneBaseInfo" asp-controller="Admin" asp-route-id="@x.Id">详细</a>
                                     <a href="javascript:remove(@x.Id)">删除</a>
                                 </td>
                             }

@@ -12,7 +12,8 @@
     <a href="#" class="current">编辑基本企业信息</a>
 </div>
 <div class="container-fluid" id="AllPageLayout">
-    <form id="defaultForm" asp-controller="Admin" asp-action="EditBaseInfo" method="post">
+    <form id="defaultForm" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
         <table class="table">
             <tbody>
                 <tr>
@@ -23,6 +24,30 @@
                     <th class="form-control">企业名称</th>
                     <td class="form-group"><input type="text" class="form-control" name="CompanyName" value="@Model.CompanyName" /></td>
                 </tr>
+                <tr>
+                    <th class="form-control">住所</th>
+                    <td class="form-group"><input type="text" class="form-control" name="Address" value="@Model.Address" /></td>
+                </tr>
+                <tr>
+                    <th class="form-control">营业期限自</th>
+                    <td class="form-group"><input type="datetime" class="form-control" name="BeginTime" value="@Model.BeginTime" /></td>
+                </tr>
+                <tr>
+                    <th class="form-control">营业期限至</th>
+                    <td><input type="datetime" class="form-control" name="EndTime" value="@Model.EndTime" /></td>
+                </tr>
+                <tr>
+                    <th class="form-control">经营范围</th>
+                    <td class="form-group"><input type="text" class="form-control" name="Scope" value="@Model.Scope" /></td>
+                </tr>
+                <tr>
+                    <th class="form-control">登记机关</th>
+                    <td class="form-group"><input type="text" class="form-control" name="PublicUnit" value="@Model.PublicUnit" /></td>
+                </tr>
+                <tr>
+                    <th class="form-control">核准日期</th>
+                    <td class="form-group"><input type="datetime" class="form-control" name="ApproveTime" value="@Model.ApproveTime" /></td>
+                </tr>
             </tbody>
         </table>
         <p>
@@ -31,21 +56,20 @@
         </p>
     </form>
 </div>
-<script src="~/scripts/jquery-1.8.3.min.js"></script>
+<script src="~/scripts/jquery-2.1.1.js"></script>
 <script src="~/scripts/bootstrap.min.js"></script>
 <script src="~/scripts/bootstrapValidator.min.js"></script>
 <script type="text/javascript">
         $(document).ready(function () {
             $("#defaultForm").bootstrapValidator({
-                live: 'disable',
-                message: '这个值不合法',
+                message: '这个值没有被验证',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
 
                 },
-                fields: {
+                fields: {//注册号不能重复 要有对比
                     RegisteNumber: {
                         message: '注册号没有验证',
                         validators: {
@@ -57,17 +81,51 @@
                                 message: '只能是15位数字'
                             }
                         }
-
                     },
                     CompanyName: {
-                        message: '企业名称没有验证',
                         validators: {
                             notEmpty: {
-                                message: '企业名称不能为空'
+                                message: '不能为空'
                             }
                         }
-                    }
+                    },
+                    Address: {
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+                    BeginTime: {
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+                    Scope: {
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+                    PublicUnit: {
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+                    ApproveTime: {
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
                 }
+
             })
                 .on('success.form.bv', function (e) {
                     e.preventDefault();
@@ -83,7 +141,6 @@
                             alert("修改失败");
                         }
                     });
-                });;
-
+                });
         });
 </script>

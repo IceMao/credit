@@ -120,6 +120,14 @@ namespace credit.Controllers
         #endregion
         #region  注册号基本表（增删改查）
         [HttpGet]
+        public IActionResult OneBaseInfo(int id)
+        {
+            var b = DB.BaseInfo
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            return View(b);
+        }
+        [HttpGet]
         public IActionResult DetailsBaseInfo()
         {
             return PagedView(DB.BaseInfo, 8);
@@ -172,6 +180,13 @@ namespace credit.Controllers
                 .SingleOrDefault();
             baseInfo.CompanyName = BaseInfo.CompanyName;
             baseInfo.RegisteNumber = BaseInfo.RegisteNumber;
+            baseInfo.Address = BaseInfo.CompanyName;
+            baseInfo.BeginTime = BaseInfo.BeginTime;
+            baseInfo.EndTime = BaseInfo.EndTime;
+            baseInfo.Scope = BaseInfo.Scope;
+            baseInfo.PublicUnit = BaseInfo.PublicUnit;
+            baseInfo.ApproveTime = BaseInfo.ApproveTime;
+
             baseInfo.TypeCS.NameType = "basein";
             DB.SaveChanges();
             return Content("success");

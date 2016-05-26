@@ -20,46 +20,40 @@
         @foreach (var x in Model)
         {
             <ul class="list-content">
-                <li><input id="NameType" name="NameType" value="@x.TypeCS.NameType" type="hidden" /></li>
-                <li class="list-name"><a asp-controller="Page" asp-action="OneInfo" asp-route-id="@x.Id">@x.CompanyName</a></li>
+                
+                <li class="list-name" style="font-size:1.2em;">
+                    <form asp-action="OneInfo" asp-controller="Page" method="get">
+                        <input type="hidden" name="Id" value="@x.Id" />
+                        <input type="hidden" name="TypeId" value="@x.TypeId" />
+                        <button type="submit" style="border:none;background:none; color:#02092e;"><strong class="aBtn">@x.CompanyName</strong></button>
+                    </form>
+                </li>
                 <li>@x.RegisteNumber</li>
                 <li>@x.InTime.ToString("yyyy年MM月dd日")</li>
                 <li>@x.Result</li>
             </ul>
         }        
     </div>
-    <div class="modal fade" id="oneRandom">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">详情</h4>
-                </div>
-                <div class="modal-body">
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th>公司名</th>
-                            <th>注册号</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </content>
 <script src="~/scripts/jquery-2.1.1.js"></script>
 <script src="~/scripts/bootstrap.min.js"></script>
 <script>
-    $("#one").click(function () {
-        $("#oneRandom").modal("show");
-    });
+    $(window).load(function () {
+        var oBtn = document.getElementsByClassName("aBtn");
+        for (var i = 0; i < oBtn.length; i++) {
+            var btn = oBtn[i].innerHTML;
+            var a = null;
+            var cut = new String();
+            if (btn.length > 12) {
+                for (var j = 0; j <= 14; j++) {
+                    a = btn.charAt(j);
+                    cut = cut.concat(a);
+                }
+                oBtn[i].innerHTML = cut + "...";
+            } else {
+                oBtn[i].innerHTML = btn;
+            }
+        }
+    })
 </script>

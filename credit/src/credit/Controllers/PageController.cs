@@ -21,6 +21,15 @@ namespace credit.Controllers
         #endregion
         #region 企业年度信息填报
         [HttpGet]
+        public IActionResult OneReport(int id)
+        {
+            var report = DB.YearReportEnterprise
+                .Include(x => x.User)
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            return View(report);
+        }
+        [HttpGet]
         public IActionResult Report()
         {
             return View();
@@ -42,8 +51,8 @@ namespace credit.Controllers
                         .Where(x => x.NameType == "EType")
                         .OrderBy(x => x.Id)
                         .ToList();
-                    ViewBag.RNumber = User.Current.RegistrationNumber;
-                    ViewBag.EName = User.Current.EnterpriseName;
+                    ViewBag.RNumber = User.Current.RegisteNumber;
+                    ViewBag.EName = User.Current.CompanyName;
                     ViewBag.EType = type;
                     return View();
                 }
@@ -62,7 +71,7 @@ namespace credit.Controllers
         [Authorize(Roles = ("联络员"))]
         [HttpPost]
         public IActionResult CreateYearReportEnterprise(YearReportEnterprise report)
-        {//string registerNumber, DateTime DateTime, string enterpriseName, string tel, string email, string address, string zipCode, string webSite, string investement, string operatState, int employeeNum
+        {//string registerNumber, DateTime DateTime, string CompanyName, string tel, string email, string address, string zipCode, string webSite, string investement, string operatState, int employeeNum
             //
 
             //var report = new YearReportEnterprise
@@ -124,19 +133,34 @@ namespace credit.Controllers
                     .Include(x => x.TypeCS)
                     .Where(x => x.Id == id && t.NameType == "basein")
                     .SingleOrDefault();
-                ViewBag.basein = "basein";
+                    ViewBag.basein = "basein";
                     ViewBag.rin = "0";
                     ViewBag.uin = "0";
                     ViewBag.iin = "0";
 
                     ViewBag.infoBase = b;
-
+                    ViewBag.Company = b.CompanyName;
+                    ViewBag.Registe = b.RegisteNumber;
+                var report = DB.YearReportEnterprise
+                    .Include(x => x.User)
+                    .Where(x => x.User.RegisteNumber == b.RegisteNumber)
+                    .OrderByDescending(x => x.DateTime)
+                    .ToList(); 
+                ViewBag.report = report;
                     var infoU = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == b.RegisteNumber && x.TypeCS.NameType == "Uin")
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoU = infoU;
+                    if (infoU.Count > 0)
+                    {
+                        ViewBag.strU = "该企业已列入经营异常名录";
+                    }
+                    else
+                    {
+                        ViewBag.strU = "";
+                    }
                     var infoR = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == b.RegisteNumber && x.TypeCS.NameType == "Rin")
@@ -149,6 +173,14 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoI = infoI;
+                if (infoI.Count > 0)
+                {
+                    ViewBag.strI = "该企业已列入严重违法名录";
+                }
+                else
+                {
+                    ViewBag.strI = "";
+                }
             }
             else
             {
@@ -156,6 +188,14 @@ namespace credit.Controllers
                 .Include(x => x.TypeCS)
                 .Where(x => x.Id == id && x.TypeCS.NameType == t.NameType)
                 .SingleOrDefault();
+                ViewBag.Company = info.CompanyName;
+                ViewBag.Registe = info.RegisteNumber;
+                var report = DB.YearReportEnterprise
+                        .Include(x => x.User)
+                        .Where(x => x.User.RegisteNumber == info.RegisteNumber)
+                        .OrderByDescending(x => x.DateTime)
+                        .ToList();
+                ViewBag.report = report;
                 if (info.TypeCS.NameType == "Uin")
                 {
                     ViewBag.uin = "uin";
@@ -165,14 +205,24 @@ namespace credit.Controllers
                     var infoBase = DB.BaseInfo
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber)
-                        .ToList();
+                        .SingleOrDefault();
                     ViewBag.infoBase = infoBase;
+                    
                     var infoU = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Uin")
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoU = infoU;
+                    if (infoU.Count > 0)
+                    {
+                        ViewBag.strU = "该企业已列入经营异常名录";
+                    }
+                    else
+                    {
+                        ViewBag.strU = "";
+                    }
+
                     var infoR = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
@@ -185,7 +235,14 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoI = infoI;
-
+                    if (infoI.Count > 0)
+                    {
+                        ViewBag.strI = "该企业已列入严重违法名录";
+                    }
+                    else
+                    {
+                        ViewBag.strI = "";
+                    }
                 }
                 else if (info.TypeCS.NameType == "Rin")
                 {
@@ -204,6 +261,14 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoU = infoU;
+                    if (infoU.Count > 0)
+                    {
+                        ViewBag.strU = "该企业已列入经营异常名录";
+                    }
+                    else
+                    {
+                        ViewBag.strU = "";
+                    }
                     var infoR = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
@@ -216,6 +281,14 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoI = infoI;
+                    if (infoI.Count > 0)
+                    {
+                        ViewBag.strI = "该企业已列入严重违法名录";
+                    }
+                    else
+                    {
+                        ViewBag.strI = "";
+                    }
                 }
                 else if (info.TypeCS.NameType == "Iin")
                 {
@@ -234,6 +307,14 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoU = infoU;
+                    if (infoU.Count > 0)
+                    {
+                        ViewBag.strU = "该企业已列入经营异常名录";
+                    }
+                    else
+                    {
+                        ViewBag.strU = "";
+                    }
                     var infoR = DB.Info
                         .Include(x => x.TypeCS)
                         .Where(x => x.RegisteNumber == info.RegisteNumber && x.TypeCS.NameType == "Rin")
@@ -246,6 +327,14 @@ namespace credit.Controllers
                         .OrderByDescending(x => x.InTime)
                         .ToList();
                     ViewBag.infoI = infoI;
+                    if (infoI.Count > 0)
+                    {
+                        ViewBag.strI = "该企业已列入严重违法名录";
+                    }
+                    else
+                    {
+                        ViewBag.strI = "";
+                    }
                 }
             }
             
@@ -341,7 +430,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "U")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
-            return View(AUnsual);
+            return PagedView(AUnsual, 15);
         }
         //AnnouncementRandom 抽查检查信息公告
         [HttpGet]
@@ -352,7 +441,7 @@ namespace credit.Controllers
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
-            return View(ARandom);
+            return PagedView(ARandom, 15);
         }
         //AnnouncementIllegal 严重违法信息公告
         [HttpGet]
@@ -363,11 +452,11 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "I")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
-            return View(AIllegal);
+            return PagedView(AIllegal, 15);
         }
         #endregion
 
-        #region 抽查公示 显示 页面
+        #region 抽查公示 显示 页面 和搜索
         
         [HttpGet]
         public IActionResult InfoRandom()
@@ -377,7 +466,7 @@ namespace credit.Controllers
                 .Where(x=>x.TypeCS.NameType == "Rin")
                 .OrderByDescending(x => x.InTime)
                 .ToList();
-            return View(infoRandom);
+            return PagedView(infoRandom, 15);
         }
         
         public IActionResult SearchRandom(string key)
@@ -392,14 +481,14 @@ namespace credit.Controllers
             else
             {
                 var random = DB.Info
-                    .Where(x => x.RegisteNumber == key)
+                    .Where(x => x.RegisteNumber == key && x.TypeCS.NameType == "Rin")
                     .ToList();
                 return View(random);
             }
 
         }
         #endregion
-        #region 违法公示 显示页面
+        #region 违法公示 显示页面 和搜索
 
         [HttpGet]
         public IActionResult InfoIllegal()
@@ -409,7 +498,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Iin")
                 .OrderByDescending(x => x.InTime)
                 .ToList();
-            return View(infoIllegal);
+            return PagedView(infoIllegal,15);
 
         }
         public IActionResult SearchIllegal(string key)
@@ -425,14 +514,14 @@ namespace credit.Controllers
             else
             {
                 var illegal = DB.Info
-                    .Where(x => x.RegisteNumber == key)
+                    .Where(x => x.RegisteNumber == key && x.TypeCS.NameType == "Iin")
                     .ToList();
                 return View(illegal);
             }
 
         }
         #endregion
-        #region 异常公示
+        #region 异常公示 和搜索
         [HttpGet]
         public IActionResult InfoUnusual()
         {
@@ -441,7 +530,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Uin")
                 .OrderByDescending(x => x.InTime)
                 .ToList();
-            return PagedView(infoUnusual, 10);
+            return PagedView(infoUnusual, 15);
 
         }
         public IActionResult SearchUnusual(string key)
@@ -457,7 +546,7 @@ namespace credit.Controllers
             else
             {
                 var unusual = DB.Info
-                    .Where(x => x.RegisteNumber == key)
+                    .Where(x => x.RegisteNumber == key && x.TypeCS.NameType == "Uin")
                     .ToList();
                 return View(unusual);
                 

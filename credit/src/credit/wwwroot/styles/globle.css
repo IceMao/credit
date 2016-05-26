@@ -4,31 +4,6 @@
 li{list-style:none;}
 img{border:none;}
 a,a:hover,a:active,a:visited{text-decoration:none;}
-/*Announcement(公告) begin*/
-.APage{display:block; width:1170px; margin:0 auto;}
-.APage .leftSide{width:66%; float: left;min-height:530px;}
-.APage .leftSide h3{margin: 50px 0 25px 25px;font-size: 1.5em;font-family: Helvetica;}
-.APage .leftSide ul{margin: 25px; border-top:2px solid #eee;}
-.APage .leftSide ul li{margin:10px 50px 10px 0; height:30px; line-height: 30px;}
-.APage .leftSide ul li:hover{background:#eee;}
-.APage .leftSide ul li a{font-size:14px; font-family: Helvetica; color:#111;}
-.APage .leftSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float:right; margin-right: 25px;}
-.APage .rightSide{width:34%; background-color:transparent; float: right;}
-.APage .rightSide h3{margin: 50px 0 25px 25px;font-size: 1.5em;font-family: Helvetica;}
-.APage .rightSide ul li{padding-left:25px;}
-.APage .rightSide ul li a{font-size:13px; font-family: Helvetica; color:#111;}
-.APage .rightSide ul li span{float: right; display: inline-block; font-size: 13px; color:#aaa; float:right; margin-right: 25px;}
-/*异常公告 页面 begin*/
-.AnnouncementUnsualPage{}
-/*异常公告 页面 end*/
-/*抽查公告 页面 begin*/
-.AnnouncementRandomPage{}
-/*抽查公告 页面 end*/
-/*违法公告 页面 begin*/
-.AnnouncementIllegalPage {
-}
-/*违法公告 页面 end*/
-/*Announcement（公告） end*/
 
 /*InfoPage(公示信息) 页面 begin*/
 .InfoPage{display:block; width:1170px; margin:30px auto 30px;}
@@ -91,7 +66,7 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 
 
 /*Layout1 begin*/
-.Layout1Page .container{width:1170px; margin:0 auto;}
+/*.Layout1Page .container{width:1170px; margin:0 auto;}*/
 .Layout1Page .header {
     width: 100%;
     height: 70px;
@@ -107,24 +82,20 @@ a,a:hover,a:active,a:visited{text-decoration:none;}
 .Layout1Page .header .nav ul li{float: left;}
 .Layout1Page .header .nav ul li a{display:block; font-size:14px;font-weight: 400; color:#fff;text-align: center;line-height: 36px; padding:0 7px 0 7px;width:100px; border-right:1px solid #fff;}
 .Layout1Page .header .nav ul li a:hover{background:rgba(255,255,255,0.5); color:#000;}
-.Layout1Page .content{min-height:530px;}
-.Layout1Page footer {
+/*.Layout1Page .content{min-height:530px;}*/
+/*.Layout1Page footer {
     overflow: hidden;
     height: 70px;
     width: 100%;
     position: relative;
     bottom: 0;
     left:0;
-    background: #2185C5;
-    background: -webkit-linear-gradient(top left,#2185C5 0%,#3E454C 100%);
-    background: linear-gradient(to top left,#2185C5 0%, #3E454C 100%);
-}
+}*/
 .Layout1Page footer p {
-    line-height: 70px;
+    line-height: 120px;
     color: #fff;
     font-size: 16px;
-    width:260px; 
-    margin: 0 auto;
+    width:100%;
 }
 .Layout1Page footer a{display:inline-block; font-size:16px; color:#fff; padding:0 10px;}
 .Layout1Page footer a:hover{color:#FFCE9F;}
