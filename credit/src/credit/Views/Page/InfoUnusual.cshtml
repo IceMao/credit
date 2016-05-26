@@ -2,13 +2,15 @@
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+<style>
+    .aBtn:hover{color:#000;}
+</style>
 <content class="InfoPage InfoUnusualPage">
     <div class="search">
         <form asp-action="SearchUnusual" asp-controller="Page" method="post">
             <input type="text" name="key" placeholder="请输入公司注册号搜索相关经营异常公示">
             <input class="btn1" type="submit" vlaue="搜索" />
         </form>
-
     </div>
     <div class="list">
         <h3>经营异常公示</h3>
@@ -19,8 +21,14 @@
         </ul>
         @foreach (var x in Model)
         {
-            <ul class="list-content">
-                <li class="list-name"><a href="javascript:void(0);" onclick="jump(@x.Id,@x.TypeId)">@x.CompanyName</a></li>
+            <ul class="list-content" style="font-size:1.2em;">
+                <li class="list-name">
+                    <form asp-action="OneInfo" asp-controller="Page" method="get">
+                        <input type="hidden" name="Id" value="@x.Id" />
+                        <input type="hidden" name="TypeId" value="@x.TypeId" />
+                        <button type="submit"  style="border:none;background:none; color:#02092e;"><strong class="aBtn">@x.CompanyName</strong></button>
+                    </form>                
+                </li>
                 <li>@x.RegisteNumber</li>
                 <li>@x.InTime.ToString("yyyy年MM月dd日")</li>
             </ul>
@@ -32,11 +40,36 @@
 @Html.MakePager("pager-item", "", "pager")
 
 <script type="text/javascript">
-    function jump(id,typeId) {
-            $(function () {
-                var url = "/Page/OneInfo";
-                var params = { "id": id,"typeId":typeId };
-                $.get(url, params);
-            });
+    $(window).load(function(){
+        var oBtn = document.getElementsByClassName("aBtn");
+        for(var i=0;i<oBtn.length;i++){
+            var btn = oBtn[i].innerHTML;
+            var a = null;
+            var cut = new String();
+            if (btn.length > 12) {
+                for (var j = 0; j <= 14; j++) {
+                    a = btn.charAt(j);
+                    cut = cut.concat(a);                    
+                }
+                oBtn[i].innerHTML = cut+"...";
+            } else {
+                oBtn[i].innerHTML = btn;
+            }
         }
+    })
+    
+    //function jump(id,typeId) {
+    //        $(function () {
+    //            var url = "/Page/OneInfo";
+    //            var params = { "id": id,"typeId":typeId };
+    //            $.get(url, params,function(data){
+    //                if(data == "success"){
+    //                    alert("success");
+    //                    return window.location.href="/Page/OneInfo"
+    //                }else{
+    //                    alert("error");
+    //                }
+    //            });
+    //        });
+    //    }
 </script>

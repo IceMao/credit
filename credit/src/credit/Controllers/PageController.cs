@@ -249,7 +249,7 @@ namespace credit.Controllers
                 }
             }
             
-            return Content("success");
+            return View();
         }
         #endregion
         
