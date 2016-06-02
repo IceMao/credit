@@ -32,6 +32,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th class="form-control">被公告企业注册号</th>
+                    <td class="form-group">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="PublicUnit" id="PublicUnit" value="@Model.RegisteNumber" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <th class="form-control">公告时间</th>
                     <td class="form-group">
                         <div class="form-group">
@@ -80,6 +88,18 @@
 
                         }
 
+                    },
+                    RegisteNumber: {
+                        message: '注册号没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '注册号不能为空'
+                            },
+                            regexp: {
+                                regexp: /^\d{15}$/,
+                                message: '只能是15位数字'
+                            }
+                        }
                     },
                     PublicUnit: {
                         message: '发布单位没有验证',

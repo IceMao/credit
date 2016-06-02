@@ -210,6 +210,7 @@ namespace credit.Controllers
         public IActionResult DetailsAnnouncementRandom()
         {
             var ARandom = DB.Announcement 
+                //.Include(x=>x.BaseInfo)
                 .Include(x => x.TypeCS)
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x=>x.WriteTime)
@@ -229,12 +230,22 @@ namespace credit.Controllers
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
-            ARandom.TypeId = DB.TypeCS.Where(x=>x.NameType == "R").SingleOrDefault().Id;
-            ARandom.WriteTime = DateTime.Now;
-            ARandom.Writer = UserCurrent.UserName;
-            DB.SaveChanges();
-            //return Content("success");
-            return RedirectToAction("DetailsAnnouncementRandom", "Admin");
+            
+            var b = DB.BaseInfo
+                .Where(x => x.RegisteNumber == ARandom.RegisteNumber)
+                .SingleOrDefault();
+            if(b != null)
+            {
+                ARandom.TypeId = DB.TypeCS.Where(x => x.NameType == "R").SingleOrDefault().Id;
+                ARandom.WriteTime = DateTime.Now;
+                ARandom.Writer = UserCurrent.UserName;
+                DB.SaveChanges();
+                return Content("success");
+            }
+            else
+            {
+                return Content("nobase");
+            }
         }
 
         [HttpGet]
@@ -275,6 +286,7 @@ namespace credit.Controllers
                 random.Content = ARandom.Content;
                 random.PublicTime = ARandom.PublicTime;
                 random.PublicUnit = ARandom.PublicUnit;
+                random.RegisteNumber = ARandom.RegisteNumber;
                 DB.SaveChanges();
                 return RedirectToAction("DetailsAnnouncementRandom", "Admin");
             }
@@ -320,12 +332,22 @@ namespace credit.Controllers
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
-            AUnsual.WriteTime = DateTime.Now;
-            AUnsual.Writer = UserCurrent.UserName;
-            AUnsual.TypeId = DB.TypeCS.Where(x => x.NameType == "U").SingleOrDefault().Id;
-            DB.SaveChanges();
-            //return Content("success");
-            return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
+            var b = DB.BaseInfo
+                .Where(x => x.RegisteNumber == AUnsual.RegisteNumber)
+                .SingleOrDefault();
+            if (b != null)
+            {
+                AUnsual.WriteTime = DateTime.Now;
+                AUnsual.Writer = UserCurrent.UserName;
+                AUnsual.TypeId = DB.TypeCS.Where(x => x.NameType == "U").SingleOrDefault().Id;
+                DB.SaveChanges();
+                return Content("success");
+                
+            }
+            else
+            {
+                return Content("nobase");
+            }
         }
 
         [HttpGet]
@@ -366,6 +388,7 @@ namespace credit.Controllers
                 Unsual.Content = AUnsual.Content;
                 Unsual.PublicTime = AUnsual.PublicTime;
                 Unsual.PublicUnit = AUnsual.PublicUnit;
+                Unsual.RegisteNumber = AUnsual.RegisteNumber;
                 DB.SaveChanges();
                 return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
             }
@@ -412,12 +435,22 @@ namespace credit.Controllers
             var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
-            AIllegal.TypeId = DB.TypeCS.Where(x => x.NameType == "I").SingleOrDefault().Id;
-            AIllegal.WriteTime = DateTime.Now;
-            AIllegal.Writer = UserCurrent.UserName;
-            DB.SaveChanges();
-            //return Content("success");
-            return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
+            var b = DB.BaseInfo
+                .Where(x => x.RegisteNumber == AIllegal.RegisteNumber)
+                .SingleOrDefault();
+            if(b != null)
+            {
+                AIllegal.TypeId = DB.TypeCS.Where(x => x.NameType == "I").SingleOrDefault().Id;
+                AIllegal.WriteTime = DateTime.Now;
+                AIllegal.Writer = UserCurrent.UserName;
+                DB.SaveChanges();
+                return Content("success");
+            }
+            else
+            {
+                return Content("nobase");
+            }
+           
         }
 
         [HttpGet]
@@ -459,6 +492,7 @@ namespace credit.Controllers
                 Illegal.Content = AIllegal.Content;
                 Illegal.PublicTime = AIllegal.PublicTime;
                 Illegal.PublicUnit = AIllegal.PublicUnit;
+                Illegal.RegisteNumber = AIllegal.RegisteNumber;
                 DB.SaveChanges();
                 return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
             }

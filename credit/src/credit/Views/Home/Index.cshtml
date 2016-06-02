@@ -36,12 +36,7 @@
                 </div>
             </div>
         </div>
-        @if (ViewBag.UserCurrent == null)
-        {
-            <p class="CurrentP">
-                <a asp-controller="Account" asp-action="Login" style="color:#fff;">登录</a>
-            </p>
-        }
+        
         @if (ViewBag.UserCurrent != null)
         {
             @if (User.IsInRole("管理员"))
@@ -117,7 +112,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row" style="margin-top:70px; margin-bottom:120px;">
+        <div class="row" style="margin-top:70px; margin-bottom:100px;">
             <div class="col-lg-6 col-lg-offset-3" style="background-color: rgba(5, 35, 255, 0.68); border-radius: 5px; padding: 5px;">
                 <form class="navbar-form navbar-left" role="search" asp-action="Search" asp-controller="Page" method="post" style="width:100%;">
                     <div class="form-group" style="width:78%; margin-right:2%;">
@@ -128,7 +123,20 @@
             </div>
         </div>
     </div>  
-    <footer style="margin-top:180px; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @if (ViewBag.UserCurrent == null)
+                {
+                    <p class="Curr-entP text-center">
+                        请【<a asp-controller="Account" asp-action="Login" style="color:red;">登录</a>】,如首次【企业公示信息填报】，请先进行【<a asp-controller="Account" asp-action="Register" style="color:red;">企业联络员注册</a>】
+                    </p>
+                }
+                
+            </div>
+        </div>
+    </div>
+    @*<footer style="margin-top:180px; ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -136,6 +144,6 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>*@
 </body>
 </html>

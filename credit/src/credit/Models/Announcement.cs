@@ -14,6 +14,7 @@ namespace credit.Models
         public string PublicUnit { get; set; }
         public DateTime PublicTime { get; set; }
         public string Content { get; set; }
+        public string RegisteNumber { get; set; }
 
         public string Writer { get; set; }
         public DateTime WriteTime { get; set; } 
