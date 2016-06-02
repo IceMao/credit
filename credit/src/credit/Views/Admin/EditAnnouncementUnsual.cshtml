@@ -12,7 +12,9 @@
     <a href="#" class="current">编辑异常公告</a>
 </div>
 <div class="container-fluid" id="AllPageLayout">
-    <form id="defaultForm" asp-controller="Admin" asp-action="EditAnnouncementUnsual" method="post">
+    
+    <form id="defaultForm">
+        <input type="hidden" name="id" value="@Model.Id" />
         <table class="table">
             <thead>
                 <tr>
@@ -35,7 +37,7 @@
                     <th class="form-control">被公告企业注册号</th>
                     <td class="form-group">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="PublicUnit" id="PublicUnit" value="@Model.RegisteNumber" />
+                            <input type="text" class="form-control" name="RegisteNumber" id="RegisteNumber" value="@Model.RegisteNumber" />
                         </div>
                     </td>
                 </tr>
@@ -122,6 +124,24 @@
                     }
                 }
 
+            })
+            .on('success.form.bv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('bootstrapValidator');
+
+                $.post("/Admin/EditAnnouncementUnsual", $form.serialize(), function (data) {
+                    if (data == "success") {
+                        alert("修改成功");
+                        window.location.href = "/Admin/DetailsAnnouncementUnsual";
+                    } else if (data == "nobase") {
+                        alert("该注册号不存在");
+
+                    }
+                    else {
+                        alert("修改失败");
+                    }
+                });
             });
         });
     </script>

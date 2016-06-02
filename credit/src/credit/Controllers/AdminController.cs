@@ -210,7 +210,6 @@ namespace credit.Controllers
         public IActionResult DetailsAnnouncementRandom()
         {
             var ARandom = DB.Announcement 
-                //.Include(x=>x.BaseInfo)
                 .Include(x => x.TypeCS)
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x=>x.WriteTime)
@@ -239,6 +238,8 @@ namespace credit.Controllers
                 ARandom.TypeId = DB.TypeCS.Where(x => x.NameType == "R").SingleOrDefault().Id;
                 ARandom.WriteTime = DateTime.Now;
                 ARandom.Writer = UserCurrent.UserName;
+                ARandom.RegisteNumber = b.RegisteNumber;
+                ARandom.CompanyName = b.CompanyName;
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -280,15 +281,28 @@ namespace credit.Controllers
                 var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
-                random.WriteTime = DateTime.Now;
-                random.Writer = UserCurrent.UserName;
-                random.Title = ARandom.Title;
-                random.Content = ARandom.Content;
-                random.PublicTime = ARandom.PublicTime;
-                random.PublicUnit = ARandom.PublicUnit;
-                random.RegisteNumber = ARandom.RegisteNumber;
-                DB.SaveChanges();
-                return RedirectToAction("DetailsAnnouncementRandom", "Admin");
+                var re = ARandom.RegisteNumber;
+                var b = DB.BaseInfo
+                    .Where(x => x.RegisteNumber == ARandom.RegisteNumber)
+                    .SingleOrDefault();
+                
+                if(b!= null)
+                {
+                    random.WriteTime = DateTime.Now;
+                    random.Writer = UserCurrent.UserName;
+                    random.Title = ARandom.Title;
+                    random.Content = ARandom.Content;
+                    random.PublicTime = ARandom.PublicTime;
+                    random.PublicUnit = ARandom.PublicUnit;
+                    random.RegisteNumber = ARandom.RegisteNumber;
+                    random.CompanyName = b.CompanyName;
+                    DB.SaveChanges();
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("nobase");
+                }
             }
         }
         public IActionResult DeleteAnnouncementRandom(int id)
@@ -340,6 +354,8 @@ namespace credit.Controllers
                 AUnsual.WriteTime = DateTime.Now;
                 AUnsual.Writer = UserCurrent.UserName;
                 AUnsual.TypeId = DB.TypeCS.Where(x => x.NameType == "U").SingleOrDefault().Id;
+                AUnsual.RegisteNumber = b.RegisteNumber;
+                AUnsual.CompanyName = b.CompanyName;
                 DB.SaveChanges();
                 return Content("success");
                 
@@ -371,7 +387,7 @@ namespace credit.Controllers
         public IActionResult EditAnnouncementUnsual(Announcement AUnsual, int id)
         {
             var Unsual = DB.Announcement
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "U")
                 .SingleOrDefault();
             if (Unsual == null)
             {
@@ -382,15 +398,25 @@ namespace credit.Controllers
                 var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
-                Unsual.WriteTime = DateTime.Now;
-                Unsual.Writer = UserCurrent.UserName;
-                Unsual.Title = AUnsual.Title;
-                Unsual.Content = AUnsual.Content;
-                Unsual.PublicTime = AUnsual.PublicTime;
-                Unsual.PublicUnit = AUnsual.PublicUnit;
-                Unsual.RegisteNumber = AUnsual.RegisteNumber;
-                DB.SaveChanges();
-                return RedirectToAction("DetailsAnnouncementUnsual", "Admin");
+                var b = DB.BaseInfo
+                    .Where(x => x.RegisteNumber == AUnsual.RegisteNumber)
+                    .SingleOrDefault();
+                if (b != null) {
+                    Unsual.WriteTime = DateTime.Now;
+                    Unsual.Writer = UserCurrent.UserName;
+                    Unsual.Title = AUnsual.Title;
+                    Unsual.Content = AUnsual.Content;
+                    Unsual.PublicTime = AUnsual.PublicTime;
+                    Unsual.PublicUnit = AUnsual.PublicUnit;
+                    Unsual.RegisteNumber = AUnsual.RegisteNumber;
+                    Unsual.CompanyName = b.CompanyName;
+                    DB.SaveChanges();
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("nobase");
+                }
             }
         }
         public IActionResult DeleteAnnouncementUnsual(int id)
@@ -443,6 +469,8 @@ namespace credit.Controllers
                 AIllegal.TypeId = DB.TypeCS.Where(x => x.NameType == "I").SingleOrDefault().Id;
                 AIllegal.WriteTime = DateTime.Now;
                 AIllegal.Writer = UserCurrent.UserName;
+                AIllegal.RegisteNumber = b.RegisteNumber;
+                AIllegal.CompanyName = b.CompanyName;
                 DB.SaveChanges();
                 return Content("success");
             }
@@ -475,7 +503,7 @@ namespace credit.Controllers
         public IActionResult EditAnnouncementIllegal(Announcement AIllegal, int id)
         {
             var Illegal = DB.Announcement
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == id && x.TypeCS.NameType == "I")
                 .SingleOrDefault();
             if (Illegal == null)
             {
@@ -486,15 +514,25 @@ namespace credit.Controllers
                 var UserCurrent = DB.Users
                     .Where(x => x.UserName == HttpContext.User.Identity.Name)
                     .SingleOrDefault();
-                Illegal.WriteTime = DateTime.Now;
-                Illegal.Writer = UserCurrent.UserName;
-                Illegal.Title = AIllegal.Title;
-                Illegal.Content = AIllegal.Content;
-                Illegal.PublicTime = AIllegal.PublicTime;
-                Illegal.PublicUnit = AIllegal.PublicUnit;
-                Illegal.RegisteNumber = AIllegal.RegisteNumber;
-                DB.SaveChanges();
-                return RedirectToAction("DetailsAnnouncementIllegal", "Admin");
+                var b = DB.BaseInfo
+                    .Where(x => x.RegisteNumber == AIllegal.RegisteNumber)
+                    .SingleOrDefault();
+                if (b != null)
+                {
+                    Illegal.WriteTime = DateTime.Now;
+                    Illegal.Writer = UserCurrent.UserName;
+                    Illegal.Title = AIllegal.Title;
+                    Illegal.Content = AIllegal.Content;
+                    Illegal.PublicTime = AIllegal.PublicTime;
+                    Illegal.PublicUnit = AIllegal.PublicUnit;
+                    Illegal.RegisteNumber = AIllegal.RegisteNumber;
+                    DB.SaveChanges();
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("nobase");
+                }
             }
         }
         public IActionResult DeleteAnnouncementIllegal(int id)

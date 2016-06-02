@@ -59,7 +59,7 @@
     $(document).ready(function () {
         $("#submit").click(function () {
             var url = "/Admin/CreateAnnouncementIllegal";
-            var params = { "Title": $('#Title').val(), "PublicTime": $("#PublicTime").val(), "RegisteNumber": $("#RegisteNumber").val(), "Content": $("#Content").val(), "PublicUnit": $("#publicUnit").val() };
+            var params = { "Title": $('#Title').val(), "PublicTime": $("#PublicTime").val(), "RegisteNumber": $("#RegisteNumber").val(), "Content": $("#Content").val(), "PublicUnit": $("#PublicUnit").val() };
             $.post(url, params, function (data) {
                 if (data == "success") {
                     alert("添加成功");

@@ -492,6 +492,8 @@ namespace credit.Controllers
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
+
+
             return PagedView(ARandom, 15);
         }
         //AnnouncementIllegal 严重违法信息公告
