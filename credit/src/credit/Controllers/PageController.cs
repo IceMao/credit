@@ -419,6 +419,7 @@ namespace credit.Controllers
                 .Include(x=>x.TypeCS)
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x => x.PublicTime)
+                .Take(7)
                 .ToList();
             ViewBag.random = random;
 
@@ -426,6 +427,7 @@ namespace credit.Controllers
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "I")
                 .OrderByDescending(x => x.PublicTime)
+                .Take(7)
                 .ToList();
             ViewBag.illegal = illegal;
 
@@ -433,45 +435,23 @@ namespace credit.Controllers
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "U")
                 .OrderByDescending(x => x.PublicTime)
+                .Take(7)
                 .ToList();
             ViewBag.unusual = unusual;
 
             return View();
         }
-
-        //单独公告显示——抽查
+        //单独公告显示
         [HttpGet]
-        public IActionResult ArticlePageRandom(int id)
+        public IActionResult Article(int id)
         {
             var article = DB.Announcement
-                .Include(x => x.TypeCS)
-                .Where(x => x.TypeCS.NameType == "R")
-                .Where(x => x.Id == id)
-                .SingleOrDefault();
+               .Include(x => x.TypeCS)
+               .Where(x => x.Id == id)
+               .SingleOrDefault();
             return View(article);
-        }
-        //单独公告显示——经营异常
-        [HttpGet]
-        public IActionResult ArticlePageUnusual(int id)
-        {
-            var article = DB.Announcement
-                 .Include(x => x.TypeCS)
-                .Where(x => x.TypeCS.NameType == "U")
-                .Where(x => x.Id == id)
-                .SingleOrDefault();
-            return View(article);
-        }
-        //单独公告显示——严重违法
-        [HttpGet]
-        public IActionResult ArticlePageIllegal(int id)
-        {
-            var article = DB.Announcement
-                .Include(x => x.TypeCS)
-                .Where(x => x.TypeCS.NameType == "I")
-                .Where(x => x.Id == id)
-                .SingleOrDefault();
-            return View(article);
-        }
+        }      
+        
         //异常公告
         [HttpGet]
         public IActionResult AnnouncementUnsual()
@@ -481,6 +461,12 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "U")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
+            var announcement = DB.Announcement
+                .Include(x => x.TypeCS)
+                .OrderByDescending(x => x.PublicTime)
+                .Take(10)
+                .ToList();
+            ViewBag.ann = announcement;
             return PagedView(AUnsual, 15);
         }
         //AnnouncementRandom 抽查检查信息公告
@@ -492,7 +478,12 @@ namespace credit.Controllers
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
-
+            var announcement = DB.Announcement
+                .Include(x => x.TypeCS)
+                .OrderByDescending(x => x.PublicTime)
+                .Take(10)
+                .ToList();
+            ViewBag.ann = announcement;
 
             return PagedView(ARandom, 15);
         }
@@ -505,6 +496,12 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "I")
                 .OrderByDescending(x => x.PublicTime)
                 .ToList();
+            var announcement = DB.Announcement
+                .Include(x => x.TypeCS)
+                .OrderByDescending(x => x.PublicTime)
+                .Take(10)
+                .ToList();
+            ViewBag.ann = announcement;
             return PagedView(AIllegal, 15);
         }
         #endregion

@@ -24,7 +24,7 @@
                 </td>
             </tr>
             <tr>
-                <th class="form-control">注册号</th>
+                <th class="form-control">作出决定机关</th>
                 <td>
                     <div class="form-group">
                         <input type="text" class="form-control" name="PublicUnit" value="@Model.PublicUnit" />
@@ -80,8 +80,8 @@
                                 message: '注册号不能为空'
                             },
                             regexp: {
-                                regexp: /^\d{15}$/,
-                                message: '只能是15位数字'
+                                regexp: /^\d{15}|\d{18}$/,
+                                message: '只能是15位数字,或18位数字。'
                             }
                         }
 

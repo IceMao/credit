@@ -31,10 +31,10 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                 <h3 style="margin:20px 0 10px;">最新公告</h3>
                 <hr />
                 <ul>
-                    @foreach (var x in Model)
+                    @foreach (var x in ViewBag.ann)
                     {
                         <li style="padding-top:5px; padding-bottom:5px; margin-bottom:5px;">
-                            <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id"><strong class="aBtn" style="color:#000;"><span>关于将</span>@x.CompanyName@x.Title</strong></a>
+                            <a asp-controller="Page" asp-action="Article" asp-route-id="@x.Id"><strong class="aBtn" style="color:#000;"><span>关于将</span>@x.CompanyName@x.Title</strong></a>
                             <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                         </li>
 
