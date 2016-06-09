@@ -516,7 +516,7 @@ namespace credit.Controllers
                 .Where(x=>x.TypeCS.NameType == "Rin")
                 .OrderByDescending(x => x.InTime)
                 .ToList();
-            return PagedView(infoRandom, 15);
+            return PagedView(infoRandom, 8);
         }
         
         public IActionResult SearchRandom(string key)
@@ -548,7 +548,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Iin")
                 .OrderByDescending(x => x.InTime)
                 .ToList();
-            return PagedView(infoIllegal,15);
+            return PagedView(infoIllegal,8);
 
         }
         public IActionResult SearchIllegal(string key)
@@ -580,7 +580,7 @@ namespace credit.Controllers
                 .Where(x => x.TypeCS.NameType == "Uin")
                 .OrderByDescending(x => x.InTime)
                 .ToList();
-            return PagedView(infoUnusual, 15);
+            return PagedView(infoUnusual, 8);
 
         }
         public IActionResult SearchUnusual(string key)

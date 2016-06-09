@@ -11,13 +11,13 @@
     <div class="row" style="min-height:430px;">
         <div class="col-lg-12">
             <div class="col-lg-7">
-                <h3 style="margin:20px 0 10px;">抽查检查信息公告</h3>
+                <h3 style="margin:20px 0 10px;">经营异常信息公告</h3>
                 <hr />
                 <ul class="list-content">
                     @foreach (var x in Model)
                     {
                         <li>
-                            <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id"><span style="color:#000; font-weight:600;">关于将</span><strong class="aBtn" style="color:#000;">@x.CompanyName@x.Title</strong></a>
+                            <a asp-controller="Page" asp-action="Article" asp-route-id="@x.Id"><span style="color:#000; font-weight:600;">关于将</span><strong class="aBtn" style="color:#000;">@x.CompanyName@x.Title</strong></a>
                             <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                         </li>
                     }

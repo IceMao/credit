@@ -21,10 +21,10 @@
                 <form asp-action="OneInfo" asp-controller="Page" method="get">
                     <input type="hidden" name="Id" value="@Model.Id" />
                     <input type="hidden" name="TypeId" value="@Model.TypeId" />
-                    <button type="submit" style="border:none;background:none; color:#02092e;"><strong class="aBtn">@Model.CompanyName</strong></button>
+                    <button type="submit" style="padding-left:0; border:none;background:none; color:red; font-size:20px;"><strong class="aBtn">@Model.CompanyName</strong></button>
                 </form>
             </li>
-            <li>@Model.RegisteNumber</li>
+            <li style="font-size:20px;">@Model.RegisteNumber</li>
         </ul>
     </div>
 </content>

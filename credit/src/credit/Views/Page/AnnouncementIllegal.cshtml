@@ -20,7 +20,7 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                     @foreach (var x in Model)
                     {
                         <li class="list-name">
-                            <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id"><span style="color:#000; font-weight:600;">关于将</span><strong class="aBtn" style="color:#000;">@x.CompanyName@x.Title</strong></a>
+                            <a asp-controller="Page" asp-action="Article" asp-route-id="@x.Id"><span style="color:#000; font-weight:600;">关于将</span><strong class="aBtn" style="color:#000;">@x.CompanyName@x.Title</strong></a>
                             <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                         </li>
                     }
