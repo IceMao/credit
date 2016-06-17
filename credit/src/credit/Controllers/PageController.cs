@@ -419,7 +419,7 @@ namespace credit.Controllers
                 .Include(x=>x.TypeCS)
                 .Where(x=>x.TypeCS.NameType == "R")
                 .OrderByDescending(x => x.PublicTime)
-                .Take(7)
+                .Take(5)
                 .ToList();
             ViewBag.random = random;
 
@@ -427,7 +427,7 @@ namespace credit.Controllers
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "I")
                 .OrderByDescending(x => x.PublicTime)
-                .Take(7)
+                .Take(5)
                 .ToList();
             ViewBag.illegal = illegal;
 
@@ -435,7 +435,7 @@ namespace credit.Controllers
                 .Include(x => x.TypeCS)
                 .Where(x => x.TypeCS.NameType == "U")
                 .OrderByDescending(x => x.PublicTime)
-                .Take(7)
+                .Take(5)
                 .ToList();
             ViewBag.unusual = unusual;
 

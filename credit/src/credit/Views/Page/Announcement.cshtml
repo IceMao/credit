@@ -10,7 +10,7 @@
                 @foreach (var x in ViewBag.random)
                 {
                     <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
-                        <a asp-controller="Page" asp-action="ArticlePageRandom" asp-route-id="@x.Id">关于将<span class="aBtn">@x.CompanyName@x.Title</span></a>
+                        <a asp-controller="Page" asp-action="Article" asp-route-id="@x.Id">关于将<span class="aBtn">@x.CompanyName@x.Title</span></a>
                         <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                     </li>
 
@@ -24,7 +24,7 @@
                 @foreach (var x in ViewBag.illegal)
                 {
                     <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
-                        <a asp-controller="Page" asp-action="ArticlePageIllegal" asp-route-id="@x.Id">关于将<span class="aBtn">@x.CompanyName@x.Title</span></a>
+                        <a asp-controller="Page" asp-action="Article" asp-route-id="@x.Id">关于将<span class="aBtn">@x.CompanyName@x.Title</span></a>
                         <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                     </li>
 
@@ -38,7 +38,7 @@
                 @foreach (var x in ViewBag.unusual)
                 {
                     <li style="padding:5px; margin:5px; padding-left:0; margin-left:0;">
-                        <a asp-controller="Page" asp-action="ArticlePageUnusual" asp-route-id="@x.Id">关于将<span class="aBtn">@x.CompanyName@x.Title</span></a>
+                        <a asp-controller="Page" asp-action="Article" asp-route-id="@x.Id">关于将<span class="aBtn">@x.CompanyName@x.Title</span></a>
                         <span style="float:right;">@x.PublicTime.ToString("yyyy年MM月dd日")</span>
                     </li>
 
